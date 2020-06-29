@@ -12,5 +12,7 @@ namespace EconomyGraph.Models
         /// </summary>
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
+        // For internal use.  Do NOT set.
+        public float GroupWidth { get; set; }
     }
 }

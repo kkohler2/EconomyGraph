@@ -50,9 +50,9 @@ namespace EconomyGraph.Views.ContentViews
 
         private void PaintSurface(object sender, SKPaintSurfaceEventArgs e)
         {
-            float groupWidth = 0;
             float canvasWidth = e.Info.Width;
             float canvalHeight = e.Info.Height;
+            float graphWidth = 0;
             float scale = canvalHeight / (float)GraphHeight;
             float padding = ViewModel.Padding * scale;
             List<IGraphItem> graphItems = new List<IGraphItem>();
@@ -62,8 +62,10 @@ namespace EconomyGraph.Views.ContentViews
 
             double minimum = ViewModel.BottomGraphValue;
             double maximum = minimum;
+            List<double> dataPoints = new List<double>();
             foreach (var dg in ViewModel.DataGroups)
             {
+                dataPoints.AddRange(dg.DataPoints);
                 foreach (var value in dg.DataPoints)
                 {
                     if (value < minimum) { minimum = value; }
@@ -123,10 +125,15 @@ namespace EconomyGraph.Views.ContentViews
             float ySectionHeight = graphHeight / YLabels.Count;
             float lineYPos = yPos + padding;
             int horizontalRow = 0;
+            graphWidth = canvasWidth - padding - (padding * 2 + labelWidth);
+            float pointWidth = graphWidth / dataPoints.Count;
+            foreach (DataGroup dg in ViewModel.DataGroups)
+            {
+                dg.GroupWidth = pointWidth * dg.DataPoints.Count;
+            }
 
             if (ViewModel.VerticalLines)
             {
-                groupWidth = (canvasWidth - padding - (padding * 2 + labelWidth)) / ViewModel.DataGroups.Count;
                 float lineXPos = padding * 2 + labelWidth;
                 float yPosStart = yPos + padding;
                 float yPosEnd = yPos + padding + ySectionHeight * YLabels.Count;
@@ -143,7 +150,7 @@ namespace EconomyGraph.Views.ContentViews
                                 Color = ViewModel.OddRowVerticalColor.Value,
                                 Height = yPosEnd - yPosStart,
                                 Style = PaintStyle.Fill,
-                                Width = groupWidth,
+                                Width = ViewModel.DataGroups[i].GroupWidth,
                                 XPos = lineXPos,
                                 YPos = yPosStart
                             });
@@ -213,10 +220,8 @@ namespace EconomyGraph.Views.ContentViews
                     Bold = false
                 });
             }
-
             if (ViewModel.VerticalLines)
             {
-                groupWidth = (canvasWidth - padding - (padding * 2 + labelWidth)) / ViewModel.DataGroups.Count;
                 float lineXPos = padding * 2 + labelWidth;
                 float yPosStart = yPos + padding * 2;
                 float yPosEnd = yPos + padding + ySectionHeight * YLabels.Count;
@@ -231,22 +236,14 @@ namespace EconomyGraph.Views.ContentViews
                         XPosEnd = lineXPos,
                         YPosEnd = yPosEnd
                     });
-                    lineXPos += groupWidth;
+                    lineXPos += ViewModel.DataGroups[i].GroupWidth;
                 }
             }
             float xDP = padding * 2 + labelWidth;
             float yDP = -1;
             float lastXdp = -1;
             float lastYdp = -1;
-            List<double> dataPoints = new List<double>();
-            float graphWidth = canvasWidth - xDP - padding; // Canvas width less xPos of first point less padding on right side
-            int maxGroupDataPoints = 0;
-            foreach (var dg in ViewModel.DataGroups)
-            {
-                if (dg.DataPoints.Count > maxGroupDataPoints) maxGroupDataPoints = dg.DataPoints.Count;
-                dataPoints.AddRange(dg.DataPoints);
-            }
-            float dataPointSpacing = graphWidth / ViewModel.DataGroups.Count / maxGroupDataPoints;
+            //float graphWidth = canvasWidth - xDP - padding; // Canvas width less xPos of first point less padding on right side
             double range = Convert.ToDouble(hValue) - minimum;
             foreach(var dataPoint in dataPoints)
             {
@@ -258,7 +255,7 @@ namespace EconomyGraph.Views.ContentViews
                 {
                     lastXdp = xDP;
                     lastYdp = yDP;
-                    xDP += dataPointSpacing;
+                    xDP += pointWidth;
                     yDP = graphHeight - Convert.ToSingle(graphHeight * (dataPoint - minimum) / range);
                     graphItems.Add(new GraphLine
                     {
@@ -272,7 +269,6 @@ namespace EconomyGraph.Views.ContentViews
                 }
             }
 
-            groupWidth = (canvasWidth - padding - (padding * 2 + labelWidth)) / ViewModel.DataGroups.Count;
             float labelYPos = canvalHeight - padding;
             float labelXPos = padding * 2 + labelWidth;
             foreach (var dg in ViewModel.DataGroups)
@@ -283,10 +279,10 @@ namespace EconomyGraph.Views.ContentViews
                     case TextAlignment.Start:
                         break;
                     case TextAlignment.Center:
-                        alignedLabelXPos = labelXPos + groupWidth / 2;
+                        alignedLabelXPos = labelXPos + dg.GroupWidth / 2;
                         break;
                     case TextAlignment.End:
-                        alignedLabelXPos = labelXPos + groupWidth;
+                        alignedLabelXPos = labelXPos + dg.GroupWidth;
                         break;
                 }
                 graphItems.Add(new GraphText
@@ -299,7 +295,7 @@ namespace EconomyGraph.Views.ContentViews
                     YPos = labelYPos,
                     Bold = false
                 });
-                labelXPos += groupWidth;
+                labelXPos += dg.GroupWidth;
             }
 
             graphEngine.Draw(e.Surface, graphItems);
