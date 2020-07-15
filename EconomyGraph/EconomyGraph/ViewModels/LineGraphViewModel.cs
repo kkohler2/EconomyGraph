@@ -20,6 +20,9 @@ namespace EconomyGraph.ViewModels
         }
         #endregion
 
+        public Footer LeftFooter { get; set; }
+        public Footer CenterFooter { get; set; }
+        public Footer RightFooter { get; set; }
         public string YFirstLabelFormat { get; set; }
         public string YLabelFormat { get; set; }
         public float YLabelPointSize { get; set; }
@@ -39,7 +42,8 @@ namespace EconomyGraph.ViewModels
         /// <summary>
         /// Defaults to zero or lowest value if negative.  If higher starting point is desired, set this > 0.
         /// </summary>
-        public double BottomGraphValue { get; set; }
+        public double BottomGraphValue { get; set; } // Ignored if bottom graph value below BottomGraphValue
+        public double TopGraphValue { get; set; } // Ignored if top graph value above TopGraphValue
         /// <summary>
         /// To use shaded rows, set background color to color for "even" vertical rows (w/ labels being essentially row 0).
         /// Then set OddRowVerticalColor to color to use for "odd" vertical rows.  Do NOT set OddRowHorizontalColor

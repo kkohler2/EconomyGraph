@@ -1,5 +1,6 @@
 ﻿using SkiaSharp;
 using System.Collections.Generic;
+using System.Threading;
 using Xamarin.Forms;
 
 namespace EconomyGraph

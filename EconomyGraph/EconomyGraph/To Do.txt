@@ -1,0 +1,4 @@
+﻿Line Graph
+=================
+Proper height calculation for rotated X-axis labels
+Display (optional) labels near data points on graph

@@ -72,12 +72,30 @@ namespace EconomyGraph.ViewModels
                 Title = new Models.Label
                 {
                     Bold = true,
-                    Color = SKColors.Black,
-                    Text = "This is the graph title",
+                    //Color = SKColors.Black,
+                    Text = "This is the graph title\nThis is the second line",
                     PointSize = 25,
                     TextAlignment = TextAlignment.Center
                 },
-                //BottomGraphValue
+                LeftFooter = new Models.Footer
+                {
+                    //Color = SKColors.Red,
+                    Text = "Left",
+                    PointSize = 20
+                },
+                CenterFooter = new Models.Footer
+                {
+                    Bold = true,
+                    Color = SKColors.Green,
+                    Text = "Center",
+                    PointSize = 20
+                },
+                RightFooter = new Models.Footer
+                {
+                    Color = SKColors.Blue,
+                    Text = "Right",
+                    PointSize = 20
+                },
                 HorizontalLines = true,
                 //OddRowHorizontalColor = SKColors.AntiqueWhite,
                 //OddRowVerticalColor = SKColors.AntiqueWhite,
@@ -93,6 +111,7 @@ namespace EconomyGraph.ViewModels
                 LineColor = SKColors.Red,
                 HorizontalLabelPrecision = 0.05M,
                 BottomGraphValue = .05,
+                //TopGraphValue = 0.3,
                 DataGroups = new List<Models.DataGroup>
                 {
                     new Models.DataGroup
