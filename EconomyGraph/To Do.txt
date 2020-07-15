@@ -1,0 +1,5 @@
+﻿Bar/Line Graph
+=================
+Recession Shading
+Proper height calculation for rotated X-axis labels
+Display (optional) labels near data points on graph
