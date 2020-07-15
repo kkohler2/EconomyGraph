@@ -9,8 +9,10 @@
 
     <StackLayout VerticalOptions="Center">
         <!--<skia:SKCanvasView x:Name="canvalView" PaintSurface="canvalView_PaintSurface" WidthRequest="800" HeightRequest="300" HorizontalOptions="Start"/>-->
-        <contentviews:HorizontalBarGraphView GraphWidth="800" GraphHeight="400" ViewModel="{Binding HorizontalBarGraphViewModel}" />
+        
+        <!--<contentviews:HorizontalBarGraphView GraphWidth="800" GraphHeight="400" ViewModel="{Binding HorizontalBarGraphViewModel}" />-->
         <contentviews:LineGraphView GraphWidth="800" GraphHeight="400" ViewModel="{Binding LineGraphViewModel}" />
+        <contentviews:BarGraphView GraphWidth="800" GraphHeight="400" ViewModel="{Binding BarGraphViewModel}" />
     </StackLayout>
 
 </ContentPage>

@@ -133,9 +133,79 @@ namespace EconomyGraph.ViewModels
                 }
             };
             #endregion
+
+            #region BarGraphViewModel
+            BarGraphViewModel = new BarGraphViewModel
+            {
+                BackgroundColor = SKColors.AliceBlue,
+                Title = new Models.Label
+                {
+                    Bold = true,
+                    //Color = SKColors.Black,
+                    Text = "This is a BAR GRAPH!",
+                    PointSize = 25,
+                    TextAlignment = TextAlignment.Center
+                },
+                //LeftFooter = new Models.Footer
+                //{
+                //    //Color = SKColors.Red,
+                //    Text = "Left",
+                //    PointSize = 20
+                //},
+                //CenterFooter = new Models.Footer
+                //{
+                //    Bold = true,
+                //    Color = SKColors.Green,
+                //    Text = "Center",
+                //    PointSize = 20
+                //},
+                //RightFooter = new Models.Footer
+                //{
+                //    Color = SKColors.Blue,
+                //    Text = "Right",
+                //    PointSize = 20
+                //},
+                HorizontalLines = true,
+                //OddRowHorizontalColor = SKColors.AntiqueWhite,
+                //OddRowVerticalColor = SKColors.AntiqueWhite,
+                VerticalLines = true,
+                XLabelAlignment = TextAlignment.Center,
+                XLabelColor = SKColors.Black,
+                XLabelPointSize = 20,
+                YFirstLabelFormat = "{0:F}%",
+                YLabelFormat = "{0:F}",
+                YLabelAlignment = TextAlignment.Start,
+                YLabelColor = SKColors.Black,
+                YLabelPointSize = 20,
+                LineColor = SKColors.Red,
+                HorizontalLabelPrecision = 0.05M,
+                BottomGraphValue = .05,
+                //TopGraphValue = 0.3,
+                DataGroups = new List<Models.DataGroup>
+                {
+                    new Models.DataGroup
+                    {
+                        Label = "May",
+                        DataPoints = new List<double>
+                        {
+                            0.1,0.1,0.09,0.08,0.1,0.1,0.09,0.1,0.1,0.09,0.09,0.1,0.09,0.08,0.09,0.09,0.1,0.11,0.14,0.13
+                        }
+                    },
+                    new Models.DataGroup
+                    {
+                        Label = "June",
+                        DataPoints = new List<double>
+                        {
+                            0.12,0.12,0.12,0.13,0.13,0.15,0.14,0.13,0.14
+                        }
+                    }
+                }
+            };
+            #endregion
         }
 
         public HorizontalBarGraphViewModel HorizontalBarGraphViewModel { get; set; }
         public LineGraphViewModel LineGraphViewModel { get; set; }
+        public BarGraphViewModel BarGraphViewModel { get; set; }
     }
 }

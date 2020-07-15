@@ -50,6 +50,11 @@ namespace EconomyGraph.Views.ContentViews
 
         private void PaintSurface(object sender, SKPaintSurfaceEventArgs e)
         {
+            PaintGraph(e);
+        }
+
+        protected virtual void PaintGraph(SKPaintSurfaceEventArgs e)
+        {
             #region Define/Initialize Variables
             float canvasWidth = e.Info.Width;
             float canvasHeight = e.Info.Height;
@@ -92,14 +97,14 @@ namespace EconomyGraph.Views.ContentViews
             DrawVerticalLines(padding, graphItems, yPos, YLabels, labelWidth, ySectionHeight);
 
             // Heart of the graph - define lines from one data point to the next.
-            GraphLinesForDataPoints(padding, graphItems, yPos, minimum, dataPoints, hValue, labelWidth, graphHeight, pointWidth);
+            GraphData(padding, graphItems, yPos, minimum, dataPoints, hValue, labelWidth, graphHeight, pointWidth);
 
             DrawXAxisLabels(canvasHeight - footerHeight, scale, padding, graphItems, labelWidth);
 
             graphEngine.Draw(e.Surface, graphItems);
         }
 
-        private void DrawXAxisLabels(float canvalHeight, float scale, float padding, List<IGraphItem> graphItems, float labelWidth)
+        protected virtual void DrawXAxisLabels(float canvalHeight, float scale, float padding, List<IGraphItem> graphItems, float labelWidth)
         {
             float labelYPos = canvalHeight - padding;
             float labelXPos = padding * 2 + labelWidth;
@@ -134,9 +139,9 @@ namespace EconomyGraph.Views.ContentViews
             }
         }
 
-        private void GraphLinesForDataPoints(float padding, List<IGraphItem> graphItems, float yPos, double minimum, List<double> dataPoints, decimal hValue, float labelWidth, float graphHeight, float pointWidth)
+        protected virtual void GraphData(float padding, List<IGraphItem> graphItems, float yPos, double minimum, List<double> dataPoints, decimal hValue, float labelWidth, float graphHeight, float pointWidth)
         {
-            float xDP = padding * 2 + labelWidth;
+            float xDP = padding * 2 + labelWidth; // Essentially, this is X zero for graph on the canvas!
             float yDP = -1;
             float lastXdp = -1;
             float lastYdp = -1;
@@ -167,7 +172,7 @@ namespace EconomyGraph.Views.ContentViews
             }
         }
 
-        private void DefineGraphAndGroupWidths(float canvasWidth, float canvalHeight, float footerHeight, out float graphWidth, float scale, float padding, float yPos, List<double> dataPoints, List<string> YLabels, out float labelWidth, out float graphHeight, out float ySectionHeight, out float lineYPos, out int horizontalRow, out float pointWidth)
+        protected virtual void DefineGraphAndGroupWidths(float canvasWidth, float canvalHeight, float footerHeight, out float graphWidth, float scale, float padding, float yPos, List<double> dataPoints, List<string> YLabels, out float labelWidth, out float graphHeight, out float ySectionHeight, out float lineYPos, out int horizontalRow, out float pointWidth)
         {
             SKPaint yLabelBrush;
             CreateYLabelBrush(scale, out yLabelBrush); // Needed to determine graph width, taking into account Y-Label max width.
@@ -189,7 +194,7 @@ namespace EconomyGraph.Views.ContentViews
             }
         }
 
-        private void DrawVerticalShading(float padding, List<IGraphItem> graphItems, float yPos, List<string> YLabels, float labelWidth, float ySectionHeight)
+        protected virtual void DrawVerticalShading(float padding, List<IGraphItem> graphItems, float yPos, List<string> YLabels, float labelWidth, float ySectionHeight)
         {
             if (ViewModel.OddRowVerticalColor.HasValue)
             {
@@ -216,7 +221,7 @@ namespace EconomyGraph.Views.ContentViews
             }
         }
 
-        private void DrawHorizontalLinesAndShading(float canvasWidth, float padding, List<IGraphItem> graphItems, List<string> YLabels, float labelWidth, float ySectionHeight, ref float lineYPos, ref int horizontalRow)
+        protected virtual void DrawHorizontalLinesAndShading(float canvasWidth, float padding, List<IGraphItem> graphItems, List<string> YLabels, float labelWidth, float ySectionHeight, ref float lineYPos, ref int horizontalRow)
         {
             foreach (string ylabel in YLabels)
             {
@@ -252,7 +257,7 @@ namespace EconomyGraph.Views.ContentViews
             }
         }
 
-        private void DrawYAxisLabels(float scale, float padding, List<IGraphItem> graphItems, float yPos, List<string> YLabels, float labelWidth, float ySectionHeight)
+        protected virtual void DrawYAxisLabels(float scale, float padding, List<IGraphItem> graphItems, float yPos, List<string> YLabels, float labelWidth, float ySectionHeight)
         {
             float lineYPos = yPos + padding;
             float xLabelPos = 0;
@@ -286,7 +291,7 @@ namespace EconomyGraph.Views.ContentViews
             }
         }
 
-        private void DrawVerticalLines(float padding, List<IGraphItem> graphItems, float yPos, List<string> YLabels, float labelWidth, float ySectionHeight)
+        protected virtual void DrawVerticalLines(float padding, List<IGraphItem> graphItems, float yPos, List<string> YLabels, float labelWidth, float ySectionHeight)
         {
             if (ViewModel.VerticalLines)
             {
@@ -309,7 +314,7 @@ namespace EconomyGraph.Views.ContentViews
             }
         }
 
-        private void CreateYLabelBrush(float scale, out SKPaint yLabelBrush)
+        protected virtual void CreateYLabelBrush(float scale, out SKPaint yLabelBrush)
         {
             yLabelBrush = graphEngine.GetTextBrush(new GraphText
             {
@@ -320,7 +325,7 @@ namespace EconomyGraph.Views.ContentViews
             });
         }
 
-        private void DefineYAxisLabelText(List<decimal> hValues, List<string> YLabels)
+        protected virtual void DefineYAxisLabelText(List<decimal> hValues, List<string> YLabels)
         {
             bool first = true;
             bool second = false;
@@ -344,7 +349,7 @@ namespace EconomyGraph.Views.ContentViews
             }
         }
 
-        private void YAxisRangeAndSections(out double minimum, out List<double> dataPoints, out List<decimal> hValues, out decimal hValue)
+        protected virtual void YAxisRangeAndSections(out double minimum, out List<double> dataPoints, out List<decimal> hValues, out decimal hValue)
         {
             minimum = ViewModel.BottomGraphValue;
             double maximum = ViewModel.TopGraphValue != 0 ? ViewModel.TopGraphValue : minimum;
@@ -368,7 +373,7 @@ namespace EconomyGraph.Views.ContentViews
             hValues.Add(Convert.ToDecimal(hValue));
         }
 
-        private void SetBackgroundColor(List<IGraphItem> graphItems)
+        protected virtual void SetBackgroundColor(List<IGraphItem> graphItems)
         {
             if (ViewModel.BackgroundColor.HasValue)
             {
@@ -376,7 +381,7 @@ namespace EconomyGraph.Views.ContentViews
             }
         }
 
-        private float SetTitle(float canvasWidth, float scale, List<IGraphItem> graphItems, float padding)
+        protected virtual float SetTitle(float canvasWidth, float scale, List<IGraphItem> graphItems, float padding)
         {
             float yPos = padding;
             if (ViewModel.Title != null && !string.IsNullOrWhiteSpace(ViewModel.Title.Text))
@@ -417,7 +422,7 @@ namespace EconomyGraph.Views.ContentViews
             return yPos;
         }
 
-        private float SetFooter(float canvasHeight, float canvalWidth, float scale, List<IGraphItem> graphItems, float padding)
+        protected virtual float SetFooter(float canvasHeight, float canvalWidth, float scale, List<IGraphItem> graphItems, float padding)
         {
             float footerHeight = 0;
             if (ViewModel.LeftFooter != null && !string.IsNullOrWhiteSpace(ViewModel.LeftFooter.Text))

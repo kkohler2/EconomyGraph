@@ -20,6 +20,9 @@
     <Compile Update="Views\ContentViews\HorizontalBarGraphView.xaml.cs">
       <DependentUpon>HorizontalBarGraphView.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\ContentViews\BarGraphView.xaml.cs">
+      <DependentUpon>BarGraphView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
