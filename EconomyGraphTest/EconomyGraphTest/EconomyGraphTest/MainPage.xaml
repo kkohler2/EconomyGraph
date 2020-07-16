@@ -8,9 +8,9 @@
              x:Class="EconomyGraphTest.MainPage">
 
     <StackLayout VerticalOptions="Center">
-        <contentviews:LineGraphView GraphWidth="400" GraphHeight="200" ViewModel="{Binding LineGraphViewModel}" />
-        <contentviews:BarGraphView GraphWidth="400" GraphHeight="200" ViewModel="{Binding BarGraphViewModel}" />
-        <contentviews:HorizontalBarGraphView GraphWidth="800" GraphHeight="400" ViewModel="{Binding HorizontalBarGraphViewModel}" />
+        <contentviews:LineGraphView GraphWidth="800" GraphHeight="400" ViewModel="{Binding LineGraphViewModel}" />
+        <contentviews:BarGraphView GraphWidth="800" GraphHeight="400" ViewModel="{Binding BarGraphViewModel}" />
+        <!--<contentviews:HorizontalBarGraphView GraphWidth="800" GraphHeight="400" ViewModel="{Binding HorizontalBarGraphViewModel}" />-->
     </StackLayout>
 
 </ContentPage>

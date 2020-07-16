@@ -20,7 +20,7 @@ namespace EconomyGraph.Views.ContentViews
             PaintGraph(e);
         }
 
-        protected override void GraphData(float padding, List<IGraphItem> graphItems, float yPos, double minimum, List<double> dataPoints, decimal hValue, float labelWidth, float graphHeight, float barWidth)
+        protected override void GraphData(float padding, List<IGraphItem> graphItems, float yPos, double minimum, List<double> dataPoints, float labelWidth, float graphHeight, float barWidth, double minimumGraphValue, double maximumGraphValue, List<decimal> hValues, float ySectionHeight, float zeroYPos)
         {
             var calculatedBarWidth = barWidth; // for bar spacing
             BarGraphViewModel viewModel = ViewModel as BarGraphViewModel;
@@ -36,22 +36,84 @@ namespace EconomyGraph.Views.ContentViews
             {
                 barWidth = 1;
             }
+            int zeroIndex = -1;
+            if (minimumGraphValue < 0)
+            {
+                for (int i = 0; i < hValues.Count; i++)
+                {
+                    if (hValues[i] == 0)
+                    {
+                        zeroIndex = i;
+                        break;
+                    }
+                }
+            }
 
             float xPos = padding * 2 + labelWidth; // Essentially, this is X zero for graph on the canvas!
             float barPadding = (calculatedBarWidth - barWidth) / 2;
-            double range = Convert.ToDouble(hValue) - minimum;
             foreach (var dataPoint in dataPoints)
             {
-                float barHeight = Convert.ToSingle(graphHeight * (dataPoint - minimum) / range);
-                graphItems.Add(new GraphRectangle
+                if (dataPoint >= 0)
                 {
-                    Color = viewModel.BarColor,
-                    Height = barHeight,
-                    Style = PaintStyle.Fill,
-                    Width = barWidth,
-                    XPos = xPos + barPadding,
-                    YPos = graphHeight + yPos + padding - barHeight
-                });
+                    double barRange = graphHeight;
+                    if (zeroIndex != -1)
+                    {
+                        barRange = graphHeight * zeroIndex / (hValues.Count - 1);
+                    }
+                    double range = maximumGraphValue - minimumGraphValue;
+                    double minimumBarValue = minimumGraphValue;
+                    if (minimumGraphValue < 0)
+                    {
+                        range = maximumGraphValue - 0;
+                        minimumBarValue = 0;
+                    }
+                    float barHeight = Convert.ToSingle(barRange * (dataPoint - minimumBarValue) / range);
+                    float offset = 0;
+                    if (zeroIndex != -1)
+                    {
+                        offset = hValues.Count - (zeroIndex - 1) * ySectionHeight;
+                    }
+                    graphItems.Add(new GraphRectangle
+                    {
+                        Color = viewModel.BarColor,
+                        Height = barHeight,
+                        Style = PaintStyle.Fill,
+                        Width = barWidth,
+                        XPos = xPos + barPadding,
+                        YPos = zeroYPos != -1 ? zeroYPos - barHeight : graphHeight + yPos + padding - barHeight
+                    });
+                }
+                else
+                {
+                    double barRange = graphHeight;
+                    if (zeroIndex != -1)
+                    {
+                        barRange = graphHeight * (hValues.Count - zeroIndex - 1) / (hValues.Count - 1);
+                    }
+                    double range = maximumGraphValue - minimumGraphValue;
+                    double minimumBarValue = minimumGraphValue;
+                    if (minimumGraphValue < 0)
+                    {
+                        range = 0 - minimumGraphValue;
+                        minimumBarValue = 0;
+                    }
+                    float percent = Convert.ToSingle((dataPoint - minimumBarValue) / range);
+                    float barHeight = Convert.ToSingle(barRange * (dataPoint - minimumBarValue) / range);
+                    float offset = 0;
+                    if (zeroIndex != -1)
+                    {
+                        offset = hValues.Count - (zeroIndex - 1) * ySectionHeight;
+                    }
+                    graphItems.Add(new GraphRectangle
+                    {
+                        Color = viewModel.NegativeBarColor,
+                        Height = barHeight,
+                        Style = PaintStyle.Fill,
+                        Width = barWidth,
+                        XPos = xPos + barPadding,
+                        YPos = zeroYPos != -1 ? zeroYPos - barHeight : graphHeight + yPos + padding - barHeight
+                    });
+                }
                 xPos += calculatedBarWidth;
             }
         }

@@ -74,6 +74,9 @@ namespace EconomyGraph.Views.ContentViews
 
             float labelWidth, graphHeight, ySectionHeight, lineYPos, pointWidth;
             int horizontalRow;
+
+            double minimumGraphValue, maximumGraphValue;
+            float zeroYPos = -1;
             #endregion
 
             SetBackgroundColor(graphItems);
@@ -82,7 +85,7 @@ namespace EconomyGraph.Views.ContentViews
 
             footerHeight = SetFooter(canvasHeight, canvasWidth, scale, graphItems, padding);
 
-            YAxisRangeAndSections(out minimum, out dataPoints, out hValues, out hValue);
+            YAxisRangeAndSections(out minimum, out dataPoints, out hValues, out hValue, out minimumGraphValue, out maximumGraphValue);
 
             DefineYAxisLabelText(hValues, YLabels);
 
@@ -90,14 +93,14 @@ namespace EconomyGraph.Views.ContentViews
 
             DrawVerticalShading(padding, graphItems, yPos, YLabels, labelWidth, ySectionHeight);
 
-            DrawHorizontalLinesAndShading(canvasWidth, padding, graphItems, YLabels, labelWidth, ySectionHeight, ref lineYPos, ref horizontalRow);
+            DrawHorizontalLinesAndShading(canvasWidth, padding, graphItems, YLabels, labelWidth, ySectionHeight, ref lineYPos, ref horizontalRow, hValues, ref zeroYPos);
 
             DrawYAxisLabels(scale, padding, graphItems, yPos, YLabels, labelWidth, ySectionHeight);
 
             DrawVerticalLines(padding, graphItems, yPos, YLabels, labelWidth, ySectionHeight);
 
             // Heart of the graph - define lines from one data point to the next.
-            GraphData(padding, graphItems, yPos, minimum, dataPoints, hValue, labelWidth, graphHeight, pointWidth);
+            GraphData(padding, graphItems, yPos, minimum, dataPoints, labelWidth, graphHeight, pointWidth, minimumGraphValue, maximumGraphValue, hValues, ySectionHeight, zeroYPos);
 
             DrawXAxisLabels(canvasHeight - footerHeight, scale, padding, graphItems, labelWidth);
 
@@ -139,14 +142,15 @@ namespace EconomyGraph.Views.ContentViews
             }
         }
 
-        protected virtual void GraphData(float padding, List<IGraphItem> graphItems, float yPos, double minimum, List<double> dataPoints, decimal hValue, float labelWidth, float graphHeight, float pointWidth)
+        protected virtual void GraphData(float padding, List<IGraphItem> graphItems, float yPos, double minimum, List<double> dataPoints, float labelWidth, float graphHeight, float pointWidth, double minimumGraphValue, double maximumGraphValue, List<decimal> hValues, float ySectionHeight, float zeroYPos)
         {
             float xDP = padding * 2 + labelWidth; // Essentially, this is X zero for graph on the canvas!
             float yDP = -1;
             float lastXdp = -1;
             float lastYdp = -1;
             //float graphWidth = canvasWidth - xDP - padding; // Canvas width less xPos of first point less padding on right side
-            double range = Convert.ToDouble(hValue) - minimum;
+
+            double range = maximumGraphValue - minimumGraphValue;
             foreach (var dataPoint in dataPoints)
             {
                 if (yDP == -1) // First data point
@@ -158,7 +162,7 @@ namespace EconomyGraph.Views.ContentViews
                     lastXdp = xDP;
                     lastYdp = yDP;
                     xDP += pointWidth;
-                    yDP = graphHeight - Convert.ToSingle(graphHeight * (dataPoint - minimum) / range);
+                    yDP = graphHeight - Convert.ToSingle(graphHeight * (dataPoint - minimumGraphValue) / range);
                     graphItems.Add(new GraphLine
                     {
                         Color = ViewModel.LineColor,
@@ -217,12 +221,14 @@ namespace EconomyGraph.Views.ContentViews
                             YPos = yPosStart
                         });
                     }
+                    lineXPos += ViewModel.DataGroups[i].GroupWidth;
                 }
             }
         }
 
-        protected virtual void DrawHorizontalLinesAndShading(float canvasWidth, float padding, List<IGraphItem> graphItems, List<string> YLabels, float labelWidth, float ySectionHeight, ref float lineYPos, ref int horizontalRow)
+        protected virtual void DrawHorizontalLinesAndShading(float canvasWidth, float padding, List<IGraphItem> graphItems, List<string> YLabels, float labelWidth, float ySectionHeight, ref float lineYPos, ref int horizontalRow, List<decimal> hValues, ref float zeroYPos)
         {
+            int i = 1;
             foreach (string ylabel in YLabels)
             {
                 lineYPos += ySectionHeight;
@@ -254,6 +260,11 @@ namespace EconomyGraph.Views.ContentViews
                         YPosEnd = lineYPos
                     });
                 }
+                if (hValues[i] == 0)
+                {
+                    zeroYPos = lineYPos;
+                }
+                i++;
             }
         }
 
@@ -349,11 +360,13 @@ namespace EconomyGraph.Views.ContentViews
             }
         }
 
-        protected virtual void YAxisRangeAndSections(out double minimum, out List<double> dataPoints, out List<decimal> hValues, out decimal hValue)
+        protected virtual void YAxisRangeAndSections(out double minimum, out List<double> dataPoints, out List<decimal> hValues, out decimal hValue, out double minimumGraphValue, out double maximumGraphValue)
         {
             minimum = ViewModel.BottomGraphValue;
             double maximum = ViewModel.TopGraphValue != 0 ? ViewModel.TopGraphValue : minimum;
             dataPoints = new List<double>();
+            minimumGraphValue = 0;
+            maximumGraphValue = 0;
             foreach (var dg in ViewModel.DataGroups)
             {
                 dataPoints.AddRange(dg.DataPoints);
@@ -364,13 +377,29 @@ namespace EconomyGraph.Views.ContentViews
                 }
             }
             hValues = new List<decimal>();
-            hValue = (decimal)minimum;
+            hValue = 0;
             while (hValue <= (decimal)maximum)
             {
                 hValues.Add(Convert.ToDecimal(hValue));
                 hValue += ViewModel.HorizontalLabelPrecision;
             }
             hValues.Add(Convert.ToDecimal(hValue));
+            maximumGraphValue = Convert.ToDouble(hValue);
+            if (minimum < 0)
+            {
+                hValue = 0;
+                while (true)
+                {
+                    if (hValue != 0)
+                    {
+                        hValues.Insert(0, Convert.ToDecimal(hValue));
+                        minimumGraphValue = Convert.ToDouble(hValue);
+                        if (hValue < Convert.ToDecimal(minimum)) 
+                            break;
+                    }
+                    hValue -= ViewModel.HorizontalLabelPrecision;
+                }
+            }
         }
 
         protected virtual void SetBackgroundColor(List<IGraphItem> graphItems)

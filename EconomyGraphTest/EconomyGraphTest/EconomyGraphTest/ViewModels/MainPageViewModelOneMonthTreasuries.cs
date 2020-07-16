@@ -5,12 +5,9 @@ using System.Collections.Generic;
 
 namespace EconomyGraphTest.ViewModels
 {
-    /// <summary>
-    /// Quarterly GDP Values
-    /// </summary>
-    public class MainPageViewModel
+    public class MainPageViewModelOneMonthTreasuries
     {
-        public MainPageViewModel()
+        public MainPageViewModelOneMonthTreasuries()
         {
             #region HorizontalBarGraphViewModel
             HorizontalBarGraphViewModel = new HorizontalBarGraphViewModel
@@ -77,32 +74,32 @@ namespace EconomyGraphTest.ViewModels
                 {
                     Bold = true,
                     //Color = SKColors.Black,
-                    Text = "Quarterly GDP",
+                    Text = "This is the graph title\nThis is the second line",
                     PointSize = 25,
                     TextAlignment = Xamarin.Forms.TextAlignment.Center
                 },
-                //LeftFooter = new Footer
-                //{
-                //    //Color = SKColors.Red,
-                //    Text = "Left",
-                //    PointSize = 20
-                //},
-                //CenterFooter = new Footer
-                //{
-                //    Bold = true,
-                //    Color = SKColors.Green,
-                //    Text = "Center",
-                //    PointSize = 20
-                //},
-                //RightFooter = new Footer
-                //{
-                //    Color = SKColors.Blue,
-                //    Text = "Right",
-                //    PointSize = 20
-                //},
+                LeftFooter = new Footer
+                {
+                    //Color = SKColors.Red,
+                    Text = "Left",
+                    PointSize = 20
+                },
+                CenterFooter = new Footer
+                {
+                    Bold = true,
+                    Color = SKColors.Green,
+                    Text = "Center",
+                    PointSize = 20
+                },
+                RightFooter = new Footer
+                {
+                    Color = SKColors.Blue,
+                    Text = "Right",
+                    PointSize = 20
+                },
                 HorizontalLines = true,
                 //OddRowHorizontalColor = SKColors.AntiqueWhite,
-                OddRowVerticalColor = SKColors.AntiqueWhite,
+                //OddRowVerticalColor = SKColors.AntiqueWhite,
                 VerticalLines = true,
                 XLabelAlignment = Xamarin.Forms.TextAlignment.Center,
                 XLabelColor = SKColors.Black,
@@ -113,73 +110,25 @@ namespace EconomyGraphTest.ViewModels
                 YLabelColor = SKColors.Black,
                 YLabelPointSize = 20,
                 LineColor = SKColors.Red,
-                HorizontalLabelPrecision = 1M,
-                //BottomGraphValue = .05,
+                HorizontalLabelPrecision = 0.05M,
+                BottomGraphValue = .05,
                 //TopGraphValue = 0.3,
                 DataGroups = new List<DataGroup>
                 {
                     new DataGroup
                     {
-                        Label = "2013",
+                        Label = "May",
                         DataPoints = new List<double>
                         {
-                            3.6,0.5,3.2,3.2
+                            0.1,0.1,0.09,0.08,0.1,0.1,0.09,0.1,0.1,0.09,0.09,0.1,0.09,0.08,0.09,0.09,0.1,0.11,0.14,0.13
                         }
                     },
                     new DataGroup
                     {
-                        Label = "2014",
+                        Label = "June",
                         DataPoints = new List<double>
                         {
-                            //1.1,5.5,5,2.3
-                            -1.1,5.5,5,2.3
-                        }
-                    },
-                    new DataGroup
-                    {
-                        Label = "2015",
-                        DataPoints = new List<double>
-                        {
-                            3.2,3,1.3,0.1
-                        }
-                    },
-                    new DataGroup
-                    {
-                        Label = "2016",
-                        DataPoints = new List<double>
-                        {
-                            2,1.9,2.2,2
-                        }
-                    },
-                    new DataGroup
-                    {
-                        Label = "2017",
-                        DataPoints = new List<double>
-                        {
-                            2.3,2.2,3.2,3.5
-                        }
-                    },
-                    new DataGroup
-                    {
-                        Label = "2018",
-                        DataPoints = new List<double>
-                        {
-                            2.5,3.5,2.9,1.1
-                        }
-                    },
-                    new DataGroup
-                    {
-                        Label = "2019",
-                        DataPoints = new List<double>
-                        {
-                            3.1,2,2.1,2.1
-                        }
-                    },
-                    new DataGroup
-                    {
-                        DataPoints = new List<double>
-                        {
-                            -4.8
+                            0.12,0.12,0.12,0.13,0.13,0.15,0.14,0.13,0.14
                         }
                     }
                 }
@@ -219,7 +168,7 @@ namespace EconomyGraphTest.ViewModels
                 //},
                 HorizontalLines = true,
                 //OddRowHorizontalColor = SKColors.AntiqueWhite,
-                OddRowVerticalColor = SKColors.AntiqueWhite,
+                //OddRowVerticalColor = SKColors.AntiqueWhite,
                 VerticalLines = true,
                 XLabelAlignment = Xamarin.Forms.TextAlignment.Center,
                 XLabelColor = SKColors.Black,
@@ -230,72 +179,25 @@ namespace EconomyGraphTest.ViewModels
                 YLabelColor = SKColors.Black,
                 YLabelPointSize = 20,
                 LineColor = SKColors.Red,
-                HorizontalLabelPrecision = 1M,
-                //BottomGraphValue = .05,
+                HorizontalLabelPrecision = 0.05M,
+                BottomGraphValue = .05,
                 //TopGraphValue = 0.3,
                 DataGroups = new List<DataGroup>
                 {
                     new DataGroup
                     {
-                        Label = "2013",
+                        Label = "May",
                         DataPoints = new List<double>
                         {
-                            3.6,0.5,3.2,3.2
+                            0.1,0.1,0.09,0.08,0.1,0.1,0.09,0.1,0.1,0.09,0.09,0.1,0.09,0.08,0.09,0.09,0.1,0.11,0.14,0.13
                         }
                     },
                     new DataGroup
                     {
-                        Label = "2014",
+                        Label = "June",
                         DataPoints = new List<double>
                         {
-                            -1.1,5.5,5,2.3
-                        }
-                    },
-                    new DataGroup
-                    {
-                        Label = "2015",
-                        DataPoints = new List<double>
-                        {
-                            3.2,3,1.3,0.1
-                        }
-                    },
-                    new DataGroup
-                    {
-                        Label = "2016",
-                        DataPoints = new List<double>
-                        {
-                            2,1.9,2.2,2
-                        }
-                    },
-                    new DataGroup
-                    {
-                        Label = "2017",
-                        DataPoints = new List<double>
-                        {
-                            2.3,2.2,3.2,3.5
-                        }
-                    },
-                    new DataGroup
-                    {
-                        Label = "2018",
-                        DataPoints = new List<double>
-                        {
-                            2.5,3.5,2.9,1.1
-                        }
-                    },
-                    new DataGroup
-                    {
-                        Label = "2019",
-                        DataPoints = new List<double>
-                        {
-                            3.1,2,2.1,2.1
-                        }
-                    },
-                    new DataGroup
-                    {
-                        DataPoints = new List<double>
-                        {
-                            -4.8
+                            0.12,0.12,0.12,0.13,0.13,0.15,0.14,0.13,0.14
                         }
                     }
                 }
