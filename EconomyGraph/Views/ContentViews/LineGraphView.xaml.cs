@@ -91,6 +91,8 @@ namespace EconomyGraph.Views.ContentViews
 
             DefineGraphAndGroupWidths(canvasWidth, canvasHeight, footerHeight, out graphWidth, scale, padding, yPos, dataPoints, YLabels, out labelWidth, out graphHeight, out ySectionHeight, out lineYPos, out horizontalRow, out pointWidth);
 
+            DrawShadedSections(graphItems, graphHeight, yPos, padding, labelWidth);
+
             DrawVerticalShading(padding, graphItems, yPos, YLabels, labelWidth, ySectionHeight);
 
             DrawHorizontalLinesAndShading(canvasWidth, padding, graphItems, YLabels, labelWidth, ySectionHeight, ref lineYPos, ref horizontalRow, hValues, ref zeroYPos);
@@ -196,6 +198,10 @@ namespace EconomyGraph.Views.ContentViews
             {
                 dg.GroupWidth = pointWidth * dg.DataPoints.Count;
             }
+        }
+
+        protected virtual void DrawShadedSections(List<IGraphItem> graphItems, float graphHeight, float yPos, float padding, float labelWidth)
+        {
         }
 
         protected virtual void DrawVerticalShading(float padding, List<IGraphItem> graphItems, float yPos, List<string> YLabels, float labelWidth, float ySectionHeight)

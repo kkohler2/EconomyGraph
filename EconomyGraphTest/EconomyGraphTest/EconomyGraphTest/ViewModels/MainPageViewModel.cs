@@ -1,6 +1,7 @@
 ﻿using EconomyGraph.Models;
 using EconomyGraph.ViewModels;
 using SkiaSharp;
+using System;
 using System.Collections.Generic;
 
 namespace EconomyGraphTest.ViewModels
@@ -301,10 +302,502 @@ namespace EconomyGraphTest.ViewModels
                 }
             };
             #endregion
+
+            #region ShadedLineGraphViewModel
+            ShadedLineGraphViewModel = new ShadedLineGraphViewModel
+            {
+                BackgroundColor = SKColors.AliceBlue,
+                Title = new Label
+                {
+                    Bold = true,
+                    //Color = SKColors.Black,
+                    Text = "Yearly GDP",
+                    PointSize = 25,
+                    TextAlignment = Xamarin.Forms.TextAlignment.Center
+                },
+                //LeftFooter = new Footer
+                //{
+                //    //Color = SKColors.Red,
+                //    Text = "Left",
+                //    PointSize = 20
+                //},
+                //CenterFooter = new Footer
+                //{
+                //    Bold = true,
+                //    Color = SKColors.Green,
+                //    Text = "Center",
+                //    PointSize = 20
+                //},
+                //RightFooter = new Footer
+                //{
+                //    Color = SKColors.Blue,
+                //    Text = "Right",
+                //    PointSize = 20
+                //},
+                HorizontalLines = true,
+                //OddRowHorizontalColor = SKColors.AntiqueWhite,
+                //OddRowVerticalColor = SKColors.AntiqueWhite,
+                VerticalLines = true,
+                XLabelAlignment = Xamarin.Forms.TextAlignment.Center,
+                XLabelColor = SKColors.Black,
+                XLabelPointSize = 20,
+                YFirstLabelFormat = "{0:F}%",
+                YLabelFormat = "{0:F}",
+                YLabelAlignment = Xamarin.Forms.TextAlignment.Start,
+                YLabelColor = SKColors.Black,
+                YLabelPointSize = 20,
+                LineColor = SKColors.Red,
+                HorizontalLabelPrecision = 0.5M,
+                //BottomGraphValue = .05,
+                //TopGraphValue = 0.3,
+                DataGroups = new List<DataGroup>
+                {
+                    new DataGroup
+                    {
+                        Label = "2000",
+                        DataPoints = new List<double>
+                        {
+                            4.1
+                        },
+                        EndDates = new List<DateTime>
+                        {
+                            new DateTime(2000, 12, 31)
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2001",
+                        DataPoints = new List<double>
+                        {
+                            1
+                        },
+                        EndDates = new List<DateTime>
+                        {
+                            new DateTime(2001, 12, 31),
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2002",
+                        DataPoints = new List<double>
+                        {
+                            1.8
+                        },
+                        EndDates = new List<DateTime>
+                        {
+                            new DateTime(2002, 12, 31),
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2003",
+                        DataPoints = new List<double>
+                        {
+                            2.8
+                        },
+                        EndDates = new List<DateTime>
+                        {
+                            new DateTime(2003, 12, 31),
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2004",
+                        DataPoints = new List<double>
+                        {
+                            3.8
+                        },
+                        EndDates = new List<DateTime>
+                        {
+                            new DateTime(2004, 12, 31),
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2005",
+                        DataPoints = new List<double>
+                        {
+                            3.3
+                        },
+                        EndDates = new List<DateTime>
+                        {
+                            new DateTime(2005, 12, 31),
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2006",
+                        DataPoints = new List<double>
+                        {
+                            2.9
+                        },
+                        EndDates = new List<DateTime>
+                        {
+                            new DateTime(2006, 12, 31),
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2007",
+                        DataPoints = new List<double>
+                        {
+                            1.9
+                        },
+                        EndDates = new List<DateTime>
+                        {
+                            new DateTime(2007, 12, 31),
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2008",
+                        DataPoints = new List<double>
+                        {
+                            -0.2
+                        },
+                        EndDates = new List<DateTime>
+                        {
+                            new DateTime(2008, 12, 31),
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2009",
+                        DataPoints = new List<double>
+                        {
+                            -2.5
+                        },
+                        EndDates = new List<DateTime>
+                        {
+                            new DateTime(2009, 12, 31),
+                        }
+                    },
+                },
+                //DataGroups = new List<DataGroup>
+                //{
+                //    new DataGroup
+                //    {
+                //        Label = "90's",
+                //        DataPoints = new List<double>
+                //        {
+                //            4.8
+                //        },
+                //        EndDates = new List<DateTime>
+                //        {
+                //            new DateTime(1999, 12, 31)
+                //        }
+                //    },
+                //    new DataGroup
+                //    {
+                //        Label = "2000's",
+                //        DataPoints = new List<double>
+                //        {
+                //            4.1, 1, 1.8, 2.8, 3.8, 3.3, 2.9, 1.9, -0.2, -2.5
+                //        },
+                //        EndDates = new List<DateTime>
+                //        {
+                //            new DateTime(2000, 12, 31),
+                //            new DateTime(2001, 12, 31),
+                //            new DateTime(2002, 12, 31),
+                //            new DateTime(2003, 12, 31),
+                //            new DateTime(2004, 12, 31),
+                //            new DateTime(2005, 12, 31),
+                //            new DateTime(2006, 12, 31),
+                //            new DateTime(2007, 12, 31),
+                //            new DateTime(2008, 12, 31),
+                //            new DateTime(2009, 12, 31)
+                //        }
+                //    },
+                //    new DataGroup
+                //    {
+                //        Label = "2010's",
+                //        DataPoints = new List<double>
+                //        {
+                //            2.6, 1.6, 2.2, 1.8, 2.5, 2.9, 1.6, 2.4, 2.9, 2.3
+                //        },
+                //        EndDates = new List<DateTime>
+                //        {
+                //            new DateTime(2010, 12, 31),
+                //            new DateTime(2011, 12, 31),
+                //            new DateTime(2012, 12, 31),
+                //            new DateTime(2013, 12, 31),
+                //            new DateTime(2014, 12, 31),
+                //            new DateTime(2015, 12, 31),
+                //            new DateTime(2016, 12, 31),
+                //            new DateTime(2017, 12, 31),
+                //            new DateTime(2018, 12, 31),
+                //            new DateTime(2019, 12, 31)
+                //        }
+                //    },
+                //    new DataGroup
+                //    {
+                //        Label = "2020",
+                //        DataPoints = new List<double>
+                //        {
+                //            -5.9
+                //        },
+                //        EndDates = new List<DateTime>
+                //        {
+                //            new DateTime(2020, 3, 31)
+                //        }
+                //    }
+                //},
+                ShadedAreaColor = SKColors.AntiqueWhite,
+                StartDate = new DateTime(1999, 1, 1)
+            };
+            #endregion
+
+            #region ShadedBarGraphViewModel
+            ShadedBarGraphViewModel = new ShadedBarGraphViewModel
+            {
+                BackgroundColor = SKColors.AliceBlue,
+                Title = new Label
+                {
+                    Bold = true,
+                    //Color = SKColors.Black,
+                    Text = "Yearly GDP",
+                    PointSize = 25,
+                    TextAlignment = Xamarin.Forms.TextAlignment.Center
+                },
+                //LeftFooter = new Footer
+                //{
+                //    //Color = SKColors.Red,
+                //    Text = "Left",
+                //    PointSize = 20
+                //},
+                //CenterFooter = new Footer
+                //{
+                //    Bold = true,
+                //    Color = SKColors.Green,
+                //    Text = "Center",
+                //    PointSize = 20
+                //},
+                //RightFooter = new Footer
+                //{
+                //    Color = SKColors.Blue,
+                //    Text = "Right",
+                //    PointSize = 20
+                //},
+                HorizontalLines = true,
+                //OddRowHorizontalColor = SKColors.AntiqueWhite,
+                //OddRowVerticalColor = SKColors.AntiqueWhite,
+                VerticalLines = true,
+                XLabelAlignment = Xamarin.Forms.TextAlignment.Center,
+                XLabelColor = SKColors.Black,
+                XLabelPointSize = 20,
+                YFirstLabelFormat = "{0:F}%",
+                YLabelFormat = "{0:F}",
+                YLabelAlignment = Xamarin.Forms.TextAlignment.Start,
+                YLabelColor = SKColors.Black,
+                YLabelPointSize = 20,
+                LineColor = SKColors.Red,
+                HorizontalLabelPrecision = 3M,
+                //BottomGraphValue = .05,
+                //TopGraphValue = 0.3,
+                /*
+                DataGroups = new List<DataGroup>
+                {
+                    new DataGroup
+                    {
+                        Label = "2000",
+                        DataPoints = new List<double>
+                        {
+                            4.1
+                        },
+                        EndDates = new List<DateTime>
+                        {
+                            new DateTime(2000, 12, 31)
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2001",
+                        DataPoints = new List<double>
+                        {
+                            1
+                        },
+                        EndDates = new List<DateTime>
+                        {
+                            new DateTime(2001, 12, 31),
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2002",
+                        DataPoints = new List<double>
+                        {
+                            1.8
+                        },
+                        EndDates = new List<DateTime>
+                        {
+                            new DateTime(2002, 12, 31),
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2003",
+                        DataPoints = new List<double>
+                        {
+                            2.8
+                        },
+                        EndDates = new List<DateTime>
+                        {
+                            new DateTime(2003, 12, 31),
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2004",
+                        DataPoints = new List<double>
+                        {
+                            3.8
+                        },
+                        EndDates = new List<DateTime>
+                        {
+                            new DateTime(2004, 12, 31),
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2005",
+                        DataPoints = new List<double>
+                        {
+                            3.3
+                        },
+                        EndDates = new List<DateTime>
+                        {
+                            new DateTime(2005, 12, 31),
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2006",
+                        DataPoints = new List<double>
+                        {
+                            2.9
+                        },
+                        EndDates = new List<DateTime>
+                        {
+                            new DateTime(2006, 12, 31),
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2007",
+                        DataPoints = new List<double>
+                        {
+                            1.9
+                        },
+                        EndDates = new List<DateTime>
+                        {
+                            new DateTime(2007, 12, 31),
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2008",
+                        DataPoints = new List<double>
+                        {
+                            -0.2
+                        },
+                        EndDates = new List<DateTime>
+                        {
+                            new DateTime(2008, 12, 31),
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2009",
+                        DataPoints = new List<double>
+                        {
+                            -2.5
+                        },
+                        EndDates = new List<DateTime>
+                        {
+                            new DateTime(2009, 12, 31),
+                        }
+                    },
+                },
+                */
+                DataGroups = new List<DataGroup>
+                {
+                    new DataGroup
+                    {
+                        Label = "90's",
+                        DataPoints = new List<double>
+                        {
+                            4.8
+                        },
+                        EndDates = new List<DateTime>
+                        {
+                            new DateTime(1999, 12, 31)
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2000's",
+                        DataPoints = new List<double>
+                        {
+                            4.1, 1, 1.8, 2.8, 3.8, 3.3, 2.9, 1.9, -0.2, -2.5
+                        },
+                        EndDates = new List<DateTime>
+                        {
+                            new DateTime(2000, 12, 31),
+                            new DateTime(2001, 12, 31),
+                            new DateTime(2002, 12, 31),
+                            new DateTime(2003, 12, 31),
+                            new DateTime(2004, 12, 31),
+                            new DateTime(2005, 12, 31),
+                            new DateTime(2006, 12, 31),
+                            new DateTime(2007, 12, 31),
+                            new DateTime(2008, 12, 31),
+                            new DateTime(2009, 12, 31)
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2010's",
+                        DataPoints = new List<double>
+                        {
+                            2.6, 1.6, 2.2, 1.8, 2.5, 2.9, 1.6, 2.4, 2.9, 2.3
+                        },
+                        EndDates = new List<DateTime>
+                        {
+                            new DateTime(2010, 12, 31),
+                            new DateTime(2011, 12, 31),
+                            new DateTime(2012, 12, 31),
+                            new DateTime(2013, 12, 31),
+                            new DateTime(2014, 12, 31),
+                            new DateTime(2015, 12, 31),
+                            new DateTime(2016, 12, 31),
+                            new DateTime(2017, 12, 31),
+                            new DateTime(2018, 12, 31),
+                            new DateTime(2019, 12, 31)
+                        }
+                    },
+                    new DataGroup
+                    {
+                        //Label = "2020",
+                        DataPoints = new List<double>
+                        {
+                            -5.9
+                        },
+                        EndDates = new List<DateTime>
+                        {
+                            new DateTime(2020, 3, 31)
+                        }
+                    }
+                },
+                ShadedAreaColor = SKColors.AntiqueWhite,
+                StartDate = new DateTime(1999, 1, 1)
+            };
+            #endregion
         }
 
         public HorizontalBarGraphViewModel HorizontalBarGraphViewModel { get; set; }
         public LineGraphViewModel LineGraphViewModel { get; set; }
         public BarGraphViewModel BarGraphViewModel { get; set; }
+        public ShadedLineGraphViewModel ShadedLineGraphViewModel { get; set; }
+        public ShadedBarGraphViewModel ShadedBarGraphViewModel { get; set; }
     }
 }

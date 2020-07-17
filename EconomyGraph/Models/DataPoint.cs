@@ -1,8 +1,10 @@
 ﻿using SkiaSharp;
-using System.IO;
 
 namespace EconomyGraph.Models
 {
+    /// <summary>
+    /// For HorizontalBarGraph
+    /// </summary>
     public class DataPoint
     {
         public string Label { get; set; }
