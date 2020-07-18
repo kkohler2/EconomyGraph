@@ -7,19 +7,7 @@ namespace EconomyGraph.ViewModels
     public class LineGraphViewModel
     {
         public SKColor? BackgroundColor { get; set; }
-        #region Title
-        Label title;
-        public Label Title
-        {
-            get { return title; }
-            set
-            {
-                value.Bold = true;
-                title = value;
-            }
-        }
-        #endregion
-
+        public Label Title { get; set; }
         public Footer LeftFooter { get; set; }
         public Footer CenterFooter { get; set; }
         public Footer RightFooter { get; set; }

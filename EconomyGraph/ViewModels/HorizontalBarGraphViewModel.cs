@@ -7,18 +7,7 @@ namespace EconomyGraph.ViewModels
     public class HorizontalBarGraphViewModel
     {
         public SKColor? BackgroundColor { get; set; }
-        #region Title
-        Label title;
-        public Label Title
-        {
-            get { return title; }
-            set
-            {
-                value.Bold = true;
-                title = value;
-            }
-        }
-        #endregion
+        public Label Title { get; set; }
         public Label SubTitle { get; set; }
         public Label LeftFooter { get; set; }
         #region RightFooter

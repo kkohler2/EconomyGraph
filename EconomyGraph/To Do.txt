@@ -1,4 +1,19 @@
 ﻿Bar/Line Graph
 =================
+Vertical left side label (not data related)!
 Proper height calculation for rotated X-axis labels
 Display (optional) labels near data points on graph
+Optional color for specific Bars, distinct from other bar colors (i.e. hilight one bar in specific color to stand out)
+
+
+For readme:
+Set Header Bold
+Set Header Color
+Multi-line Header
+Footer
+Horizontal Lines
+Vertical Lines
+Horizontal Shading
+Vertical Shading
+Define Bottom value
+Define Top value

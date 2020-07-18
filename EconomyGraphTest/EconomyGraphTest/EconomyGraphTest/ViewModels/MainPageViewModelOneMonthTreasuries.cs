@@ -15,7 +15,6 @@ namespace EconomyGraphTest.ViewModels
                 BackgroundColor = SKColors.AliceBlue,
                 Title = new Label
                 {
-                    Bold = true,
                     Color = SKColors.Black,
                     Text = "Do you support or oppose 'defund the police'?",
                     PointSize = 20,
@@ -72,7 +71,6 @@ namespace EconomyGraphTest.ViewModels
                 BackgroundColor = SKColors.AliceBlue,
                 Title = new Label
                 {
-                    Bold = true,
                     //Color = SKColors.Black,
                     Text = "This is the graph title\nThis is the second line",
                     PointSize = 25,
@@ -86,7 +84,6 @@ namespace EconomyGraphTest.ViewModels
                 },
                 CenterFooter = new Footer
                 {
-                    Bold = true,
                     Color = SKColors.Green,
                     Text = "Center",
                     PointSize = 20
@@ -141,7 +138,6 @@ namespace EconomyGraphTest.ViewModels
                 BackgroundColor = SKColors.AliceBlue,
                 Title = new Label
                 {
-                    Bold = true,
                     //Color = SKColors.Black,
                     Text = "This is a BAR GRAPH!",
                     PointSize = 25,

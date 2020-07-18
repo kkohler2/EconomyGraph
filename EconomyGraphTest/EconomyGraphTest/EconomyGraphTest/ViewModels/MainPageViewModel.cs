@@ -1,18 +1,54 @@
 ﻿using EconomyGraph.Models;
 using EconomyGraph.ViewModels;
+using MvvmHelpers;
+using Prism.Commands;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
+using System.Windows.Input;
 
 namespace EconomyGraphTest.ViewModels
 {
     /// <summary>
     /// Quarterly GDP Values
     /// </summary>
-    public class MainPageViewModel
+    public class MainPageViewModel : BaseViewModel
     {
+        private bool _showHideButton;
+        public bool ShowHideButton { get { return _showHideButton; } set { SetProperty(ref _showHideButton, value); } }
+        
+        private bool _showButtons = true;
+        public bool ShowButtons { get { return _showButtons; } set { SetProperty(ref _showButtons, value); } }
+        
+        private bool _horizontalBarGraph;
+        public bool HorizontalBarGraph { get { return _horizontalBarGraph; } set { SetProperty(ref _horizontalBarGraph, value); } }
+
+        private bool _lineGraph;
+        public bool LineGraph { get { return _lineGraph; } set { SetProperty(ref _lineGraph, value); } }
+
+        private bool _lineGraphWithFooters;
+        public bool LineGraphWithFooters { get { return _lineGraphWithFooters; } set { SetProperty(ref _lineGraphWithFooters, value); } }
+
+
+        private bool _lineGraphWithMultiLineHeader;
+        public bool LineGraphWithMultiLineHeader { get { return _lineGraphWithMultiLineHeader; } set { SetProperty(ref _lineGraphWithMultiLineHeader, value); } }
+        
+        private bool _barGraph;
+        public bool BarGraph { get { return _barGraph; } set { SetProperty(ref _barGraph, value); } }
+
+        private bool _shadedLineGraph;
+        public bool ShadedLineGraph { get { return _shadedLineGraph; } set { SetProperty(ref _shadedLineGraph, value); } }
+
+        private bool _shadedBarGraph;
+        public bool ShadedBarGraph { get { return _shadedBarGraph; } set { SetProperty(ref _shadedBarGraph, value); } }
+
+        public ICommand ShowGraphCommand { get; }
+        public ICommand HideGraphCommand { get; }
         public MainPageViewModel()
         {
+            ShowGraphCommand = new DelegateCommand<object>(ShowGraph);
+            HideGraphCommand = new DelegateCommand(HideGraph);
+
             #region HorizontalBarGraphViewModel
             HorizontalBarGraphViewModel = new HorizontalBarGraphViewModel
             {
@@ -76,31 +112,227 @@ namespace EconomyGraphTest.ViewModels
                 BackgroundColor = SKColors.AliceBlue,
                 Title = new Label
                 {
-                    Bold = true,
+                    Bold = false,
                     //Color = SKColors.Black,
                     Text = "Quarterly GDP",
                     PointSize = 25,
                     TextAlignment = Xamarin.Forms.TextAlignment.Center
                 },
-                //LeftFooter = new Footer
-                //{
-                //    //Color = SKColors.Red,
-                //    Text = "Left",
-                //    PointSize = 20
-                //},
-                //CenterFooter = new Footer
-                //{
-                //    Bold = true,
-                //    Color = SKColors.Green,
-                //    Text = "Center",
-                //    PointSize = 20
-                //},
-                //RightFooter = new Footer
-                //{
-                //    Color = SKColors.Blue,
-                //    Text = "Right",
-                //    PointSize = 20
-                //},
+                HorizontalLines = true,
+                //OddRowHorizontalColor = SKColors.AntiqueWhite,
+                OddRowVerticalColor = SKColors.AntiqueWhite,
+                VerticalLines = true,
+                XLabelAlignment = Xamarin.Forms.TextAlignment.Center,
+                XLabelColor = SKColors.Black,
+                XLabelPointSize = 20,
+                YFirstLabelFormat = "{0:F}%",
+                YLabelFormat = "{0:F}",
+                YLabelAlignment = Xamarin.Forms.TextAlignment.Start,
+                YLabelColor = SKColors.Black,
+                YLabelPointSize = 20,
+                LineColor = SKColors.Red,
+                HorizontalLabelPrecision = 1M,
+                //BottomGraphValue = .05,
+                //TopGraphValue = 0.3,
+                DataGroups = new List<DataGroup>
+                {
+                    new DataGroup
+                    {
+                        Label = "2013",
+                        DataPoints = new List<double>
+                        {
+                            3.6,0.5,3.2,3.2
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2014",
+                        DataPoints = new List<double>
+                        {
+                            //1.1,5.5,5,2.3
+                            -1.1,5.5,5,2.3
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2015",
+                        DataPoints = new List<double>
+                        {
+                            3.2,3,1.3,0.1
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2016",
+                        DataPoints = new List<double>
+                        {
+                            2,1.9,2.2,2
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2017",
+                        DataPoints = new List<double>
+                        {
+                            2.3,2.2,3.2,3.5
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2018",
+                        DataPoints = new List<double>
+                        {
+                            2.5,3.5,2.9,1.1
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2019",
+                        DataPoints = new List<double>
+                        {
+                            3.1,2,2.1,2.1
+                        }
+                    },
+                    new DataGroup
+                    {
+                        DataPoints = new List<double>
+                        {
+                            -4.8
+                        }
+                    }
+                }
+            };
+            #endregion
+
+            #region LineGraphWithFootersViewModel
+            LineGraphWithFootersViewModel = new LineGraphViewModel
+            {
+                BackgroundColor = SKColors.AliceBlue,
+                Title = new Label
+                {
+                    Bold = false,
+                    //Color = SKColors.Black,
+                    Text = "Quarterly GDP",
+                    PointSize = 25,
+                    TextAlignment = Xamarin.Forms.TextAlignment.Center
+                },
+                LeftFooter = new Footer
+                {
+                    //Color = SKColors.Red,
+                    Text = "Left",
+                    PointSize = 20
+                },
+                CenterFooter = new Footer
+                {
+                    Bold = true,
+                    Color = SKColors.Green,
+                    Text = "Center",
+                    PointSize = 20
+                },
+                RightFooter = new Footer
+                {
+                    Color = SKColors.Blue,
+                    Text = "Right",
+                    PointSize = 20
+                },
+                HorizontalLines = true,
+                //OddRowHorizontalColor = SKColors.AntiqueWhite,
+                OddRowVerticalColor = SKColors.AntiqueWhite,
+                VerticalLines = true,
+                XLabelAlignment = Xamarin.Forms.TextAlignment.Center,
+                XLabelColor = SKColors.Black,
+                XLabelPointSize = 20,
+                YFirstLabelFormat = "{0:F}%",
+                YLabelFormat = "{0:F}",
+                YLabelAlignment = Xamarin.Forms.TextAlignment.Start,
+                YLabelColor = SKColors.Black,
+                YLabelPointSize = 20,
+                LineColor = SKColors.Red,
+                HorizontalLabelPrecision = 1M,
+                //BottomGraphValue = .05,
+                //TopGraphValue = 0.3,
+                DataGroups = new List<DataGroup>
+                {
+                    new DataGroup
+                    {
+                        Label = "2013",
+                        DataPoints = new List<double>
+                        {
+                            3.6,0.5,3.2,3.2
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2014",
+                        DataPoints = new List<double>
+                        {
+                            //1.1,5.5,5,2.3
+                            -1.1,5.5,5,2.3
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2015",
+                        DataPoints = new List<double>
+                        {
+                            3.2,3,1.3,0.1
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2016",
+                        DataPoints = new List<double>
+                        {
+                            2,1.9,2.2,2
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2017",
+                        DataPoints = new List<double>
+                        {
+                            2.3,2.2,3.2,3.5
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2018",
+                        DataPoints = new List<double>
+                        {
+                            2.5,3.5,2.9,1.1
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2019",
+                        DataPoints = new List<double>
+                        {
+                            3.1,2,2.1,2.1
+                        }
+                    },
+                    new DataGroup
+                    {
+                        DataPoints = new List<double>
+                        {
+                            -4.8
+                        }
+                    }
+                }
+            };
+            #endregion
+
+            #region LineGraphWithFootersViewModel
+            LineGraphWithMultiLineHeaderViewModel = new LineGraphViewModel
+            {
+                BackgroundColor = SKColors.AliceBlue,
+                Title = new Label
+                {
+                    Bold = true,
+                    Color = SKColors.DarkGreen,
+                    Text = "Line One\nLine Two\nLine Three",
+                    PointSize = 20,
+                    TextAlignment = Xamarin.Forms.TextAlignment.Center
+                },
                 HorizontalLines = true,
                 //OddRowHorizontalColor = SKColors.AntiqueWhite,
                 OddRowVerticalColor = SKColors.AntiqueWhite,
@@ -193,34 +425,15 @@ namespace EconomyGraphTest.ViewModels
                 BackgroundColor = SKColors.AliceBlue,
                 Title = new Label
                 {
-                    Bold = true,
+                    //Bold = true,
                     //Color = SKColors.Black,
                     Text = "This is a BAR GRAPH!",
                     PointSize = 25,
                     TextAlignment = Xamarin.Forms.TextAlignment.Center
                 },
-                //LeftFooter = new Footer
-                //{
-                //    //Color = SKColors.Red,
-                //    Text = "Left",
-                //    PointSize = 20
-                //},
-                //CenterFooter = new Footer
-                //{
-                //    Bold = true,
-                //    Color = SKColors.Green,
-                //    Text = "Center",
-                //    PointSize = 20
-                //},
-                //RightFooter = new Footer
-                //{
-                //    Color = SKColors.Blue,
-                //    Text = "Right",
-                //    PointSize = 20
-                //},
                 HorizontalLines = true,
-                //OddRowHorizontalColor = SKColors.AntiqueWhite,
-                OddRowVerticalColor = SKColors.AntiqueWhite,
+                OddRowHorizontalColor = SKColors.AntiqueWhite,
+                //OddRowVerticalColor = SKColors.AntiqueWhite,
                 VerticalLines = true,
                 XLabelAlignment = Xamarin.Forms.TextAlignment.Center,
                 XLabelColor = SKColors.Black,
@@ -232,8 +445,8 @@ namespace EconomyGraphTest.ViewModels
                 YLabelPointSize = 20,
                 LineColor = SKColors.Red,
                 HorizontalLabelPrecision = 1M,
-                //BottomGraphValue = .05,
-                //TopGraphValue = 0.3,
+                BottomGraphValue = -6,
+                TopGraphValue = 6,
                 DataGroups = new List<DataGroup>
                 {
                     new DataGroup
@@ -309,7 +522,7 @@ namespace EconomyGraphTest.ViewModels
                 BackgroundColor = SKColors.AliceBlue,
                 Title = new Label
                 {
-                    Bold = true,
+                    //Bold = true,
                     //Color = SKColors.Black,
                     Text = "Yearly GDP",
                     PointSize = 25,
@@ -542,7 +755,7 @@ namespace EconomyGraphTest.ViewModels
                 //        }
                 //    }
                 //},
-                ShadedAreaColor = SKColors.AntiqueWhite,
+                ShadedAreaColor = SKColors.LightGray,
                 StartDate = new DateTime(1999, 1, 1)
             };
             #endregion
@@ -553,7 +766,7 @@ namespace EconomyGraphTest.ViewModels
                 BackgroundColor = SKColors.AliceBlue,
                 Title = new Label
                 {
-                    Bold = true,
+                    //Bold = true,
                     //Color = SKColors.Black,
                     Text = "Yearly GDP",
                     PointSize = 25,
@@ -788,7 +1001,7 @@ namespace EconomyGraphTest.ViewModels
                         }
                     }
                 },
-                ShadedAreaColor = SKColors.AntiqueWhite,
+                ShadedAreaColor = SKColors.LightGray,
                 StartDate = new DateTime(1999, 1, 1)
             };
             #endregion
@@ -796,8 +1009,54 @@ namespace EconomyGraphTest.ViewModels
 
         public HorizontalBarGraphViewModel HorizontalBarGraphViewModel { get; set; }
         public LineGraphViewModel LineGraphViewModel { get; set; }
+        public LineGraphViewModel LineGraphWithFootersViewModel { get; set; }
+        public LineGraphViewModel LineGraphWithMultiLineHeaderViewModel { get; set; }
         public BarGraphViewModel BarGraphViewModel { get; set; }
         public ShadedLineGraphViewModel ShadedLineGraphViewModel { get; set; }
         public ShadedBarGraphViewModel ShadedBarGraphViewModel { get; set; }
+
+        public void ShowGraph(object buttonParameter)
+        {
+            ShowHideButton = true;
+            switch ((string)buttonParameter)
+            {
+                case "HorizontalBarGraph":
+                    HorizontalBarGraph = true;
+                    break;
+                case "LineGraph":
+                    LineGraph = true;
+                    break;
+                case "LineGraphWithFooters":
+                    LineGraphWithFooters = true;
+                    break;
+                case "LineGraphWithMultiLineHeader":
+                    LineGraphWithMultiLineHeader = true;
+                    break;
+                case "BarGraph":
+                    BarGraph = true;
+                    break;
+                case "ShadedLineGraph":
+                    ShadedLineGraph = true;
+                    break;
+                case "ShadedBarGraph":
+                    ShadedBarGraph = true;
+                    break;
+            }
+            ShowButtons = false;
+        }
+
+        public void HideGraph()
+        {
+            ShowHideButton = false;
+            ShowButtons = true; ;
+
+            HorizontalBarGraph = false;
+            LineGraph = false;
+            LineGraphWithFooters = false;
+            LineGraphWithMultiLineHeader = false;
+            BarGraph = false;
+            ShadedLineGraph = false;
+            ShadedBarGraph = false;
+        }
     }
 }

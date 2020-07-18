@@ -79,7 +79,7 @@ namespace EconomyGraph.Views.ContentViews
                     Text = ViewModel.Title.Text, // "Do you support or oppose 'defund the police'?",
                     XPos = xPos,
                     YPos = 45,
-                    Bold = ViewModel.Title.Bold // true;
+                    Bold = ViewModel.Title.Bold
                 });
             }
             if (ViewModel.SubTitle != null && !string.IsNullOrWhiteSpace(ViewModel.SubTitle.Text))

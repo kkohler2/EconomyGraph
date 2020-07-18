@@ -400,7 +400,7 @@ namespace EconomyGraph.Views.ContentViews
                     {
                         hValues.Insert(0, Convert.ToDecimal(hValue));
                         minimumGraphValue = Convert.ToDouble(hValue);
-                        if (hValue < Convert.ToDecimal(minimum)) 
+                        if (hValue <= Convert.ToDecimal(minimum)) 
                             break;
                     }
                     hValue -= ViewModel.HorizontalLabelPrecision;
@@ -448,7 +448,7 @@ namespace EconomyGraph.Views.ContentViews
                         Text = line,
                         XPos = xPos,
                         YPos = yPos,
-                        Bold = ViewModel.Title.Bold // true;
+                        Bold = ViewModel.Title.Bold
                     });
                     first = false;
                 }

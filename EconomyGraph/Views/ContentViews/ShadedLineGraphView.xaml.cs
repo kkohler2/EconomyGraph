@@ -40,13 +40,13 @@ namespace EconomyGraph.Views.ContentViews
                     StartDate = StartDate.Year == 1 ? viewModel.StartDate : EndDate + new TimeSpan(1,0,0,0);
                     EndDate = dg.EndDates[i];
                     Debug.Assert(StartDate < EndDate);
+                    xDataPointStart = xDataPointEnd;
+                    xDataPointEnd += dg.GroupWidth / dg.DataPoints.Count;
                     if (first)
                     {
                         first = false;
                         continue; // Don't draw shaded area for first point on line graph!
                     }
-                    xDataPointStart = xDataPointEnd;
-                    xDataPointEnd += dg.GroupWidth / dg.DataPoints.Count;
                     foreach(var shadePeriod in viewModel.ShadePeriods)
                     {
                         float shadeXStart, barWidth;
