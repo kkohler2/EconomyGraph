@@ -11,15 +11,17 @@
         <Button Text="Hide Graph" Command="{Binding HideGraphCommand}" IsVisible="{Binding ShowHideButton}"/>
         <contentviews:HorizontalBarGraphView GraphWidth="800" GraphHeight="400" ViewModel="{Binding HorizontalBarGraphViewModel}" IsVisible="{Binding HorizontalBarGraph}" />
         <contentviews:LineGraphView GraphWidth="800" GraphHeight="400" ViewModel="{Binding LineGraphViewModel}" IsVisible="{Binding LineGraph}"/>
+        <contentviews:LineGraphView GraphWidth="800" GraphHeight="400" ViewModel="{Binding LineGraphLeftLabelViewModel}" IsVisible="{Binding LineGraphLeftLabel}"/>
         <contentviews:LineGraphView GraphWidth="800" GraphHeight="400" ViewModel="{Binding LineGraphWithFootersViewModel}" IsVisible="{Binding LineGraphWithFooters}"/>
         <contentviews:LineGraphView GraphWidth="800" GraphHeight="400" ViewModel="{Binding LineGraphWithMultiLineHeaderViewModel}" IsVisible="{Binding LineGraphWithMultiLineHeader}"/>
         <contentviews:BarGraphView GraphWidth="800" GraphHeight="400" ViewModel="{Binding BarGraphViewModel}" IsVisible="{Binding BarGraph}"/>
-        <contentviews:ShadedLineGraphView GraphWidth="1200" GraphHeight="800" ViewModel="{Binding ShadedLineGraphViewModel}" IsVisible="{Binding ShadedLineGraph}"/>
-        <contentviews:ShadedBarGraphView GraphWidth="1200" GraphHeight="400" ViewModel="{Binding ShadedBarGraphViewModel}" IsVisible="{Binding ShadedBarGraph}"/>
+        <contentviews:ShadedLineGraphView GraphWidth="800" GraphHeight="400" ViewModel="{Binding ShadedLineGraphViewModel}" IsVisible="{Binding ShadedLineGraph}"/>
+        <contentviews:ShadedBarGraphView GraphWidth="800" GraphHeight="400" ViewModel="{Binding ShadedBarGraphViewModel}" IsVisible="{Binding ShadedBarGraph}"/>
         <ScrollView IsVisible="{Binding ShowButtons}">
             <StackLayout>
                 <Button Text="Horizontal Bar Graph" Command="{Binding ShowGraphCommand}" CommandParameter="HorizontalBarGraph"/>
                 <Button Text="Line Graph" Command="{Binding ShowGraphCommand}" CommandParameter="LineGraph"/>
+                <Button Text="Line Graph With Left Label" Command="{Binding ShowGraphCommand}" CommandParameter="LineGraphLeftLabel"/>
                 <Button Text="Line Graph With Footers" Command="{Binding ShowGraphCommand}" CommandParameter="LineGraphWithFooters"/>
                 <Button Text="Line Graph With Multi-Line Header" Command="{Binding ShowGraphCommand}" CommandParameter="LineGraphWithMultiLineHeader"/>
                 <Button Text="Bar Graph" Command="{Binding ShowGraphCommand}" CommandParameter="BarGraph"/>

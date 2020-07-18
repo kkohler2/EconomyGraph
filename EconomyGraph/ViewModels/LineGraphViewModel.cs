@@ -11,6 +11,10 @@ namespace EconomyGraph.ViewModels
         public Footer LeftFooter { get; set; }
         public Footer CenterFooter { get; set; }
         public Footer RightFooter { get; set; }
+        /// <summary>
+        /// Displayed vertically bottom to top, if defined.
+        /// </summary>
+        public Label LeftLabel { get; set; }
         public string YFirstLabelFormat { get; set; }
         public string YLabelFormat { get; set; }
         public float YLabelPointSize { get; set; }

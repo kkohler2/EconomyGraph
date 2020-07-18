@@ -20,7 +20,7 @@ namespace EconomyGraph.Views.ContentViews
             PaintGraph(e);
         }
 
-        protected override void GraphData(float padding, List<IGraphItem> graphItems, float yPos, double minimum, List<double> dataPoints, float labelWidth, float graphHeight, float barWidth, double minimumGraphValue, double maximumGraphValue, List<decimal> hValues, float ySectionHeight, float zeroYPos)
+        protected override void GraphData(float padding, List<IGraphItem> graphItems, float xPos, float yPos, double minimum, List<double> dataPoints, float labelWidth, float graphHeight, float barWidth, double minimumGraphValue, double maximumGraphValue, List<decimal> hValues, float ySectionHeight, float zeroYPos)
         {
             var calculatedBarWidth = barWidth; // for bar spacing
             BarGraphViewModel viewModel = ViewModel as BarGraphViewModel;
@@ -49,7 +49,6 @@ namespace EconomyGraph.Views.ContentViews
                 }
             }
 
-            float xPos = padding * 2 + labelWidth; // Essentially, this is X zero for graph on the canvas!
             float barPadding = (calculatedBarWidth - barWidth) / 2;
             foreach (var dataPoint in dataPoints)
             {
