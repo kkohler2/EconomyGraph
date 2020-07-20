@@ -1,17 +1,17 @@
 ﻿using SkiaSharp;
+using System;
 
 namespace EconomyGraph.Models
 {
-    /// <summary>
-    /// For HorizontalBarGraph
-    /// </summary>
     public class DataPoint
     {
-        public string Label { get; set; }
-        public SKColor TextColor { get; set; }
-        public bool Bold { get; set; }
-        public float PointSize { get; set; }
-        public int Value { get; set; }
-        public SKColor Color { get; set; }
+        public DataPointLabel Label { get; set; }
+        public double Value { get; set; }
+        /// <summary>
+        /// Set color to override default
+        /// </summary>
+        public SKColor? Color { get; set; }
+        public SKColor? NegativeColor { get; set; }
+        public DateTime EndDate { get; set; }
     }
 }

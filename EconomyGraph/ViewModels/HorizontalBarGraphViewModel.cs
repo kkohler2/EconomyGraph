@@ -22,6 +22,6 @@ namespace EconomyGraph.ViewModels
             }
         }
         #endregion
-        public List<DataPoint> DataPoints { get; set; } = new List<DataPoint>();
+        public List<HorizontalBarGraphDataPoint> DataPoints { get; set; } = new List<HorizontalBarGraphDataPoint>();
     }
 }

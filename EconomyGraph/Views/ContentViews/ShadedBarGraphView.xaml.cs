@@ -29,16 +29,14 @@ namespace EconomyGraph.Views.ContentViews
             bool first = true;
             float xDataPointStart = padding * 2 + labelWidth;
             float xDataPointEnd = xDataPointStart;
-            foreach(DataGroup dg in viewModel.DataGroups)
+            GraphRectangle previousGraphRectangle = null;
+            foreach (DataGroup dg in viewModel.DataGroups)
             {
-                Debug.Assert(dg.EndDates.Count == dg.DataPoints.Count, "DataGroup.EndDates.Count != DataGroup.DataPoints.Counts");
-                for(var i = 0; i < dg.DataPoints.Count; i++)
+                foreach(var dataPoint in dg.DataPoints)
                 {
-                    var dataPoint = dg.DataPoints[i];
                     // Calculate graph X start/end for period here!
-
                     StartDate = StartDate.Year == 1 ? viewModel.StartDate : EndDate + new TimeSpan(1,0,0,0);
-                    EndDate = dg.EndDates[i];
+                    EndDate = dataPoint.EndDate;
                     Debug.Assert(StartDate < EndDate);
                     if (!first)
                     {
@@ -89,7 +87,7 @@ namespace EconomyGraph.Views.ContentViews
                             shadeXStart = (startDate / dpDays) * (dg.GroupWidth / dg.DataPoints.Count) + xDataPointStart - 1;
                         }
                         barWidth = (float)((shadeEndDate - shadeStartDate).Days + 1) / ((EndDate - StartDate).Days + 1) * (xDataPointEnd - xDataPointStart + 1);
-                        graphItems.Add(new GraphRectangle
+                        GraphRectangle graphRectangle = new GraphRectangle
                         {
                             Color = viewModel.ShadedAreaColor,
                             Height = graphHeight,
@@ -97,7 +95,16 @@ namespace EconomyGraph.Views.ContentViews
                             Width = barWidth,
                             XPos = shadeXStart,
                             YPos = graphHeight + yPos + padding - graphHeight
-                        });
+                        };
+                        if (previousGraphRectangle != null)
+                        {
+                            if (graphRectangle.XPos - previousGraphRectangle.XPos - previousGraphRectangle.Width <= 1)
+                            {
+                                graphRectangle.XPos -= 1;
+                            }
+                        }
+                        graphItems.Add(graphRectangle);
+                        previousGraphRectangle = graphRectangle;
                     }
                 }
             }
@@ -106,7 +113,7 @@ namespace EconomyGraph.Views.ContentViews
         /// <summary>
         /// Same as BarGraphView.GraphData, but copied, since not derived from BarGraphView
         /// </summary>
-        protected override void GraphData(float padding, List<IGraphItem> graphItems, float xPos, float yPos, double minimum, List<double> dataPoints, float labelWidth, float graphHeight, float barWidth, double minimumGraphValue, double maximumGraphValue, List<decimal> hValues, float ySectionHeight, float zeroYPos)
+        protected override void GraphData(float padding, List<IGraphItem> graphItems, float xPos, float yPos, double minimum, List<DataPoint> dataPoints, float labelWidth, float graphHeight, float barWidth, double minimumGraphValue, double maximumGraphValue, List<decimal> hValues, float ySectionHeight, float zeroYPos, float scale)
         {
             var calculatedBarWidth = barWidth; // for bar spacing
             ShadedBarGraphViewModel viewModel = ViewModel as ShadedBarGraphViewModel;
@@ -138,7 +145,7 @@ namespace EconomyGraph.Views.ContentViews
             float barPadding = (calculatedBarWidth - barWidth) / 2;
             foreach (var dataPoint in dataPoints)
             {
-                if (dataPoint >= 0)
+                if (dataPoint.Value >= 0)
                 {
                     double barRange = graphHeight;
                     if (zeroIndex != -1)
@@ -152,7 +159,7 @@ namespace EconomyGraph.Views.ContentViews
                         range = maximumGraphValue - 0;
                         minimumBarValue = 0;
                     }
-                    float barHeight = Convert.ToSingle(barRange * (dataPoint - minimumBarValue) / range);
+                    float barHeight = Convert.ToSingle(barRange * (dataPoint.Value - minimumBarValue) / range);
                     float offset = 0;
                     if (zeroIndex != -1)
                     {
@@ -160,7 +167,7 @@ namespace EconomyGraph.Views.ContentViews
                     }
                     graphItems.Add(new GraphRectangle
                     {
-                        Color = viewModel.BarColor,
+                        Color = dataPoint.Color.HasValue ? dataPoint.Color.Value : viewModel.BarColor,
                         Height = barHeight,
                         Style = PaintStyle.Fill,
                         Width = barWidth,
@@ -182,8 +189,8 @@ namespace EconomyGraph.Views.ContentViews
                         range = 0 - minimumGraphValue;
                         minimumBarValue = 0;
                     }
-                    float percent = Convert.ToSingle((dataPoint - minimumBarValue) / range);
-                    float barHeight = Convert.ToSingle(barRange * (dataPoint - minimumBarValue) / range);
+                    float percent = Convert.ToSingle((dataPoint.Value - minimumBarValue) / range);
+                    float barHeight = Convert.ToSingle(barRange * (dataPoint.Value - minimumBarValue) / range);
                     float offset = 0;
                     if (zeroIndex != -1)
                     {
@@ -191,7 +198,7 @@ namespace EconomyGraph.Views.ContentViews
                     }
                     graphItems.Add(new GraphRectangle
                     {
-                        Color = viewModel.NegativeBarColor,
+                        Color = dataPoint.NegativeColor.HasValue ? dataPoint.NegativeColor.Value : viewModel.NegativeBarColor,
                         Height = barHeight,
                         Style = PaintStyle.Fill,
                         Width = barWidth,

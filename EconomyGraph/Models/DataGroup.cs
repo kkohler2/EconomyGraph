@@ -7,8 +7,7 @@ namespace EconomyGraph.Models
     {
         public string Label { get; set; }
         // Required for ShadingGraphs.  Must have date per data point and be in calendar order!
-        public List<DateTime> EndDates { get; set; }
-        public List<double> DataPoints { get; set; } = new List<double>();
+        public List<DataPoint> DataPoints { get; set; } = new List<DataPoint>();
         /// <summary>
         /// Date range needed for "recession" shading.
         /// </summary>

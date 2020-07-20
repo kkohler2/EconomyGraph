@@ -29,16 +29,15 @@ namespace EconomyGraph.Views.ContentViews
             bool first = true;
             float xDataPointStart = padding * 2 + labelWidth;
             float xDataPointEnd = xDataPointStart;
-            foreach(DataGroup dg in viewModel.DataGroups)
+            GraphRectangle previousGraphRectangle = null;
+            foreach (DataGroup dg in viewModel.DataGroups)
             {
-                Debug.Assert(dg.EndDates.Count == dg.DataPoints.Count, "DataGroup.EndDates.Count != DataGroup.DataPoints.Counts");
-                for(var i = 0; i < dg.DataPoints.Count; i++)
+                foreach(var dataPoint in dg.DataPoints)
                 {
-                    var dataPoint = dg.DataPoints[i];
                     // Calculate graph X start/end for period here!
 
                     StartDate = StartDate.Year == 1 ? viewModel.StartDate : EndDate + new TimeSpan(1,0,0,0);
-                    EndDate = dg.EndDates[i];
+                    EndDate = dataPoint.EndDate;
                     Debug.Assert(StartDate < EndDate);
                     xDataPointStart = xDataPointEnd;
                     xDataPointEnd += dg.GroupWidth / dg.DataPoints.Count;
@@ -90,7 +89,7 @@ namespace EconomyGraph.Views.ContentViews
                             shadeXStart = (startDate / dpDays) * (dg.GroupWidth / dg.DataPoints.Count) + xDataPointStart - 1;
                         }
                         barWidth = (float)((shadeEndDate - shadeStartDate).Days + 1) / ((EndDate - StartDate).Days + 1) * (xDataPointEnd - xDataPointStart + 1);
-                        graphItems.Add(new GraphRectangle
+                        GraphRectangle graphRectangle = new GraphRectangle
                         {
                             Color = viewModel.ShadedAreaColor,
                             Height = graphHeight,
@@ -98,7 +97,16 @@ namespace EconomyGraph.Views.ContentViews
                             Width = barWidth,
                             XPos = shadeXStart,
                             YPos = graphHeight + yPos + padding - graphHeight
-                        });
+                        };
+                        if (previousGraphRectangle != null)
+                        {
+                            if (graphRectangle.XPos - previousGraphRectangle.XPos - previousGraphRectangle.Width <= 1)
+                            {
+                                graphRectangle.XPos -= 1;
+                            }
+                        }
+                        graphItems.Add(graphRectangle);
+                        previousGraphRectangle = graphRectangle;
                     }
                 }
             }
