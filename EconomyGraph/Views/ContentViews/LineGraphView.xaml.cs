@@ -288,19 +288,19 @@ namespace EconomyGraph.Views.ContentViews
                             Height = ySectionHeight,
                             Style = PaintStyle.Fill,
                             Width = canvasWidth - padding,
-                            XPos = xPos, //padding * 2 + labelWidth,
+                            XPos = xPos,
                             YPos = lineYPos - ySectionHeight
                         });
                     }
                     horizontalRow++;
                 }
-                if (ViewModel.HorizontalLines)
+                if (ViewModel.HorizontalLineColor.HasValue)
                 {
                     graphItems.Add(new GraphLine
                     {
-                        Color = SKColors.Black,
+                        Color = ViewModel.HorizontalLineColor.Value,
                         StrokeWidth = 2,
-                        XPosStart = padding + xLabelWidth,
+                        XPosStart = ViewModel.HorizontalLinesStartAtEdge ? padding + xLabelWidth : xPos,
                         YPosStart = lineYPos,
                         XPosEnd = canvasWidth - padding,
                         YPosEnd = lineYPos
@@ -312,11 +312,27 @@ namespace EconomyGraph.Views.ContentViews
                 }
                 i++;
             }
+            if (ViewModel.HorizontalBottomLineColor.HasValue)
+            {
+                graphItems.Add(new GraphLine
+                {
+                    Color = ViewModel.HorizontalBottomLineColor.Value,
+                    StrokeWidth = 2,
+                    XPosStart = ViewModel.HorizontalLinesStartAtEdge ? padding + xLabelWidth : xPos,
+                    YPosStart = lineYPos,
+                    XPosEnd = canvasWidth - padding,
+                    YPosEnd = lineYPos
+                });
+            }
         }
 
         protected virtual void DrawYAxisLabels(float scale, float padding, List<IGraphItem> graphItems, float yPos, List<string> YLabels, float labelWidth, float ySectionHeight, float xLabelWidth)
         {
             float lineYPos = yPos + padding;
+            if (!ViewModel.HorizontalLinesStartAtEdge)
+            {
+                lineYPos += padding;
+            }
             float xLabelPos = padding;
             switch (ViewModel.YLabelAlignment)
             {
@@ -351,7 +367,7 @@ namespace EconomyGraph.Views.ContentViews
 
         protected virtual void DrawVerticalLines(float padding, float xPos, List<IGraphItem> graphItems, float yPos, List<string> YLabels, float labelWidth, float ySectionHeight)
         {
-            if (ViewModel.VerticalLines)
+            if (ViewModel.VerticalLineColor.HasValue)
             {
                 float lineXPos = xPos;
                 float yPosStart = yPos + padding * 2;
@@ -360,7 +376,7 @@ namespace EconomyGraph.Views.ContentViews
                 {
                     graphItems.Add(new GraphLine
                     {
-                        Color = SKColors.Black,
+                        Color = ViewModel.VerticalLineColor.Value,
                         StrokeWidth = 2,
                         XPosStart = lineXPos,
                         YPosStart = yPosStart,
@@ -369,6 +385,21 @@ namespace EconomyGraph.Views.ContentViews
                     });
                     lineXPos += ViewModel.DataGroups[i].GroupWidth;
                 }
+            }
+            if (ViewModel.VerticalLeftAxisColor.HasValue)
+            {
+                float lineXPos = xPos;
+                float yPosStart = yPos + padding * 2;
+                float yPosEnd = yPos + padding + ySectionHeight * YLabels.Count;
+                graphItems.Add(new GraphLine
+                {
+                    Color = ViewModel.VerticalLeftAxisColor.Value,
+                    StrokeWidth = 2,
+                    XPosStart = lineXPos,
+                    YPosStart = yPosStart,
+                    XPosEnd = lineXPos,
+                    YPosEnd = yPosEnd
+                });
             }
         }
 
