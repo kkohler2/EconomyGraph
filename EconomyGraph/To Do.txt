@@ -2,7 +2,6 @@
 =================
 Proper height calculation for rotated X-axis labels
 Optional labels anywhere on graph
-Multi-line x-axis lables
 
 
 For readme:
@@ -19,3 +18,5 @@ Define Top value
 Optional color for specific Bars, distinct from other bar colors (i.e. hilight one bar in specific color to stand out)
 Display (optional) labels near data points on graph
 Optional Circles for data points
+Multi-line data group labels.
+Data indicator lines
