@@ -61,5 +61,6 @@ namespace EconomyGraph.ViewModels
         public SKColor LineColor { get; set; }
         public List<DataGroup> DataGroups { get; set; } = new List<DataGroup>();
         public float Padding { get; set; } = 5;
+        public float InidicatorLineLength { get; set; } = 10;
     }
 }

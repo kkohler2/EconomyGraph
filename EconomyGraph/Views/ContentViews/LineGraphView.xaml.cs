@@ -4,6 +4,7 @@ using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -63,6 +64,7 @@ namespace EconomyGraph.Views.ContentViews
             List<IGraphItem> graphItems = new List<IGraphItem>();
             float yPos, xPos, xLabelWidth;
             float footerHeight;
+            float xLabelYPos;
 
             double minimum;
             List<DataPoint> dataPoints;
@@ -72,7 +74,7 @@ namespace EconomyGraph.Views.ContentViews
             List<string> YLabels = new List<string>();
 
             float labelWidth, graphHeight, ySectionHeight, lineYPos, pointWidth;
-            int horizontalRow;
+            int horizontalRow = 0;
 
             double minimumGraphValue, maximumGraphValue;
             float zeroYPos = -1;
@@ -88,7 +90,9 @@ namespace EconomyGraph.Views.ContentViews
 
             DefineYAxisLabelText(hValues, YLabels);
 
-            DefineGraphAndGroupWidths(canvasWidth, canvasHeight, footerHeight, scale, padding, yPos, dataPoints, YLabels, out labelWidth, out graphHeight, out ySectionHeight, out lineYPos, out horizontalRow, out pointWidth, out xPos, out xLabelWidth);
+            graphHeight = CalculateGraphHeight(canvasHeight, yPos, padding, footerHeight, scale, out xLabelYPos);
+
+            DefineGraphAndGroupWidths(canvasWidth, graphHeight, scale, padding, yPos, dataPoints, YLabels, out labelWidth, out ySectionHeight, out lineYPos, out pointWidth, out xPos, out xLabelWidth);
 
             DrawLeftLabel(graphItems, graphHeight, scale, yPos);
 
@@ -105,14 +109,13 @@ namespace EconomyGraph.Views.ContentViews
             // Heart of the graph - define lines from one data point to the next.
             GraphData(padding, graphItems, xPos, yPos, minimum, dataPoints, labelWidth, graphHeight, pointWidth, minimumGraphValue, maximumGraphValue, hValues, ySectionHeight, zeroYPos, scale);
 
-            DrawXAxisLabels(canvasHeight - footerHeight, scale, padding, graphItems, labelWidth);
+            DrawXAxisLabels(xLabelYPos, scale, padding, graphItems, labelWidth);
 
             graphEngine.Draw(e.Surface, graphItems);
         }
 
-        protected virtual void DrawXAxisLabels(float canvalHeight, float scale, float padding, List<IGraphItem> graphItems, float labelWidth)
+        protected virtual void DrawXAxisLabels(float labelYPos, float scale, float padding, List<IGraphItem> graphItems, float labelWidth)
         {
-            float labelYPos = canvalHeight - padding;
             float labelXPos = padding * 2 + labelWidth;
             foreach (var dg in ViewModel.DataGroups)
             {
@@ -131,16 +134,21 @@ namespace EconomyGraph.Views.ContentViews
                         alignedLabelXPos = labelXPos + dg.GroupWidth;
                         break;
                 }
-                graphItems.Add(new GraphText
+                float yPos = labelYPos;
+                foreach (string line in dg.Label.Split('\n'))
                 {
-                    Alignment = ViewModel.XLabelAlignment,
-                    Color = ViewModel.XLabelColor,
-                    PointSize = ViewModel.XLabelPointSize * scale,
-                    Text = dg.Label,
-                    XPos = alignedLabelXPos,
-                    YPos = labelYPos,
-                    Bold = false
-                });
+                    yPos += ViewModel.XLabelPointSize * scale * 1.25f;
+                    graphItems.Add(new GraphText
+                    {
+                        Alignment = ViewModel.XLabelAlignment,
+                        Color = ViewModel.XLabelColor,
+                        PointSize = ViewModel.XLabelPointSize * scale,
+                        Text = line,
+                        XPos = alignedLabelXPos,
+                        YPos = yPos,
+                        Bold = false
+                    });
+                }
                 labelXPos += dg.GroupWidth;
             }
         }
@@ -149,8 +157,8 @@ namespace EconomyGraph.Views.ContentViews
         {
             float xDP = xPos; // Essentially, this is X zero for graph on the canvas!
             float yDP = -1;
-            float lastXdp = -1;
-            float lastYdp = -1;
+            float lastXdp;
+            float lastYdp;
             //float graphWidth = canvasWidth - xDP - padding; // Canvas width less xPos of first point less padding on right side
 
             double range = maximumGraphValue - minimumGraphValue;
@@ -215,10 +223,22 @@ namespace EconomyGraph.Views.ContentViews
                         });
                     }
                 }
+                if (dataPoint.IndicatorLine)
+                {
+                    graphItems.Add(new GraphLine
+                    {
+                        Color = ViewModel.VerticalLineColor.Value,
+                        StrokeWidth = 2,
+                        XPosStart = xDP,
+                        YPosStart = yPos + graphHeight + padding,
+                        XPosEnd = xDP,
+                        YPosEnd = yPos + graphHeight + padding + ViewModel.InidicatorLineLength * scale
+                    });
+                }
             }
         }
 
-        protected virtual void DefineGraphAndGroupWidths(float canvasWidth, float canvalHeight, float footerHeight, float scale, float padding, float yPos, List<DataPoint> dataPoints, List<string> YLabels, out float labelWidth, out float graphHeight, out float ySectionHeight, out float lineYPos, out int horizontalRow, out float pointWidth, out float xPos, out float xLabelWidth)
+        protected virtual void DefineGraphAndGroupWidths(float canvasWidth, float graphHeight, float scale, float padding, float yPos, List<DataPoint> dataPoints, List<string> YLabels, out float labelWidth, out float ySectionHeight, out float lineYPos, out float pointWidth, out float xPos, out float xLabelWidth)
         {
             SKPaint yLabelBrush;
             CreateYLabelBrush(scale, out yLabelBrush); // Needed to determine graph width, taking into account Y-Label max width.
@@ -236,16 +256,38 @@ namespace EconomyGraph.Views.ContentViews
                 xPos += ViewModel.LeftLabel.Height;
                 xLabelWidth = ViewModel.LeftLabel.Height;
             }
-            graphHeight = canvalHeight - yPos - padding * 2 - ViewModel.XLabelPointSize * 1.25f * scale - footerHeight;
             ySectionHeight = graphHeight / YLabels.Count;
             lineYPos = yPos + padding;
-            horizontalRow = 0;
             float graphWidth = canvasWidth - padding - xPos;
             pointWidth = graphWidth / dataPoints.Count;
             foreach (DataGroup dg in ViewModel.DataGroups)
             {
                 dg.GroupWidth = pointWidth * dg.DataPoints.Count;
             }
+        }
+
+        private float CalculateGraphHeight(float canvasHeight, float yPos, float padding, float footerHeight, float scale, out float xLabelYPos)
+        {
+            float labelHeight = 0;
+            float maxLabelHeight = 0;
+            bool usePointIdicators = false;
+
+            foreach (var dataGroup in ViewModel.DataGroups)
+            {
+                if (string.IsNullOrWhiteSpace(dataGroup.Label))
+                    continue;
+
+                labelHeight = 0;
+                foreach (string line in dataGroup.Label.Split('\n'))
+                {
+                    labelHeight += (ViewModel.XLabelPointSize * 1.25f * scale);
+                }
+                if (labelHeight > maxLabelHeight) maxLabelHeight = labelHeight;
+                usePointIdicators = usePointIdicators || dataGroup.DataPoints.Where(dp => dp.IndicatorLine == true).Any();
+            }
+            float graphHeight = canvasHeight - yPos - maxLabelHeight - padding - footerHeight - (usePointIdicators ? ViewModel.InidicatorLineLength * scale : 0);
+            xLabelYPos = yPos + graphHeight + (usePointIdicators ? ViewModel.InidicatorLineLength * scale : 0);
+            return graphHeight;
         }
 
         protected virtual void DrawLeftLabel(List<IGraphItem> graphItems, float graphHeight, float scale, float yPos)

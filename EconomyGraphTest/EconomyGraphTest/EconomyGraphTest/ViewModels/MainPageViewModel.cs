@@ -140,18 +140,19 @@ namespace EconomyGraphTest.ViewModels
                 {
                     new DataGroup
                     {
-                        Label = "2013",
+                        Label = "2013\nLine 2!",
                         DataPoints = new List<DataPoint>
                         {
-                            new DataPoint{Value=3.6},
+                            new DataPoint{Value=3.6, IndicatorLine = true},
                             new DataPoint
                             {
                                 Value=0.5,
-                                CircleType = CircleType.Solid,
+                                CircleType = CircleType.Donut,
                                 CircleRadius = 10,
+                                IndicatorLine = true
                             },
-                            new DataPoint{Value=3.2},
-                            new DataPoint{Value=3.2}
+                            new DataPoint{Value=3.2, IndicatorLine = true },
+                            new DataPoint{Value=3.2, IndicatorLine = true}
                         }
                     },
                     new DataGroup
@@ -681,8 +682,8 @@ namespace EconomyGraphTest.ViewModels
                                     Bold = true,
                                     PointSize = 15,
                                     Text = "Q1",
-                                    XOffSet = 0,
-                                    YOffSet = 0
+                                    XOffSet = 3,
+                                    YOffSet = 15
                                 }
                             },
                             new DataPoint{Value=5.5},
@@ -704,8 +705,8 @@ namespace EconomyGraphTest.ViewModels
                                     Bold = true,
                                     PointSize = 15,
                                     Text = "Q1",
-                                    XOffSet = 0,
-                                    YOffSet = 0
+                                    XOffSet = 3,
+                                    YOffSet = -5
                                 }
                             },
                             new DataPoint{Value=3},

@@ -206,6 +206,18 @@ namespace EconomyGraph.Views.ContentViews
                         YPos = zeroYPos != -1 ? zeroYPos - barHeight : graphHeight + yPos + padding - barHeight
                     });
                 }
+                if (dataPoint.IndicatorLine)
+                {
+                    graphItems.Add(new GraphLine
+                    {
+                        Color = ViewModel.VerticalLineColor.Value,
+                        StrokeWidth = 2,
+                        XPosStart = xPos + barPadding + barWidth / 2,
+                        YPosStart = yPos + graphHeight + padding,
+                        XPosEnd = xPos + barPadding + barWidth / 2,
+                        YPosEnd = yPos + graphHeight + padding + ViewModel.InidicatorLineLength * scale
+                    });
+                }
                 xPos += calculatedBarWidth;
             }
         }
