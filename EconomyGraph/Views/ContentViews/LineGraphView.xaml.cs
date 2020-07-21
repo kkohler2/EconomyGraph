@@ -166,7 +166,7 @@ namespace EconomyGraph.Views.ContentViews
                     lastYdp = yDP;
                     xDP += pointWidth;
                     yDP = graphHeight - Convert.ToSingle(graphHeight * (dataPoint.Value - minimumGraphValue) / range);
-                    graphItems.Add(new GraphLine
+                    GraphLine graphLine = new GraphLine
                     {
                         Color = ViewModel.LineColor,
                         StrokeWidth = 3,
@@ -174,7 +174,33 @@ namespace EconomyGraph.Views.ContentViews
                         YPosStart = yPos + padding + lastYdp,
                         XPosEnd = xDP,
                         YPosEnd = yPos + padding + yDP
-                    });
+                    };
+                    graphItems.Add(graphLine);
+                    if (dataPoint.CircleType != CircleType.None)
+                    {
+                        float strokeWidth = 3;
+                        graphItems.Add(new GraphCircle
+                        {
+                            Color = dataPoint.Color != null ? dataPoint.Color.Value : ViewModel.LineColor,
+                            XPos = graphLine.XPosEnd,
+                            YPos = graphLine.YPosEnd,
+                            Radius = dataPoint.CircleRadius * scale,
+                            PaintStyle = SKPaintStyle.Fill,
+                            StrokeWidth = strokeWidth,
+                        });
+                        if (dataPoint.CircleType == CircleType.Donut)
+                        {
+                            graphItems.Add(new GraphCircle
+                            {
+                                Color = ViewModel.BackgroundColor.HasValue ? ViewModel.BackgroundColor.Value : SKColors.White,
+                                XPos = graphLine.XPosEnd,
+                                YPos = graphLine.YPosEnd,
+                                Radius = (dataPoint.CircleRadius - strokeWidth) * scale,
+                                PaintStyle = SKPaintStyle.Fill,
+                                StrokeWidth = strokeWidth,
+                            });
+                        }
+                    }
                     if (dataPoint.Label != null)
                     {
                         graphItems.Add(new GraphText

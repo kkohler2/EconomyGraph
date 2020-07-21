@@ -1,8 +1,8 @@
 ﻿Bar/Line Graph
 =================
 Proper height calculation for rotated X-axis labels
-Display (optional) labels near data points on graph
-Optional color for specific Bars, distinct from other bar colors (i.e. hilight one bar in specific color to stand out)
+Optional labels anywhere on graph
+Multi-line x-axis lables
 
 
 For readme:
@@ -16,3 +16,6 @@ Horizontal Shading
 Vertical Shading
 Define Bottom value
 Define Top value
+Optional color for specific Bars, distinct from other bar colors (i.e. hilight one bar in specific color to stand out)
+Display (optional) labels near data points on graph
+Optional Circles for data points

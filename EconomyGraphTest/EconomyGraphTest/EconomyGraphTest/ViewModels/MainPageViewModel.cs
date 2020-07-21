@@ -144,7 +144,12 @@ namespace EconomyGraphTest.ViewModels
                         DataPoints = new List<DataPoint>
                         {
                             new DataPoint{Value=3.6},
-                            new DataPoint{Value=0.5},
+                            new DataPoint
+                            {
+                                Value=0.5,
+                                CircleType = CircleType.Solid,
+                                CircleRadius = 10,
+                            },
                             new DataPoint{Value=3.2},
                             new DataPoint{Value=3.2}
                         }

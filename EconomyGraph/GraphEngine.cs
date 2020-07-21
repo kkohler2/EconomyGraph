@@ -1,7 +1,6 @@
 ﻿using EconomyGraph.Models;
 using SkiaSharp;
 using System.Collections.Generic;
-using System.Threading;
 using Xamarin.Forms;
 
 namespace EconomyGraph
@@ -27,6 +26,27 @@ namespace EconomyGraph
                     Style = SKPaintStyle.Stroke,
                     Color = graphLine.Color,
                     StrokeWidth = graphLine.StrokeWidth
+                };
+                lineBrushes[key] = brush;
+            }
+            return brush;
+        }
+
+        SKPaint GetCircleBrush(GraphCircle graphCircle)
+        {
+            SKPaint brush;
+            string key = $"{graphCircle.Color}{graphCircle.StrokeWidth}{graphCircle.PaintStyle}";
+            if (lineBrushes.ContainsKey(key))
+            {
+                brush = lineBrushes[key];
+            }
+            else
+            {
+                brush = new SKPaint
+                {
+                    Style = graphCircle.PaintStyle,
+                    Color = graphCircle.Color,
+                    StrokeWidth = graphCircle.StrokeWidth
                 };
                 lineBrushes[key] = brush;
             }
@@ -125,6 +145,10 @@ namespace EconomyGraph
                                 // auto restore, even on exceptions or errors
                             }
                         }
+                        break;
+                    case "GraphCircle":
+                        GraphCircle graphCircle = item as GraphCircle;
+                        canvas.DrawCircle(graphCircle.XPos, graphCircle.YPos, graphCircle.Radius, GetCircleBrush(graphCircle));
                         break;
                 }
             }    
