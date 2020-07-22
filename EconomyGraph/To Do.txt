@@ -2,6 +2,7 @@
 =================
 Proper height calculation for rotated X-axis labels
 Optional labels anywhere on graph
+Legend
 
 
 For readme:
