@@ -15,7 +15,7 @@
         <contentviews:LineGraphView GraphWidth="800" GraphHeight="400" ViewModel="{Binding LineGraphWithFootersViewModel}" IsVisible="{Binding LineGraphWithFooters}"/>
         <contentviews:LineGraphView GraphWidth="800" GraphHeight="400" ViewModel="{Binding LineGraphWithMultiLineHeaderViewModel}" IsVisible="{Binding LineGraphWithMultiLineHeader}"/>
         <contentviews:BarGraphView GraphWidth="800" GraphHeight="400" ViewModel="{Binding BarGraphViewModel}" IsVisible="{Binding BarGraph}"/>
-        <contentviews:ShadedLineGraphView GraphWidth="800" GraphHeight="400" ViewModel="{Binding ShadedLineGraphViewModel}" IsVisible="{Binding ShadedLineGraph}"/>
+        <contentviews:ShadedLineGraphView GraphWidth="1200" GraphHeight="400" ViewModel="{Binding ShadedLineGraphViewModel}" IsVisible="{Binding ShadedLineGraph}"/>
         <contentviews:ShadedBarGraphView GraphWidth="800" GraphHeight="400" ViewModel="{Binding ShadedBarGraphViewModel}" IsVisible="{Binding ShadedBarGraph}"/>
         <ScrollView IsVisible="{Binding ShowButtons}">
             <StackLayout>

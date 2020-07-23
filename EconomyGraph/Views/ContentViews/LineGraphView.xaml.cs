@@ -96,7 +96,7 @@ namespace EconomyGraph.Views.ContentViews
 
             DrawLeftLabel(graphItems, graphHeight, scale, yPos);
 
-            DrawShadedSections(graphItems, graphHeight, yPos, padding, labelWidth);
+            DrawShadedSections(graphItems, graphHeight, xPos, yPos, padding, labelWidth);
 
             DrawVerticalShading(padding, graphItems, yPos, YLabels, labelWidth, ySectionHeight, xPos);
 
@@ -120,7 +120,10 @@ namespace EconomyGraph.Views.ContentViews
             foreach (var dg in ViewModel.DataGroups)
             {
                 if (string.IsNullOrWhiteSpace(dg.Label))
+                {
+                    labelXPos += dg.GroupWidth;
                     continue;
+                }
 
                 float alignedLabelXPos = labelXPos;
                 switch (ViewModel.XLabelAlignment)
@@ -166,7 +169,7 @@ namespace EconomyGraph.Views.ContentViews
             {
                 if (yDP == -1) // First data point
                 {
-                    yDP = graphHeight - Convert.ToSingle(graphHeight * (dataPoint.Value - minimum) / range);
+                    yDP = graphHeight - Convert.ToSingle(graphHeight * (dataPoint.Value - minimumGraphValue) / range);
                 }
                 else
                 {
@@ -225,9 +228,23 @@ namespace EconomyGraph.Views.ContentViews
                 }
                 if (dataPoint.IndicatorLine)
                 {
+                    SKColor color;
+                    if (ViewModel.VerticalLineColor.HasValue)
+                    {
+                        color = ViewModel.VerticalLineColor.Value;
+                    }
+                    else if (ViewModel.HorizontalBottomLineColor.HasValue)
+                    {
+                        color = ViewModel.HorizontalBottomLineColor.Value;
+                    }
+                    else if (ViewModel.HorizontalLineColor.HasValue)
+                    {
+                        color = ViewModel.HorizontalLineColor.Value;
+                    }
+                    else color = SKColors.Black;
                     graphItems.Add(new GraphLine
                     {
-                        Color = ViewModel.VerticalLineColor.Value,
+                        Color = color,
                         StrokeWidth = 2,
                         XPosStart = xDP,
                         YPosStart = yPos + graphHeight + padding,
@@ -321,7 +338,7 @@ namespace EconomyGraph.Views.ContentViews
             graphItems.Add(graphText);
         }
 
-        protected virtual void DrawShadedSections(List<IGraphItem> graphItems, float graphHeight, float yPos, float padding, float labelWidth)
+        protected virtual void DrawShadedSections(List<IGraphItem> graphItems, float graphHeight, float xPos, float yPos, float padding, float labelWidth)
         {
         }
 
@@ -535,7 +552,7 @@ namespace EconomyGraph.Views.ContentViews
             minimum = ViewModel.BottomGraphValue;
             double maximum = ViewModel.TopGraphValue != 0 ? ViewModel.TopGraphValue : minimum;
             dataPoints = new List<DataPoint>();
-            minimumGraphValue = 0;
+            minimumGraphValue = minimum;
             maximumGraphValue = 0;
             foreach (var dg in ViewModel.DataGroups)
             {
@@ -548,6 +565,7 @@ namespace EconomyGraph.Views.ContentViews
             }
             hValues = new List<decimal>();
             hValue = 0;
+            if (0 < minimum) hValue = Convert.ToDecimal(minimum);
             while (hValue <= (decimal)maximum)
             {
                 hValues.Add(Convert.ToDecimal(hValue));

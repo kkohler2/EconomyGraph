@@ -21,13 +21,13 @@ namespace EconomyGraph.Views.ContentViews
             PaintGraph(e);
         }
 
-        protected override void DrawShadedSections(List<IGraphItem> graphItems, float graphHeight, float yPos, float padding, float labelWidth)
+        protected override void DrawShadedSections(List<IGraphItem> graphItems, float graphHeight, float xPos, float yPos, float padding, float labelWidth)
         {
             ShadedLineGraphViewModel viewModel = ViewModel as ShadedLineGraphViewModel;
             DateTime StartDate = new DateTime();
             DateTime EndDate = new DateTime();
             bool first = true;
-            float xDataPointStart = padding * 2 + labelWidth;
+            float xDataPointStart = xPos;
             float xDataPointEnd = xDataPointStart;
             GraphRectangle previousGraphRectangle = null;
             foreach (DataGroup dg in viewModel.DataGroups)

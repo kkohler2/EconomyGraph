@@ -10,6 +10,15 @@
     <RepositoryUrl>https://github.com/kkohler2/EconomyGraph</RepositoryUrl>
     <PackageProjectUrl>https://github.com/kkohler2/EconomyGraph</PackageProjectUrl>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <Version>1.0.1</Version>
+    <Description>Bug fixes:
+Corrected height of first data point on line graphs.
+Corrected color of indicator lines, which would result in crash if VerticalLineColor was not defined.
+Corrected minimum graph value.
+Updated EndDates for shaded periods / recessions.
+Corrected starting x-coordinate for for shaded periods.
+Replaced ShadedLineGraphViewModel data with Monthly Housing Starts (previous viewmodel data renamed to ShadedLineGraphViewModelYearlyGDP, but otherwise not used.)
+Corrected x-axis position of label of not all data groups have labels.</Description>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

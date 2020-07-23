@@ -1,5 +1,6 @@
 ﻿using EconomyGraph.Models;
 using EconomyGraph.ViewModels;
+using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using System;
 using System.Collections.Generic;
@@ -126,6 +127,32 @@ namespace EconomyGraph.Views.ContentViews
                         XPos = graphRectangle.XPos + dataPoint.Label.XOffSet * scale,
                         YPos = graphRectangle.YPos + dataPoint.Label.YOffSet * scale,
                         Bold = dataPoint.Label.Bold
+                    });
+                }
+                if (dataPoint.IndicatorLine)
+                {
+                    SKColor color;
+                    if (ViewModel.VerticalLineColor.HasValue)
+                    {
+                        color = ViewModel.VerticalLineColor.Value;
+                    }
+                    else if (ViewModel.HorizontalBottomLineColor.HasValue)
+                    {
+                        color = ViewModel.HorizontalBottomLineColor.Value;
+                    }
+                    else if (ViewModel.HorizontalLineColor.HasValue)
+                    {
+                        color = ViewModel.HorizontalLineColor.Value;
+                    }
+                    else color = SKColors.Black;
+                    graphItems.Add(new GraphLine
+                    {
+                        Color = color,
+                        StrokeWidth = 2,
+                        XPosStart = graphRectangle.XPos + barWidth / 2,
+                        YPosStart = yPos + graphHeight + padding,
+                        XPosEnd = graphRectangle.XPos + barWidth / 2,
+                        YPosEnd = yPos + graphHeight + padding + ViewModel.InidicatorLineLength * scale
                     });
                 }
                 xPos += calculatedBarWidth;
