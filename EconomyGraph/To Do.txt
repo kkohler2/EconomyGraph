@@ -1,6 +1,5 @@
 ﻿Bar/Line Graph
 =================
-Proper height calculation for rotated X-axis labels
 Optional labels anywhere on graph
 Legend
 
@@ -21,3 +20,4 @@ Display (optional) labels near data points on graph
 Optional Circles for data points
 Multi-line data group labels.
 Data indicator lines
+X-Axis label rotation options

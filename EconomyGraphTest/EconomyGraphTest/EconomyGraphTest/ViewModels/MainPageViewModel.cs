@@ -127,6 +127,7 @@ namespace EconomyGraphTest.ViewModels
                 XLabelAlignment = Xamarin.Forms.TextAlignment.Center,
                 XLabelColor = SKColors.Black,
                 XLabelPointSize = 20,
+                XLabelRotation = LabelRotation.Angle,
                 YFirstLabelFormat = "{0:F}%",
                 YLabelFormat = "{0:F}",
                 YLabelAlignment = Xamarin.Forms.TextAlignment.Start,

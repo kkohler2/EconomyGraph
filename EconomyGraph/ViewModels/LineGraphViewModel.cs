@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace EconomyGraph.ViewModels
 {
+    public enum LabelRotation { Horizontal, Angle, Vertical}
     public class LineGraphViewModel
     {
         public SKColor? BackgroundColor { get; set; }
@@ -48,6 +49,10 @@ namespace EconomyGraph.ViewModels
         public SKColor? OddRowHorizontalColor { get; set; }
         public SKColor XLabelColor { get; set; } = SKColors.Black;
         public float XLabelPointSize { get; set; }
+        /// <summary>
+        /// Only Horizontal rotation supports multiple lines
+        /// </summary>
+        public LabelRotation XLabelRotation { get; set; } = LabelRotation.Horizontal;
         /// <summary>
         /// Defaults to zero or lowest value if negative.  If higher starting point is desired, set this > 0.
         /// </summary>

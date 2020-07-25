@@ -109,14 +109,14 @@ namespace EconomyGraph.Views.ContentViews
             // Heart of the graph - define lines from one data point to the next.
             GraphData(padding, graphItems, xPos, yPos, minimum, dataPoints, labelWidth, graphHeight, pointWidth, minimumGraphValue, maximumGraphValue, hValues, ySectionHeight, zeroYPos, scale);
 
-            DrawXAxisLabels(xLabelYPos, scale, padding, graphItems, labelWidth);
+            DrawXAxisLabels(xLabelYPos, scale, padding, graphItems, labelWidth, xPos);
 
             graphEngine.Draw(e.Surface, graphItems);
         }
 
-        protected virtual void DrawXAxisLabels(float labelYPos, float scale, float padding, List<IGraphItem> graphItems, float labelWidth)
+        protected virtual void DrawXAxisLabels(float labelYPos, float scale, float padding, List<IGraphItem> graphItems, float labelWidth, float xPos)
         {
-            float labelXPos = padding * 2 + labelWidth;
+            float labelXPos = xPos;
             foreach (var dg in ViewModel.DataGroups)
             {
                 if (string.IsNullOrWhiteSpace(dg.Label))
@@ -138,19 +138,52 @@ namespace EconomyGraph.Views.ContentViews
                         break;
                 }
                 float yPos = labelYPos;
-                foreach (string line in dg.Label.Split('\n'))
+                SKPaint xLabelBrush = CreateXLabelBrush(scale);
+                float textWidth = xLabelBrush.MeasureText(dg.Label);
+                switch (ViewModel.XLabelRotation)
                 {
-                    yPos += ViewModel.XLabelPointSize * scale * 1.25f;
-                    graphItems.Add(new GraphText
-                    {
-                        Alignment = ViewModel.XLabelAlignment,
-                        Color = ViewModel.XLabelColor,
-                        PointSize = ViewModel.XLabelPointSize * scale,
-                        Text = line,
-                        XPos = alignedLabelXPos,
-                        YPos = yPos,
-                        Bold = false
-                    });
+                    case LabelRotation.Horizontal:
+                        foreach (string line in dg.Label.Split('\n'))
+                        {
+                            yPos += ViewModel.XLabelPointSize * scale * 1.25f;
+                            graphItems.Add(new GraphText
+                            {
+                                Alignment = ViewModel.XLabelAlignment,
+                                Color = ViewModel.XLabelColor,
+                                PointSize = ViewModel.XLabelPointSize * scale,
+                                Text = line,
+                                XPos = alignedLabelXPos,
+                                YPos = yPos,
+                                Bold = false
+                            });
+                        }
+                        break;
+                    case LabelRotation.Angle:
+                        graphItems.Add(new GraphText
+                        {
+                            Alignment = TextAlignment.End,
+                            Color = ViewModel.XLabelColor,
+                            PointSize = ViewModel.XLabelPointSize * scale,
+                            Text = dg.Label,
+                            XPos = alignedLabelXPos,
+                            YPos = yPos + ViewModel.XLabelPointSize * scale,
+                            Bold = false,
+                            Rotation = 315
+                        });
+                        break;
+                    case LabelRotation.Vertical:
+                        graphItems.Add(new GraphText
+                        {
+                            Alignment = TextAlignment.Start,
+                            Color = ViewModel.XLabelColor,
+                            PointSize = ViewModel.XLabelPointSize * scale,
+                            Text = dg.Label,
+                            XPos = alignedLabelXPos + ViewModel.XLabelPointSize * scale - padding,
+                            YPos = yPos + textWidth,
+                            Bold = false,
+                            Rotation = 270
+                        });
+                        break;
                 }
                 labelXPos += dg.GroupWidth;
             }
@@ -285,7 +318,7 @@ namespace EconomyGraph.Views.ContentViews
 
         private float CalculateGraphHeight(float canvasHeight, float yPos, float padding, float footerHeight, float scale, out float xLabelYPos)
         {
-            float labelHeight = 0;
+            double labelHeight = 0;
             float maxLabelHeight = 0;
             bool usePointIdicators = false;
 
@@ -295,11 +328,28 @@ namespace EconomyGraph.Views.ContentViews
                     continue;
 
                 labelHeight = 0;
-                foreach (string line in dataGroup.Label.Split('\n'))
+                SKPaint xLabelBrush = CreateXLabelBrush(scale); // Needed to determine graph width, taking into account Y-Label max width.
+                switch (ViewModel.XLabelRotation)
                 {
-                    labelHeight += (ViewModel.XLabelPointSize * 1.25f * scale);
+                    case LabelRotation.Vertical:
+                        labelHeight = xLabelBrush.MeasureText(dataGroup.Label);
+                        if (labelHeight > maxLabelHeight) maxLabelHeight = Convert.ToSingle(labelHeight);
+                        break;
+                    case LabelRotation.Angle:
+                        float width = Convert.ToSingle(ViewModel.XLabelPointSize * 1.25 * scale);
+                        float textWidth = xLabelBrush.MeasureText(dataGroup.Label);
+                        labelHeight = Math.Sqrt(textWidth * textWidth / 2) + Math.Sqrt(width * width / 2);
+                        if (labelHeight > maxLabelHeight) maxLabelHeight = Convert.ToSingle(labelHeight);
+                        break;
+                    case LabelRotation.Horizontal:
+                    default:
+                        foreach (string line in dataGroup.Label.Split('\n'))
+                        {
+                            labelHeight += (ViewModel.XLabelPointSize * 1.25f * scale);
+                        }
+                        if (labelHeight > maxLabelHeight) maxLabelHeight = Convert.ToSingle(labelHeight);
+                        break;
                 }
-                if (labelHeight > maxLabelHeight) maxLabelHeight = labelHeight;
                 usePointIdicators = usePointIdicators || dataGroup.DataPoints.Where(dp => dp.IndicatorLine == true).Any();
             }
             float graphHeight = canvasHeight - yPos - maxLabelHeight - padding - footerHeight - (usePointIdicators ? ViewModel.InidicatorLineLength * scale : 0);
@@ -508,6 +558,17 @@ namespace EconomyGraph.Views.ContentViews
                 Alignment = ViewModel.YLabelAlignment,
                 Color = ViewModel.YLabelColor,
                 PointSize = ViewModel.YLabelPointSize * scale,
+                Bold = false
+            });
+        }
+
+        protected virtual SKPaint CreateXLabelBrush(float scale)
+        {
+            return graphEngine.GetTextBrush(new GraphText
+            {
+                Alignment = TextAlignment.Start,
+                Color = ViewModel.XLabelColor,
+                PointSize = ViewModel.XLabelPointSize * scale,
                 Bold = false
             });
         }
