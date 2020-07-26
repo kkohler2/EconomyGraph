@@ -7,7 +7,7 @@ namespace EconomyGraph.Models
     public class DataPoint
     {
         public DataPointLabel Label { get; set; }
-        public double Value { get; set; }
+        public double? Value { get; set; }
         /// <summary>
         /// Set color to override default
         /// </summary>

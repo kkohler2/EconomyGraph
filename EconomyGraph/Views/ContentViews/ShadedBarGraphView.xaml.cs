@@ -145,7 +145,7 @@ namespace EconomyGraph.Views.ContentViews
             float barPadding = (calculatedBarWidth - barWidth) / 2;
             foreach (var dataPoint in dataPoints)
             {
-                if (dataPoint.Value >= 0)
+                if (dataPoint.Value.HasValue && dataPoint.Value >= 0)
                 {
                     double barRange = graphHeight;
                     if (zeroIndex != -1)
@@ -175,8 +175,8 @@ namespace EconomyGraph.Views.ContentViews
                         YPos = zeroYPos != -1 ? zeroYPos - barHeight : graphHeight + yPos + padding - barHeight
                     });
                 }
-                else
-                {
+                else if (dataPoint.Value.HasValue)
+                        {
                     double barRange = graphHeight;
                     if (zeroIndex != -1)
                     {

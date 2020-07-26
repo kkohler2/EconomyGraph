@@ -54,7 +54,7 @@ namespace EconomyGraph.Views.ContentViews
             foreach (var dataPoint in dataPoints)
             {
                 GraphRectangle graphRectangle = null;
-                if (dataPoint.Value >= 0)
+                if (dataPoint.Value.HasValue && dataPoint.Value >= 0)
                 {
                     double barRange = graphHeight;
                     if (zeroIndex != -1)
@@ -83,8 +83,9 @@ namespace EconomyGraph.Views.ContentViews
                         XPos = xPos + barPadding,
                         YPos = zeroYPos != -1 ? zeroYPos - barHeight : graphHeight + yPos + padding - barHeight
                     };
+                    graphItems.Add(graphRectangle);
                 }
-                else
+                else if (dataPoint.Value.HasValue)
                 {
                     double barRange = graphHeight;
                     if (zeroIndex != -1)
@@ -114,8 +115,8 @@ namespace EconomyGraph.Views.ContentViews
                         XPos = xPos + barPadding,
                         YPos = zeroYPos != -1 ? zeroYPos - barHeight : graphHeight + yPos + padding - barHeight
                     };
+                    graphItems.Add(graphRectangle);
                 }
-                graphItems.Add(graphRectangle);
                 if (dataPoint.Label != null)
                 {
                     graphItems.Add(new GraphText

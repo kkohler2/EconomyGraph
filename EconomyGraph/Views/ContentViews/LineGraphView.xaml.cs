@@ -198,11 +198,16 @@ namespace EconomyGraph.Views.ContentViews
             //float graphWidth = canvasWidth - xDP - padding; // Canvas width less xPos of first point less padding on right side
 
             double range = maximumGraphValue - minimumGraphValue;
+            DataPoint previousDataPoint = null;
             foreach (var dataPoint in dataPoints)
             {
-                if (yDP == -1) // First data point
+                if (yDP == -1 || !dataPoint.Value.HasValue) // First data point or current data point does not have a value.
                 {
                     yDP = graphHeight - Convert.ToSingle(graphHeight * (dataPoint.Value - minimumGraphValue) / range);
+                    if (yDP != -1 && !dataPoint.Value.HasValue)
+                    {
+                        xDP += pointWidth;
+                    }
                 }
                 else
                 {
@@ -219,7 +224,10 @@ namespace EconomyGraph.Views.ContentViews
                         XPosEnd = xDP,
                         YPosEnd = yPos + padding + yDP
                     };
-                    graphItems.Add(graphLine);
+                    if (previousDataPoint != null && previousDataPoint.Value.HasValue) // If previous data point exists, but is null, then skip drawing line
+                    {
+                        graphItems.Add(graphLine);
+                    }
                     if (dataPoint.CircleType != CircleType.None)
                     {
                         float strokeWidth = 3;
@@ -285,6 +293,7 @@ namespace EconomyGraph.Views.ContentViews
                         YPosEnd = yPos + graphHeight + padding + ViewModel.InidicatorLineLength * scale
                     });
                 }
+                previousDataPoint = dataPoint;
             }
         }
 
@@ -620,8 +629,8 @@ namespace EconomyGraph.Views.ContentViews
                 foreach(var dp in dg.DataPoints)
                 {
                     dataPoints.Add(dp);
-                    if (dp.Value < minimum) { minimum = dp.Value; }
-                    if (dp.Value > maximum) { maximum = dp.Value; }
+                    if (dp.Value.HasValue && dp.Value.Value < minimum) { minimum = dp.Value.Value; }
+                    if (dp.Value.HasValue && dp.Value.Value > maximum) { maximum = dp.Value.Value; }
                 }
             }
             hValues = new List<decimal>();
