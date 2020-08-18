@@ -113,7 +113,7 @@ namespace EconomyGraph.Views.ContentViews
         /// <summary>
         /// Same as BarGraphView.GraphData, but copied, since not derived from BarGraphView
         /// </summary>
-        protected override void GraphData(float padding, List<IGraphItem> graphItems, float xPos, float yPos, double minimum, List<DataPoint> dataPoints, float labelWidth, float graphHeight, float barWidth, double minimumGraphValue, double maximumGraphValue, List<decimal> hValues, float ySectionHeight, float zeroYPos, float scale)
+        protected override void GraphData(float padding, List<IGraphItem> graphItems, float xPos, float yPos, double minimum, List<IDataPoint> dataPoints, float labelWidth, float graphHeight, float barWidth, double minimumGraphValue, double maximumGraphValue, List<decimal> hValues, float ySectionHeight, float zeroYPos, float scale)
         {
             var calculatedBarWidth = barWidth; // for bar spacing
             ShadedBarGraphViewModel viewModel = ViewModel as ShadedBarGraphViewModel;

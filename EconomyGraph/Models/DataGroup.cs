@@ -9,7 +9,7 @@ namespace EconomyGraph.Models
         /// <summary>
         /// Required for ShadingGraphs.  Must have date per data point and be in calendar order! 
         /// </summary>
-        public List<DataPoint> DataPoints { get; set; } = new List<DataPoint>();
+        public List<IDataPoint> DataPoints { get; set; } = new List<IDataPoint>();
         /// <summary>
         /// Date range needed for "recession" shading.
         /// </summary>

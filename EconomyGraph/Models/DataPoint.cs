@@ -3,8 +3,7 @@ using System;
 
 namespace EconomyGraph.Models
 {
-    public enum CircleType { None, Donut, Solid }
-    public class DataPoint
+    public class DataPoint : IDataPoint
     {
         public DataPointLabel Label { get; set; }
         public double? Value { get; set; }
@@ -18,13 +17,5 @@ namespace EconomyGraph.Models
         /// Set to true to display short line under X-Axis above any label to indicate where data point is on graph
         /// </summary>
         public bool IndicatorLine { get; set; }
- 
-        #region Line Graphs Only
-        public CircleType CircleType { get; set; } = CircleType.None;
-        /// <summary>
-        /// Only used if CircleType != None
-        /// </summary>
-        public float CircleRadius { get; set; }
-        #endregion
-    }
+     }
 }

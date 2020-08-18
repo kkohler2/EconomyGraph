@@ -42,6 +42,9 @@ namespace EconomyGraphTest.ViewModels
         private bool _shadedBarGraph;
         public bool ShadedBarGraph { get { return _shadedBarGraph; } set { SetProperty(ref _shadedBarGraph, value); } }
 
+        private bool _pointGraph;
+        public bool PointGraph { get { return _pointGraph; } set { SetProperty(ref _pointGraph, value); } }
+
         public ICommand ShowGraphCommand { get; }
         public ICommand HideGraphCommand { get; }
         public MainPageViewModel()
@@ -142,36 +145,36 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2013\nLine 2!",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
-                            new DataPoint{Value=3.6, IndicatorLine = true},
-                            new DataPoint
+                            new LineDataPoint{Value=3.6, IndicatorLine = true},
+                            new LineDataPoint
                             {
                                 Value=0.5,
                                 CircleType = CircleType.Donut,
                                 CircleRadius = 10,
                                 IndicatorLine = true
                             },
-                            new DataPoint{Value=3.2, IndicatorLine = true },
-                            new DataPoint{Value=3.2, IndicatorLine = true}
+                            new LineDataPoint{Value=3.2, IndicatorLine = true },
+                            new LineDataPoint{Value=3.2, IndicatorLine = true}
                         }
                     },
                     new DataGroup
                     {
                         Label = "2014",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
-                            new DataPoint{Value=-1.1},
-                            new DataPoint{Value=5.5},
-                            new DataPoint{Value=2.3},
+                            new LineDataPoint{Value=-1.1},
+                            new LineDataPoint{Value=5.5},
+                            new LineDataPoint{Value=2.3},
                         }
                     },
                     new DataGroup
                     {
                         Label = "2015",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
-                            new DataPoint
+                            new LineDataPoint
                             {
                                 Value=3.2,
                                 Label = new DataPointLabel
@@ -184,60 +187,60 @@ namespace EconomyGraphTest.ViewModels
                                     YOffSet = -5
                                 }
                             },
-                            new DataPoint{Value=3},
-                            new DataPoint{Value=1.3},
-                            new DataPoint{Value=0.1}
+                            new LineDataPoint{Value=3},
+                            new LineDataPoint{Value=1.3},
+                            new LineDataPoint{Value=0.1}
                         }
                     },
                     new DataGroup
                     {
                         Label = "2016",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
-                            new DataPoint{Value=2},
-                            new DataPoint{Value=1.9},
-                            new DataPoint{Value=2.2},
-                            new DataPoint{Value=2}
+                            new LineDataPoint{Value=2},
+                            new LineDataPoint{Value=1.9},
+                            new LineDataPoint{Value=2.2},
+                            new LineDataPoint{Value=2}
                         }
                     },
                     new DataGroup
                     {
                         Label = "2017",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
-                            new DataPoint{Value=2.3},
-                            new DataPoint{Value=2.2},
-                            new DataPoint{Value=3.2},
-                            new DataPoint{Value=3.5}
+                            new LineDataPoint{Value=2.3},
+                            new LineDataPoint{Value=2.2},
+                            new LineDataPoint{Value=3.2},
+                            new LineDataPoint{Value=3.5}
                         }
                     },
                     new DataGroup
                     {
                         Label = "2018",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
-                            new DataPoint{Value=2.5},
-                            new DataPoint{Value=3.5},
-                            new DataPoint{Value=2.9},
-                            new DataPoint{Value=1.1}
+                            new LineDataPoint{Value=2.5},
+                            new LineDataPoint{Value=3.5},
+                            new LineDataPoint{Value=2.9},
+                            new LineDataPoint{Value=1.1}
                         }
                     },
                     new DataGroup
                     {
                         Label = "2019",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
-                            new DataPoint{Value=3.1},
-                            new DataPoint{Value=2},
-                            new DataPoint{Value=2.1},
-                            new DataPoint{Value=2.1}
+                            new LineDataPoint{Value=3.1},
+                            new LineDataPoint{Value=2},
+                            new LineDataPoint{Value=2.1},
+                            new LineDataPoint{Value=2.1}
                         }
                     },
                     new DataGroup
                     {
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
-                            new DataPoint{Value=-4.8}
+                            new LineDataPoint{Value=-4.8}
                         }
                     }
                 }
@@ -285,7 +288,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2013",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value=3.6},
                             new DataPoint{Value=0.5},
@@ -296,7 +299,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2014",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value=-1.1},
                             new DataPoint{Value=5.5},
@@ -307,7 +310,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2015",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value=3.2},
                             new DataPoint{Value=3},
@@ -318,7 +321,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2016",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value=2},
                             new DataPoint{Value=1.9},
@@ -329,7 +332,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2017",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value=2.3},
                             new DataPoint{Value=2.2},
@@ -340,7 +343,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2018",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value=2.5},
                             new DataPoint{Value=3.5},
@@ -351,7 +354,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2019",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value=3.1},
                             new DataPoint{Value=2},
@@ -361,7 +364,7 @@ namespace EconomyGraphTest.ViewModels
                     },
                     new DataGroup
                     {
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value=-4.8}
                         }
@@ -423,7 +426,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2013",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value=3.6},
                             new DataPoint{Value=0.5},
@@ -434,7 +437,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2014",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value=-1.1},
                             new DataPoint{Value=5.5},
@@ -445,7 +448,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2015",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value=3.2},
                             new DataPoint{Value=3},
@@ -456,7 +459,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2016",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value=2},
                             new DataPoint{Value=1.9},
@@ -467,7 +470,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2017",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value=2.3},
                             new DataPoint{Value=2.2},
@@ -478,7 +481,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2018",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value=2.5},
                             new DataPoint{Value=3.5},
@@ -489,7 +492,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2019",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value=3.1},
                             new DataPoint{Value=2},
@@ -499,7 +502,7 @@ namespace EconomyGraphTest.ViewModels
                     },
                     new DataGroup
                     {
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value=-4.8}
                         }
@@ -542,7 +545,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2013",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value=3.6},
                             new DataPoint{Value=0.5},
@@ -553,7 +556,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2014",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value=-1.1},
                             new DataPoint{Value=5.5},
@@ -564,7 +567,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2015",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value=3.2},
                             new DataPoint{Value=3},
@@ -575,7 +578,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2016",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value=2},
                             new DataPoint{Value=1.9},
@@ -586,7 +589,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2017",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value=2.3},
                             new DataPoint{Value=2.2},
@@ -597,7 +600,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2018",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value=2.5},
                             new DataPoint{Value=3.5},
@@ -608,7 +611,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2019",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value=3.1},
                             new DataPoint{Value=2},
@@ -618,7 +621,7 @@ namespace EconomyGraphTest.ViewModels
                     },
                     new DataGroup
                     {
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value=-4.8}
                         }
@@ -661,7 +664,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2013",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value=3.6},
                             new DataPoint{Value=0.5},
@@ -672,7 +675,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2014",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint
                             {
@@ -695,7 +698,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2015",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint
                             {
@@ -718,7 +721,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2016",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value=2},
                             new DataPoint{Value=1.9},
@@ -729,7 +732,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2017",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value=2.3},
                             new DataPoint{Value=2.2},
@@ -740,7 +743,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2018",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value=2.5},
                             new DataPoint{Value=3.5},
@@ -751,7 +754,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2019",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value=3.1},
                             new DataPoint{Value=2},
@@ -761,7 +764,7 @@ namespace EconomyGraphTest.ViewModels
                     },
                     new DataGroup
                     {
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value=-4.8}
                         }
@@ -812,7 +815,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = null,
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value = 1460,EndDate=new DateTime(1960,1,29)},
                             new DataPoint{Value = 1503,EndDate=new DateTime(1960,2,29)},
@@ -831,7 +834,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "1961",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value = 1183,EndDate=new DateTime(1961,1,28),IndicatorLine=true},
                             new DataPoint{Value = 1226,EndDate=new DateTime(1961,2,28)},
@@ -850,7 +853,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "1962",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value = 1361,EndDate=new DateTime(1962,1,28),IndicatorLine=true},
                             new DataPoint{Value = 1278,EndDate=new DateTime(1962,2,28)},
@@ -869,7 +872,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "1963",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value = 1244,EndDate=new DateTime(1963,1,28),IndicatorLine=true},
                             new DataPoint{Value = 1456,EndDate=new DateTime(1963,2,28)},
@@ -888,7 +891,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "1964",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value = 1603,EndDate=new DateTime(1964,1,29),IndicatorLine=true},
                             new DataPoint{Value = 1820,EndDate=new DateTime(1964,2,29)},
@@ -907,7 +910,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "1965",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value = 1361,EndDate=new DateTime(1965,1,28),IndicatorLine=true},
                             new DataPoint{Value = 1433,EndDate=new DateTime(1965,2,28)},
@@ -926,7 +929,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "1966",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value = 1370,EndDate=new DateTime(1966,1,28),IndicatorLine=true},
                             new DataPoint{Value = 1378,EndDate=new DateTime(1966,2,28)},
@@ -945,7 +948,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "1967",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value = 1067,EndDate=new DateTime(1967,1,28),IndicatorLine=true},
                             new DataPoint{Value = 1123,EndDate=new DateTime(1967,2,28)},
@@ -964,7 +967,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "1968",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value = 1380,EndDate=new DateTime(1968,1,29),IndicatorLine=true},
                             new DataPoint{Value = 1520,EndDate=new DateTime(1968,2,29)},
@@ -983,7 +986,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "1969",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value = 1769,EndDate=new DateTime(1969,1,28),IndicatorLine=true},
                             new DataPoint{Value = 1705,EndDate=new DateTime(1969,2,28)},
@@ -1002,7 +1005,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "1970",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value = 1085,EndDate=new DateTime(1970,1,28),IndicatorLine=true},
                             new DataPoint{Value = 1305,EndDate=new DateTime(1970,2,28)},
@@ -1140,7 +1143,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2000",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint
                             {
@@ -1152,7 +1155,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2001",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint
                             {
@@ -1164,7 +1167,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2002",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint
                             {
@@ -1176,7 +1179,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2003",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint
                             {
@@ -1188,7 +1191,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2004",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint
                             {
@@ -1200,7 +1203,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2005",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint
                             {
@@ -1212,7 +1215,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2006",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint
                             {
@@ -1224,7 +1227,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2007",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint
                             {
@@ -1236,7 +1239,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2008",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint
                             {
@@ -1248,7 +1251,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2009",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint
                             {
@@ -1387,7 +1390,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "90's",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint
                             {
@@ -1399,7 +1402,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2000's",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint
                             {
@@ -1466,7 +1469,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         Label = "2010's",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint
                             {
@@ -1523,7 +1526,7 @@ namespace EconomyGraphTest.ViewModels
                     new DataGroup
                     {
                         //Label = "2020",
-                        DataPoints = new List<DataPoint>
+                        DataPoints = new List<IDataPoint>
                         {
                             new DataPoint
                             {
@@ -1538,6 +1541,87 @@ namespace EconomyGraphTest.ViewModels
                 StartDate = new DateTime(1999, 1, 1)
             };
             #endregion
+
+            #region PointGraphViewModel
+            PointGraphViewModel = new PointGraphViewModel
+            {
+                BackgroundColor = SKColors.AliceBlue,
+                Title = new Label
+                {
+                    Text = "Point Graph",
+                    PointSize = 25,
+                    TextAlignment = Xamarin.Forms.TextAlignment.Center
+                },
+                //HorizontalLinesStartAtEdge = false,
+                HorizontalLineColor = SKColors.Black,
+                //OddRowHorizontalColor = SKColors.AntiqueWhite,
+                //OddRowVerticalColor = SKColors.AntiqueWhite,
+                //VerticalLeftAxisColor = SKColors.Black,
+                //VerticalLineColor = SKColors.Black,
+                //XLabelAlignment = Xamarin.Forms.TextAlignment.Center,
+                //XLabelColor = SKColors.Black,
+                //XLabelPointSize = 20,
+                //XLabelRotation = LabelRotation.Angle,
+                YFirstLabelFormat = "{0:F}%",
+                YLabelFormat = "{0:F}",
+                YLabelAlignment = Xamarin.Forms.TextAlignment.Start,
+                YLabelColor = SKColors.Black,
+                YLabelPointSize = 20,
+                //LineColor = SKColors.Red,
+                HorizontalLabelPrecision = 1M,
+                CircleType = CircleType.Solid,
+                CircleRadius = 10,
+                //BottomGraphValue = 0,
+                //TopGraphValue = 5,
+                PointColor = SKColors.Black,
+                MaxXValue = 35,
+                DataGroups = new List<DataGroup>
+                {
+                    new DataGroup
+                    {
+                        DataPoints = new List<IDataPoint>
+                        {
+                            new DataPointX{Value=1, XValue=1,Label = new DataPointLabel
+                                {
+                                    Color = SKColors.Blue,
+                                    Bold = true,
+                                    PointSize = 15,
+                                    Text = "1",
+                                    XOffSet = -5,
+                                    YOffSet = -15
+                                }},
+                            new DataPointX{Value=2, XValue=7,Label = new DataPointLabel
+                                {
+                                    Color = SKColors.Blue,
+                                    Bold = true,
+                                    PointSize = 15,
+                                    Text = "2",
+                                    XOffSet = -5,
+                                    YOffSet = -15
+                                }},
+                            new DataPointX{Value=3, XValue=23,Label = new DataPointLabel
+                                {
+                                    Color = SKColors.Blue,
+                                    Bold = true,
+                                    PointSize = 15,
+                                    Text = "3",
+                                    XOffSet = -5,
+                                    YOffSet = -15
+                                }},
+                            new DataPointX{Value=4, XValue=30,Label = new DataPointLabel
+                                {
+                                    Color = SKColors.Blue,
+                                    Bold = true,
+                                    PointSize = 15,
+                                    Text = "4",
+                                    XOffSet = -5,
+                                    YOffSet = -15
+                                }},
+                        }
+                    }
+                }
+            };
+            #endregion
         }
 
         public HorizontalBarGraphViewModel HorizontalBarGraphViewModel { get; set; }
@@ -1549,6 +1633,7 @@ namespace EconomyGraphTest.ViewModels
         public ShadedLineGraphViewModel ShadedLineGraphViewModel { get; set; }
         public ShadedLineGraphViewModel ShadedLineGraphViewModelYearlyGDP { get; set; }
         public ShadedBarGraphViewModel ShadedBarGraphViewModel { get; set; }
+        public PointGraphViewModel PointGraphViewModel { get; set; }       
 
         public void ShowGraph(object buttonParameter)
         {
@@ -1579,6 +1664,9 @@ namespace EconomyGraphTest.ViewModels
                 case "ShadedBarGraph":
                     ShadedBarGraph = true;
                     break;
+                case "PointGraph":
+                    PointGraph = true;
+                    break;
             }
             ShowButtons = false;
         }
@@ -1596,6 +1684,7 @@ namespace EconomyGraphTest.ViewModels
             BarGraph = false;
             ShadedLineGraph = false;
             ShadedBarGraph = false;
+            PointGraph = false;
         }
     }
 }

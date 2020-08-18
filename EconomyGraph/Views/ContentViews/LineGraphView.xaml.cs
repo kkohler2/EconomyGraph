@@ -67,7 +67,7 @@ namespace EconomyGraph.Views.ContentViews
             float xLabelYPos;
 
             double minimum;
-            List<DataPoint> dataPoints;
+            List<IDataPoint> dataPoints;
             List<decimal> hValues;
             decimal hValue;
 
@@ -79,6 +79,8 @@ namespace EconomyGraph.Views.ContentViews
             double minimumGraphValue, maximumGraphValue;
             float zeroYPos = -1;
             #endregion
+
+            ValidateData();
 
             SetBackgroundColor(graphItems);
 
@@ -112,6 +114,21 @@ namespace EconomyGraph.Views.ContentViews
             DrawXAxisLabels(xLabelYPos, scale, padding, graphItems, labelWidth, xPos);
 
             graphEngine.Draw(e.Surface, graphItems);
+        }
+
+        protected virtual void ValidateData()
+        {
+            //foreach (var dataGroup in ViewModel.DataGroups)
+            //{
+            //    foreach (var dataPoint in dataGroup.DataPoints)
+            //    {
+            //        var lineDataPoint = dataPoint as LineDataPoint;
+            //        if (lineDataPoint is null)
+            //        {
+            //            throw new ArgumentException("Line graph data points must be of type LineDataPoint");
+            //        }
+            //    }
+            //}
         }
 
         protected virtual void DrawXAxisLabels(float labelYPos, float scale, float padding, List<IGraphItem> graphItems, float labelWidth, float xPos)
@@ -189,7 +206,7 @@ namespace EconomyGraph.Views.ContentViews
             }
         }
 
-        protected virtual void GraphData(float padding, List<IGraphItem> graphItems, float xPos, float yPos, double minimum, List<DataPoint> dataPoints, float labelWidth, float graphHeight, float pointWidth, double minimumGraphValue, double maximumGraphValue, List<decimal> hValues, float ySectionHeight, float zeroYPos, float scale)
+        protected virtual void GraphData(float padding, List<IGraphItem> graphItems, float xPos, float yPos, double minimum, List<IDataPoint> dataPoints, float labelWidth, float graphHeight, float pointWidth, double minimumGraphValue, double maximumGraphValue, List<decimal> hValues, float ySectionHeight, float zeroYPos, float scale)
         {
             float xDP = xPos; // Essentially, this is X zero for graph on the canvas!
             float yDP = -1;
@@ -198,7 +215,7 @@ namespace EconomyGraph.Views.ContentViews
             //float graphWidth = canvasWidth - xDP - padding; // Canvas width less xPos of first point less padding on right side
 
             double range = maximumGraphValue - minimumGraphValue;
-            DataPoint previousDataPoint = null;
+            IDataPoint previousDataPoint = null;
             foreach (var dataPoint in dataPoints)
             {
                 if (yDP == -1 || !dataPoint.Value.HasValue) // First data point or current data point does not have a value.
@@ -228,7 +245,8 @@ namespace EconomyGraph.Views.ContentViews
                     {
                         graphItems.Add(graphLine);
                     }
-                    if (dataPoint.CircleType != CircleType.None)
+                    var lineDataPoint = dataPoint as LineDataPoint;
+                    if (lineDataPoint != null && lineDataPoint.CircleType != CircleType.None)
                     {
                         float strokeWidth = 3;
                         graphItems.Add(new GraphCircle
@@ -236,18 +254,18 @@ namespace EconomyGraph.Views.ContentViews
                             Color = dataPoint.Color != null ? dataPoint.Color.Value : ViewModel.LineColor,
                             XPos = graphLine.XPosEnd,
                             YPos = graphLine.YPosEnd,
-                            Radius = dataPoint.CircleRadius * scale,
+                            Radius = lineDataPoint.CircleRadius * scale,
                             PaintStyle = SKPaintStyle.Fill,
                             StrokeWidth = strokeWidth,
                         });
-                        if (dataPoint.CircleType == CircleType.Donut)
+                        if (lineDataPoint.CircleType == CircleType.Donut)
                         {
                             graphItems.Add(new GraphCircle
                             {
                                 Color = ViewModel.BackgroundColor.HasValue ? ViewModel.BackgroundColor.Value : SKColors.White,
                                 XPos = graphLine.XPosEnd,
                                 YPos = graphLine.YPosEnd,
-                                Radius = (dataPoint.CircleRadius - strokeWidth) * scale,
+                                Radius = (lineDataPoint.CircleRadius - strokeWidth) * scale,
                                 PaintStyle = SKPaintStyle.Fill,
                                 StrokeWidth = strokeWidth,
                             });
@@ -297,7 +315,7 @@ namespace EconomyGraph.Views.ContentViews
             }
         }
 
-        protected virtual void DefineGraphAndGroupWidths(float canvasWidth, float graphHeight, float scale, float padding, float yPos, List<DataPoint> dataPoints, List<string> YLabels, out float labelWidth, out float ySectionHeight, out float lineYPos, out float pointWidth, out float xPos, out float xLabelWidth)
+        protected virtual void DefineGraphAndGroupWidths(float canvasWidth, float graphHeight, float scale, float padding, float yPos, List<IDataPoint> dataPoints, List<string> YLabels, out float labelWidth, out float ySectionHeight, out float lineYPos, out float pointWidth, out float xPos, out float xLabelWidth)
         {
             SKPaint yLabelBrush;
             CreateYLabelBrush(scale, out yLabelBrush); // Needed to determine graph width, taking into account Y-Label max width.
@@ -617,11 +635,11 @@ namespace EconomyGraph.Views.ContentViews
             }
         }
 
-        protected virtual void YAxisRangeAndSections(out double minimum, out List<DataPoint> dataPoints, out List<decimal> hValues, out decimal hValue, out double minimumGraphValue, out double maximumGraphValue)
+        protected virtual void YAxisRangeAndSections(out double minimum, out List<IDataPoint> dataPoints, out List<decimal> hValues, out decimal hValue, out double minimumGraphValue, out double maximumGraphValue)
         {
             minimum = ViewModel.BottomGraphValue;
             double maximum = ViewModel.TopGraphValue != 0 ? ViewModel.TopGraphValue : minimum;
-            dataPoints = new List<DataPoint>();
+            dataPoints = new List<IDataPoint>();
             minimumGraphValue = minimum;
             maximumGraphValue = 0;
             foreach (var dg in ViewModel.DataGroups)

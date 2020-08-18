@@ -26,6 +26,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\ContentViews\PointGraphView.xaml.cs">
+      <DependentUpon>PointGraphView.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\ContentViews\ShadedBarGraphView.xaml.cs">
       <DependentUpon>ShadedBarGraphView.xaml</DependentUpon>
     </Compile>

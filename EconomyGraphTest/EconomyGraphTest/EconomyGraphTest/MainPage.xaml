@@ -17,6 +17,7 @@
         <contentviews:BarGraphView GraphWidth="800" GraphHeight="400" ViewModel="{Binding BarGraphViewModel}" IsVisible="{Binding BarGraph}"/>
         <contentviews:ShadedLineGraphView GraphWidth="1200" GraphHeight="400" ViewModel="{Binding ShadedLineGraphViewModel}" IsVisible="{Binding ShadedLineGraph}"/>
         <contentviews:ShadedBarGraphView GraphWidth="800" GraphHeight="400" ViewModel="{Binding ShadedBarGraphViewModel}" IsVisible="{Binding ShadedBarGraph}"/>
+        <contentviews:PointGraphView GraphWidth="800" GraphHeight="400" ViewModel="{Binding PointGraphViewModel}" IsVisible="{Binding PointGraph}"/>
         <ScrollView IsVisible="{Binding ShowButtons}">
             <StackLayout>
                 <Button Text="Horizontal Bar Graph" Command="{Binding ShowGraphCommand}" CommandParameter="HorizontalBarGraph"/>
@@ -27,6 +28,7 @@
                 <Button Text="Bar Graph" Command="{Binding ShowGraphCommand}" CommandParameter="BarGraph"/>
                 <Button Text="Shaded Line Graph" Command="{Binding ShowGraphCommand}" CommandParameter="ShadedLineGraph"/>
                 <Button Text="Shaded Bar Graph" Command="{Binding ShowGraphCommand}" CommandParameter="ShadedBarGraph"/>
+                <Button Text="Point Graph" Command="{Binding ShowGraphCommand}" CommandParameter="PointGraph"/>
             </StackLayout>
         </ScrollView>
     </StackLayout>
