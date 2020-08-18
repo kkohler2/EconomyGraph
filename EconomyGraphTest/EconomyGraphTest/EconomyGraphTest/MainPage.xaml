@@ -18,6 +18,8 @@
         <contentviews:ShadedLineGraphView GraphWidth="1200" GraphHeight="400" ViewModel="{Binding ShadedLineGraphViewModel}" IsVisible="{Binding ShadedLineGraph}"/>
         <contentviews:ShadedBarGraphView GraphWidth="800" GraphHeight="400" ViewModel="{Binding ShadedBarGraphViewModel}" IsVisible="{Binding ShadedBarGraph}"/>
         <contentviews:PointGraphView GraphWidth="800" GraphHeight="400" ViewModel="{Binding PointGraphViewModel}" IsVisible="{Binding PointGraph}"/>
+        <contentviews:MultiLineGraphView GraphWidth="800" GraphHeight="400" ViewModel="{Binding MultiLineGraphViewModel}" IsVisible="{Binding MultiLineGraph}"/>
+        <contentviews:ShadedMultiLineGraphView GraphWidth="800" GraphHeight="400" ViewModel="{Binding ShadedMultiLineGraphViewModel}" IsVisible="{Binding ShadedMultiLineGraph}"/>
         <ScrollView IsVisible="{Binding ShowButtons}">
             <StackLayout>
                 <Button Text="Horizontal Bar Graph" Command="{Binding ShowGraphCommand}" CommandParameter="HorizontalBarGraph"/>
@@ -29,6 +31,8 @@
                 <Button Text="Shaded Line Graph" Command="{Binding ShowGraphCommand}" CommandParameter="ShadedLineGraph"/>
                 <Button Text="Shaded Bar Graph" Command="{Binding ShowGraphCommand}" CommandParameter="ShadedBarGraph"/>
                 <Button Text="Point Graph" Command="{Binding ShowGraphCommand}" CommandParameter="PointGraph"/>
+                <Button Text="Multi-Line Graph" Command="{Binding ShowGraphCommand}" CommandParameter="MultiLineGraph"/>
+                <Button Text="Shaded Multi-Line Graph" Command="{Binding ShowGraphCommand}" CommandParameter="ShadedMultiLineGraph"/>
             </StackLayout>
         </ScrollView>
     </StackLayout>

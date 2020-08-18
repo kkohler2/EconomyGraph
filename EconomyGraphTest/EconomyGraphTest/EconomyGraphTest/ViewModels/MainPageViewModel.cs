@@ -45,6 +45,12 @@ namespace EconomyGraphTest.ViewModels
         private bool _pointGraph;
         public bool PointGraph { get { return _pointGraph; } set { SetProperty(ref _pointGraph, value); } }
 
+        private bool _multiLineGraph;
+        public bool MultiLineGraph { get { return _multiLineGraph; } set { SetProperty(ref _multiLineGraph, value); } }
+        
+        private bool _shadedMultiLineGraph;
+        public bool ShadedMultiLineGraph { get { return _shadedMultiLineGraph; } set { SetProperty(ref _shadedMultiLineGraph, value); } }
+        
         public ICommand ShowGraphCommand { get; }
         public ICommand HideGraphCommand { get; }
         public MainPageViewModel()
@@ -1622,6 +1628,300 @@ namespace EconomyGraphTest.ViewModels
                 }
             };
             #endregion
+
+            #region MultiLineGraphViewModel
+            MultiLineGraphViewModel = new MultiLineGraphViewModel
+            {
+                BackgroundColor = SKColors.AliceBlue,
+                Title = new Label
+                {
+                    Bold = false,
+                    //Color = SKColors.Black,
+                    Text = "2020 Treasuries",
+                    PointSize = 25,
+                    TextAlignment = Xamarin.Forms.TextAlignment.Center
+                },
+                HorizontalLinesStartAtEdge = true,
+                HorizontalLineColor = SKColors.Black,
+                //OddRowHorizontalColor = SKColors.AntiqueWhite,
+                //OddRowVerticalColor = SKColors.AntiqueWhite,
+                //VerticalLeftAxisColor = SKColors.Black,
+                VerticalLineColor = SKColors.Black,
+                XLabelAlignment = Xamarin.Forms.TextAlignment.Center,
+                XLabelColor = SKColors.Black,
+                XLabelPointSize = 20,
+                XLabelRotation = LabelRotation.Horizontal,
+                YFirstLabelFormat = "{0:F}%",
+                YLabelFormat = "{0:F}",
+                YLabelAlignment = Xamarin.Forms.TextAlignment.Start,
+                YLabelColor = SKColors.Black,
+                YLabelPointSize = 20,
+                HorizontalLabelPrecision = 1M,
+                BottomGraphValue = 1,
+                TopGraphValue = 2.5,
+                DataGroups = new List<MultiLineDataGroup>
+                {
+                    new MultiLineDataGroup
+                    {
+                        Label = "January",
+                        Lines = new List<Line>
+                        {
+                            new Line
+                            {
+                                LineColor = SKColors.Black,
+                                DataPoints = new List<IDataPoint>
+                                {
+                                    new DataPoint{Value = 1.53,IndicatorLine = true},
+                                    new DataPoint{Value = 1.52,IndicatorLine = true},
+                                    new DataPoint{Value = 1.54,IndicatorLine = true},
+                                    new DataPoint{Value = 1.52,IndicatorLine = true},
+                                    new DataPoint{Value = 1.5,IndicatorLine = true},
+                                }
+                            },
+                            new Line
+                            {
+                                LineColor = SKColors.Red,
+                                DataPoints = new List<IDataPoint>
+                                {
+                                    new DataPoint{Value = 1.75},
+                                    new DataPoint{Value = 1.75},
+                                    new DataPoint{Value = 1.74},
+                                    new DataPoint{Value = 1.73},
+                                    new DataPoint{Value = 1.73},
+                                }
+                            },
+                            new Line
+                            {
+                                LineColor = SKColors.Blue,
+                                DataPoints = new List<IDataPoint>
+                                {
+                                    new DataPoint{Value = 1.94},
+                                    new DataPoint{Value = 1.92},
+                                    new DataPoint{Value = 1.96},
+                                    new DataPoint{Value = 1.94},
+                                    new DataPoint{Value = 1.94},
+                                }
+                            },
+                            new Line
+                            {
+                                LineColor = SKColors.Green,
+                                DataPoints = new List<IDataPoint>
+                                {
+                                    new DataPoint{Value = 2.33},
+                                    new DataPoint{Value = 2.26},
+                                    new DataPoint{Value = 2.28},
+                                    new DataPoint{Value = 2.31},
+                                    new DataPoint{Value = 2.35},
+                                }
+                            }
+                        }
+                    },
+                    new MultiLineDataGroup
+                    {
+                        Label = "February",
+                        Lines = new List<Line>
+                        {
+                            new Line
+                            {
+                                LineColor = SKColors.Black,
+                                DataPoints = new List<IDataPoint>
+                                {
+                                    new DataPoint{Value = 1.53,IndicatorLine = true},
+                                    new DataPoint{Value = 1.52,IndicatorLine = true},
+                                    new DataPoint{Value = 1.54,IndicatorLine = true},
+                                    new DataPoint{Value = 1.52,IndicatorLine = true},
+                                    new DataPoint{Value = 1.5,IndicatorLine = true},
+                                }
+                            },
+                            new Line
+                            {
+                                LineColor = SKColors.Red,
+                                DataPoints = new List<IDataPoint>
+                                {
+                                    new DataPoint{Value = 1.75},
+                                    new DataPoint{Value = 1.75},
+                                    new DataPoint{Value = 1.74},
+                                    new DataPoint{Value = 1.73},
+                                    new DataPoint{Value = 1.73},
+                                }
+                            },
+                            new Line
+                            {
+                                LineColor = SKColors.Blue,
+                                DataPoints = new List<IDataPoint>
+                                {
+                                    new DataPoint{Value = 1.94},
+                                    new DataPoint{Value = 1.92},
+                                    new DataPoint{Value = 1.96},
+                                    new DataPoint{Value = 1.94},
+                                    new DataPoint{Value = 1.94},
+                                }
+                            },
+                            new Line
+                            {
+                                LineColor = SKColors.Blue,
+                                DataPoints = new List<IDataPoint>
+                                {
+                                    new DataPoint{Value = 2.33},
+                                    new DataPoint{Value = 2.26},
+                                    new DataPoint{Value = 2.28},
+                                    new DataPoint{Value = 2.31},
+                                    new DataPoint{Value = 2.35},
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+            #endregion
+
+            #region ShadedMultiLineGraphViewModel
+            ShadedMultiLineGraphViewModel = new ShadedMultiLineGraphViewModel
+            {
+                BackgroundColor = SKColors.AliceBlue,
+                Title = new Label
+                {
+                    Bold = false,
+                    //Color = SKColors.Black,
+                    Text = "2020 Treasuries",
+                    PointSize = 25,
+                    TextAlignment = Xamarin.Forms.TextAlignment.Center
+                },
+                HorizontalLinesStartAtEdge = true,
+                HorizontalLineColor = SKColors.Black,
+                //OddRowHorizontalColor = SKColors.AntiqueWhite,
+                //OddRowVerticalColor = SKColors.AntiqueWhite,
+                //VerticalLeftAxisColor = SKColors.Black,
+                VerticalLineColor = SKColors.Black,
+                XLabelAlignment = Xamarin.Forms.TextAlignment.Center,
+                XLabelColor = SKColors.Black,
+                XLabelPointSize = 20,
+                XLabelRotation = LabelRotation.Horizontal,
+                YFirstLabelFormat = "{0:F}%",
+                YLabelFormat = "{0:F}",
+                YLabelAlignment = Xamarin.Forms.TextAlignment.Start,
+                YLabelColor = SKColors.Black,
+                YLabelPointSize = 20,
+                HorizontalLabelPrecision = 1M,
+                BottomGraphValue = 1,
+                TopGraphValue = 2.5,
+                DataGroups = new List<MultiLineDataGroup>
+                {
+                    new MultiLineDataGroup
+                    {
+                        Label = "January",
+                        Lines = new List<Line>
+                        {
+                            new Line
+                            {
+                                LineColor = SKColors.Black,
+                                DataPoints = new List<IDataPoint>
+                                {
+                                    new DataPoint{Value = 1.53,IndicatorLine = true,EndDate=new DateTime(2020,1,2)},
+                                    new DataPoint{Value = 1.52,IndicatorLine = true,EndDate=new DateTime(2020,1,3)},
+                                    new DataPoint{Value = 1.54,IndicatorLine = true,EndDate=new DateTime(2020,1,4)},
+                                    new DataPoint{Value = 1.52,IndicatorLine = true,EndDate=new DateTime(2020,1,5)},
+                                    new DataPoint{Value = 1.5,IndicatorLine = true,EndDate=new DateTime(2020,1,6)},
+                                }
+                            },
+                            new Line
+                            {
+                                LineColor = SKColors.Red,
+                                DataPoints = new List<IDataPoint>
+                                {
+                                    new DataPoint{Value = 1.75},
+                                    new DataPoint{Value = 1.75},
+                                    new DataPoint{Value = 1.74},
+                                    new DataPoint{Value = 1.73},
+                                    new DataPoint{Value = 1.73},
+                                }
+                            },
+                            new Line
+                            {
+                                LineColor = SKColors.Blue,
+                                DataPoints = new List<IDataPoint>
+                                {
+                                    new DataPoint{Value = 1.94},
+                                    new DataPoint{Value = 1.92},
+                                    new DataPoint{Value = 1.96},
+                                    new DataPoint{Value = 1.94},
+                                    new DataPoint{Value = 1.94},
+                                }
+                            },
+                            new Line
+                            {
+                                LineColor = SKColors.Green,
+                                DataPoints = new List<IDataPoint>
+                                {
+                                    new DataPoint{Value = 2.33},
+                                    new DataPoint{Value = 2.26},
+                                    new DataPoint{Value = 2.28},
+                                    new DataPoint{Value = 2.31},
+                                    new DataPoint{Value = 2.35},
+                                }
+                            }
+                        }
+                    },
+                    new MultiLineDataGroup
+                    {
+                        Label = "February",
+                        Lines = new List<Line>
+                        {
+                            new Line
+                            {
+                                LineColor = SKColors.Black,
+                                DataPoints = new List<IDataPoint>
+                                {
+                                    new DataPoint{Value = 1.53,IndicatorLine = true,EndDate=new DateTime(2020,2,3)},
+                                    new DataPoint{Value = 1.52,IndicatorLine = true,EndDate=new DateTime(2020,2,4)},
+                                    new DataPoint{Value = 1.54,IndicatorLine = true,EndDate=new DateTime(2020,2,5)},
+                                    new DataPoint{Value = 1.52,IndicatorLine = true,EndDate=new DateTime(2020,2,6)},
+                                    new DataPoint{Value = 1.5,IndicatorLine = true,EndDate=new DateTime(2020,2,7)},
+                                }
+                            },
+                            new Line
+                            {
+                                LineColor = SKColors.Red,
+                                DataPoints = new List<IDataPoint>
+                                {
+                                    new DataPoint{Value = 1.75},
+                                    new DataPoint{Value = 1.75},
+                                    new DataPoint{Value = 1.74},
+                                    new DataPoint{Value = 1.73},
+                                    new DataPoint{Value = 1.73},
+                                }
+                            },
+                            new Line
+                            {
+                                LineColor = SKColors.Blue,
+                                DataPoints = new List<IDataPoint>
+                                {
+                                    new DataPoint{Value = 1.94},
+                                    new DataPoint{Value = 1.92},
+                                    new DataPoint{Value = 1.96},
+                                    new DataPoint{Value = 1.94},
+                                    new DataPoint{Value = 1.94},
+                                }
+                            },
+                            new Line
+                            {
+                                LineColor = SKColors.Blue,
+                                DataPoints = new List<IDataPoint>
+                                {
+                                    new DataPoint{Value = 2.33},
+                                    new DataPoint{Value = 2.26},
+                                    new DataPoint{Value = 2.28},
+                                    new DataPoint{Value = 2.31},
+                                    new DataPoint{Value = 2.35},
+                                }
+                            }
+                        }
+                    }
+                },
+                StartDate = new DateTime(2020, 1, 1),
+                ShadedAreaColor = SKColors.LightGray
+            };
+            #endregion
         }
 
         public HorizontalBarGraphViewModel HorizontalBarGraphViewModel { get; set; }
@@ -1633,7 +1933,9 @@ namespace EconomyGraphTest.ViewModels
         public ShadedLineGraphViewModel ShadedLineGraphViewModel { get; set; }
         public ShadedLineGraphViewModel ShadedLineGraphViewModelYearlyGDP { get; set; }
         public ShadedBarGraphViewModel ShadedBarGraphViewModel { get; set; }
-        public PointGraphViewModel PointGraphViewModel { get; set; }       
+        public PointGraphViewModel PointGraphViewModel { get; set; }
+        public MultiLineGraphViewModel MultiLineGraphViewModel { get; set; }
+        public ShadedMultiLineGraphViewModel ShadedMultiLineGraphViewModel { get; set; }
 
         public void ShowGraph(object buttonParameter)
         {
@@ -1667,6 +1969,12 @@ namespace EconomyGraphTest.ViewModels
                 case "PointGraph":
                     PointGraph = true;
                     break;
+                case "MultiLineGraph":
+                    MultiLineGraph = true;
+                    break;
+                case "ShadedMultiLineGraph":
+                    ShadedMultiLineGraph = true;
+                    break;
             }
             ShowButtons = false;
         }
@@ -1685,6 +1993,8 @@ namespace EconomyGraphTest.ViewModels
             ShadedLineGraph = false;
             ShadedBarGraph = false;
             PointGraph = false;
+            MultiLineGraph = false;
+            ShadedMultiLineGraph = false;
         }
     }
 }

@@ -10,8 +10,8 @@
     <RepositoryUrl>https://github.com/kkohler2/EconomyGraph</RepositoryUrl>
     <PackageProjectUrl>https://github.com/kkohler2/EconomyGraph</PackageProjectUrl>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Version>1.1.0</Version>
-    <Description>Added support for vertical and 45 degree angle x-axis labels.</Description>
+    <Version>1.2.0</Version>
+    <Description>Added support for Point graph, Multi-Line graph and Shaded Multi-Line graph.</Description>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -26,11 +26,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\ContentViews\MultiLineGraphView.xaml.cs">
+      <DependentUpon>MultiLineGraphView.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\ContentViews\PointGraphView.xaml.cs">
       <DependentUpon>PointGraphView.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\ContentViews\ShadedBarGraphView.xaml.cs">
       <DependentUpon>ShadedBarGraphView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ContentViews\ShadedMultiLineGraphView.xaml.cs">
+      <DependentUpon>ShadedMultiLineGraphView.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\ContentViews\ShadedLineGraphView.xaml.cs">
       <DependentUpon>ShadedLineGraphView.xaml</DependentUpon>

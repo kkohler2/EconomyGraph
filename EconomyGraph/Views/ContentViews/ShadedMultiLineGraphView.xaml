@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<contentviews:MultiLineGraphView  
+             xmlns:contentviews="clr-namespace:EconomyGraph.Views.ContentViews" 
+             xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+             mc:Ignorable="d"
+             x:Name="shadedMultiLinGraphView"
+             x:Class="EconomyGraph.Views.ContentViews.ShadedMultiLineGraphView">
+    <contentviews:MultiLineGraphView.Content>
+      <StackLayout>
+            <skia:SKCanvasView PaintSurface="PaintSurface" HorizontalOptions="Start"
+                           WidthRequest="{Binding GraphWidth, Source={x:Reference shadedMultiLinGraphView}}" 
+                           HeightRequest="{Binding GraphHeight, Source={x:Reference shadedMultiLinGraphView}}"/>
+        </StackLayout>
+    </contentviews:MultiLineGraphView.Content>
+</contentviews:MultiLineGraphView>
