@@ -40,7 +40,7 @@ namespace EconomyGraph.ViewModels
         /// displayed and will display be displayed, even if not using Horizontal Lines.
         /// </summary>
         public SKColor? HorizontalBottomLineColor { get; set; }
-        public decimal HorizontalLabelPrecision { get; set; }
+        public decimal VerticalLabelPrecision { get; set; }
         public Xamarin.Forms.TextAlignment XLabelAlignment { get; set; } = Xamarin.Forms.TextAlignment.Start;
         /// <summary>
         /// To use shaded rows, set background color to color for "even" horizonal rows (w/ title being essentially row 0).
@@ -63,7 +63,7 @@ namespace EconomyGraph.ViewModels
         /// Then set OddRowVerticalColor to color to use for "odd" vertical rows.  Do NOT set OddRowHorizontalColor
         /// </summary>
         public SKColor? OddRowVerticalColor { get; set; }
-        public SKColor LineColor { get; set; }
+        public SKColor LineColor { get; set; } = SKColors.Black;
         public List<DataGroup> DataGroups { get; set; } = new List<DataGroup>();
         public float Padding { get; set; } = 5;
         public float InidicatorLineLength { get; set; } = 10;

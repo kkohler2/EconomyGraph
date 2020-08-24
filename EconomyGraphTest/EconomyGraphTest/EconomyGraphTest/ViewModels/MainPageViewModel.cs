@@ -143,7 +143,7 @@ namespace EconomyGraphTest.ViewModels
                 YLabelColor = SKColors.Black,
                 YLabelPointSize = 20,
                 LineColor = SKColors.Red,
-                HorizontalLabelPrecision = 1M,
+                VerticalLabelPrecision = 1M,
                 //BottomGraphValue = .05,
                 //TopGraphValue = 0.3,
                 DataGroups = new List<DataGroup>
@@ -286,7 +286,7 @@ namespace EconomyGraphTest.ViewModels
                 YLabelColor = SKColors.Black,
                 YLabelPointSize = 20,
                 LineColor = SKColors.Red,
-                HorizontalLabelPrecision = 1M,
+                VerticalLabelPrecision = 1M,
                 //BottomGraphValue = .05,
                 //TopGraphValue = 0.3,
                 DataGroups = new List<DataGroup>
@@ -424,7 +424,7 @@ namespace EconomyGraphTest.ViewModels
                 YLabelColor = SKColors.Black,
                 YLabelPointSize = 20,
                 LineColor = SKColors.Red,
-                HorizontalLabelPrecision = 1M,
+                VerticalLabelPrecision = 1M,
                 //BottomGraphValue = .05,
                 //TopGraphValue = 0.3,
                 DataGroups = new List<DataGroup>
@@ -543,7 +543,7 @@ namespace EconomyGraphTest.ViewModels
                 YLabelColor = SKColors.Black,
                 YLabelPointSize = 20,
                 LineColor = SKColors.Red,
-                HorizontalLabelPrecision = 1M,
+                VerticalLabelPrecision = 1M,
                 //BottomGraphValue = .05,
                 //TopGraphValue = 0.3,
                 DataGroups = new List<DataGroup>
@@ -662,7 +662,7 @@ namespace EconomyGraphTest.ViewModels
                 YLabelColor = SKColors.Black,
                 YLabelPointSize = 20,
                 LineColor = SKColors.Red,
-                HorizontalLabelPrecision = 1M,
+                VerticalLabelPrecision = 1M,
                 BottomGraphValue = -6,
                 TopGraphValue = 6,
                 DataGroups = new List<DataGroup>
@@ -813,7 +813,7 @@ namespace EconomyGraphTest.ViewModels
                 YLabelColor = SKColors.Black,
                 YLabelPointSize = 15,
                 LineColor = SKColors.Blue,
-                HorizontalLabelPrecision = 100M,
+                VerticalLabelPrecision = 100M,
                 BottomGraphValue = 800,
                 TopGraphValue = 1900,
                 DataGroups = new List<DataGroup>
@@ -1141,7 +1141,7 @@ namespace EconomyGraphTest.ViewModels
                 YLabelColor = SKColors.Black,
                 YLabelPointSize = 20,
                 LineColor = SKColors.Red,
-                HorizontalLabelPrecision = 0.5M,
+                VerticalLabelPrecision = 0.5M,
                 //BottomGraphValue = .05,
                 //TopGraphValue = 0.3,
                 DataGroups = new List<DataGroup>
@@ -1388,7 +1388,7 @@ namespace EconomyGraphTest.ViewModels
                 YLabelColor = SKColors.Black,
                 YLabelPointSize = 20,
                 LineColor = SKColors.Red,
-                HorizontalLabelPrecision = 3M,
+                VerticalLabelPrecision = 3M,
                 //BottomGraphValue = .05,
                 //TopGraphValue = 0.3,
                 DataGroups = new List<DataGroup>
@@ -1574,7 +1574,7 @@ namespace EconomyGraphTest.ViewModels
                 YLabelColor = SKColors.Black,
                 YLabelPointSize = 20,
                 //LineColor = SKColors.Red,
-                HorizontalLabelPrecision = 1M,
+                VerticalLabelPrecision = 1M,
                 CircleType = CircleType.Solid,
                 CircleRadius = 10,
                 //BottomGraphValue = 0,

@@ -10,9 +10,9 @@
     <RepositoryUrl>https://github.com/kkohler2/EconomyGraph</RepositoryUrl>
     <PackageProjectUrl>https://github.com/kkohler2/EconomyGraph</PackageProjectUrl>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Version>1.2.1</Version>
-    <Description>Added support for Point graph, Multi-Line graph and Shaded Multi-Line graph.</Description>
-    <PackageReleaseNotes>Fix default shaded areas for ShadedMultiLineGraph.</PackageReleaseNotes>
+    <Version>1.2.2</Version>
+    <Description>Documentation Added</Description>
+    <PackageReleaseNotes>Corrected property/variables names.  Added documentation.</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

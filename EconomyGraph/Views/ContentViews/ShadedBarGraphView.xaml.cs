@@ -113,7 +113,7 @@ namespace EconomyGraph.Views.ContentViews
         /// <summary>
         /// Same as BarGraphView.GraphData, but copied, since not derived from BarGraphView
         /// </summary>
-        protected override void GraphData(float padding, List<IGraphItem> graphItems, float xPos, float yPos, double minimum, List<IDataPoint> dataPoints, float labelWidth, float graphHeight, float barWidth, double minimumGraphValue, double maximumGraphValue, List<decimal> hValues, float ySectionHeight, float zeroYPos, float scale)
+        protected override void GraphData(float padding, List<IGraphItem> graphItems, float xPos, float yPos, double minimum, List<IDataPoint> dataPoints, float labelWidth, float graphHeight, float barWidth, double minimumGraphValue, double maximumGraphValue, List<decimal> vValues, float ySectionHeight, float zeroYPos, float scale)
         {
             var calculatedBarWidth = barWidth; // for bar spacing
             ShadedBarGraphViewModel viewModel = ViewModel as ShadedBarGraphViewModel;
@@ -132,9 +132,9 @@ namespace EconomyGraph.Views.ContentViews
             int zeroIndex = -1;
             if (minimumGraphValue < 0)
             {
-                for (int i = 0; i < hValues.Count; i++)
+                for (int i = 0; i < vValues.Count; i++)
                 {
-                    if (hValues[i] == 0)
+                    if (vValues[i] == 0)
                     {
                         zeroIndex = i;
                         break;
@@ -150,7 +150,7 @@ namespace EconomyGraph.Views.ContentViews
                     double barRange = graphHeight;
                     if (zeroIndex != -1)
                     {
-                        barRange = graphHeight * zeroIndex / (hValues.Count - 1);
+                        barRange = graphHeight * zeroIndex / (vValues.Count - 1);
                     }
                     double range = maximumGraphValue - minimumGraphValue;
                     double minimumBarValue = minimumGraphValue;
@@ -163,7 +163,7 @@ namespace EconomyGraph.Views.ContentViews
                     float offset = 0;
                     if (zeroIndex != -1)
                     {
-                        offset = hValues.Count - (zeroIndex - 1) * ySectionHeight;
+                        offset = vValues.Count - (zeroIndex - 1) * ySectionHeight;
                     }
                     graphItems.Add(new GraphRectangle
                     {
@@ -180,7 +180,7 @@ namespace EconomyGraph.Views.ContentViews
                     double barRange = graphHeight;
                     if (zeroIndex != -1)
                     {
-                        barRange = graphHeight * (hValues.Count - zeroIndex - 1) / (hValues.Count - 1);
+                        barRange = graphHeight * (vValues.Count - zeroIndex - 1) / (vValues.Count - 1);
                     }
                     double range = maximumGraphValue - minimumGraphValue;
                     double minimumBarValue = minimumGraphValue;
@@ -194,7 +194,7 @@ namespace EconomyGraph.Views.ContentViews
                     float offset = 0;
                     if (zeroIndex != -1)
                     {
-                        offset = hValues.Count - (zeroIndex - 1) * ySectionHeight;
+                        offset = vValues.Count - (zeroIndex - 1) * ySectionHeight;
                     }
                     graphItems.Add(new GraphRectangle
                     {
