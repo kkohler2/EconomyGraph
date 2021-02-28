@@ -517,7 +517,7 @@ namespace EconomyGraphTest.ViewModels
             };
             #endregion
 
-            #region LineGraphWithFootersViewModel
+            #region LineGraphWithMultiLineHeaderViewModel
             LineGraphWithMultiLineHeaderViewModel = new LineGraphViewModel
             {
                 BackgroundColor = SKColors.AliceBlue,
