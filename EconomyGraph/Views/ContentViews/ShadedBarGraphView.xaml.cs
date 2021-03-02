@@ -145,6 +145,7 @@ namespace EconomyGraph.Views.ContentViews
             float barPadding = (calculatedBarWidth - barWidth) / 2;
             foreach (var dataPoint in dataPoints)
             {
+                GraphRectangle graphRectangle = null;
                 if (dataPoint.Value.HasValue && dataPoint.Value >= 0)
                 {
                     double barRange = graphHeight;
@@ -165,7 +166,7 @@ namespace EconomyGraph.Views.ContentViews
                     {
                         offset = vValues.Count - (zeroIndex - 1) * ySectionHeight;
                     }
-                    graphItems.Add(new GraphRectangle
+                    graphRectangle = new GraphRectangle
                     {
                         Color = dataPoint.Color.HasValue ? dataPoint.Color.Value : viewModel.BarColor,
                         Height = barHeight,
@@ -173,7 +174,8 @@ namespace EconomyGraph.Views.ContentViews
                         Width = barWidth,
                         XPos = xPos + barPadding,
                         YPos = zeroYPos != -1 ? zeroYPos - barHeight : graphHeight + yPos + padding - barHeight
-                    });
+                    };
+                    graphItems.Add(graphRectangle);
                 }
                 else if (dataPoint.Value.HasValue)
                         {
@@ -196,7 +198,7 @@ namespace EconomyGraph.Views.ContentViews
                     {
                         offset = vValues.Count - (zeroIndex - 1) * ySectionHeight;
                     }
-                    graphItems.Add(new GraphRectangle
+                    graphRectangle = new GraphRectangle
                     {
                         Color = dataPoint.NegativeColor.HasValue ? dataPoint.NegativeColor.Value : viewModel.NegativeBarColor,
                         Height = barHeight,
@@ -204,6 +206,20 @@ namespace EconomyGraph.Views.ContentViews
                         Width = barWidth,
                         XPos = xPos + barPadding,
                         YPos = zeroYPos != -1 ? zeroYPos - barHeight : graphHeight + yPos + padding - barHeight
+                    };
+                    graphItems.Add(graphRectangle);
+                }
+                if (dataPoint.Label != null)
+                {
+                    graphItems.Add(new GraphText
+                    {
+                        Alignment = dataPoint.Label.TextAlignment,
+                        Color = dataPoint.Label.Color,
+                        PointSize = dataPoint.Label.PointSize * scale,
+                        Text = dataPoint.Label.Text,
+                        XPos = graphRectangle.XPos + dataPoint.Label.XOffSet * scale,
+                        YPos = graphRectangle.YPos + dataPoint.Label.YOffSet * scale,
+                        Bold = dataPoint.Label.Bold
                     });
                 }
                 if (dataPoint.IndicatorLine)
