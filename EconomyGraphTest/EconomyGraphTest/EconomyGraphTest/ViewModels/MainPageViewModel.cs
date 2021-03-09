@@ -1905,7 +1905,7 @@ namespace EconomyGraphTest.ViewModels
                             },
                             new Line
                             {
-                                LineColor = SKColors.Blue,
+                                LineColor = SKColors.Green,
                                 DataPoints = new List<IDataPoint>
                                 {
                                     new DataPoint{Value = 2.33},
