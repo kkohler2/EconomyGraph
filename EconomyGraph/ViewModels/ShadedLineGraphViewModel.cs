@@ -85,7 +85,7 @@ namespace EconomyGraph.ViewModels
                 new ShadePeriod
                 {
                     StartDate = new DateTime(2020,2,1),
-                    EndDate = DateTime.Today
+                    EndDate = new DateTime(2020,4,1)
                 }
             };
         }
