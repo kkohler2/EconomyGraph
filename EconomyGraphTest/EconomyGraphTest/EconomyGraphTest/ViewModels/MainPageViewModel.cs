@@ -32,7 +32,10 @@ namespace EconomyGraphTest.ViewModels
 
         private bool _lineGraphWithMultiLineHeader;
         public bool LineGraphWithMultiLineHeader { get { return _lineGraphWithMultiLineHeader; } set { SetProperty(ref _lineGraphWithMultiLineHeader, value); } }
-        
+
+        private bool _stepGraph;
+        public bool StepGraph { get { return _stepGraph; } set { SetProperty(ref _stepGraph, value); } }
+
         private bool _barGraph;
         public bool BarGraph { get { return _barGraph; } set { SetProperty(ref _barGraph, value); } }
 
@@ -50,7 +53,10 @@ namespace EconomyGraphTest.ViewModels
         
         private bool _shadedMultiLineGraph;
         public bool ShadedMultiLineGraph { get { return _shadedMultiLineGraph; } set { SetProperty(ref _shadedMultiLineGraph, value); } }
-        
+
+        private bool _shadedStepGraph;
+        public bool ShadedStepGraph { get { return _shadedStepGraph; } set { SetProperty(ref _shadedStepGraph, value); } }
+
         public ICommand ShowGraphCommand { get; }
         public ICommand HideGraphCommand { get; }
         public MainPageViewModel()
@@ -630,6 +636,166 @@ namespace EconomyGraphTest.ViewModels
                         DataPoints = new List<IDataPoint>
                         {
                             new DataPoint{Value=-4.8}
+                        }
+                    }
+                }
+            };
+            #endregion
+
+            #region StepGraphViewModel
+            StepGraphViewModel = new StepGraphViewModel
+            {
+                BackgroundColor = SKColors.AliceBlue,
+                Title = new Label
+                {
+                    Bold = false,
+                    //Color = SKColors.Black,
+                    Text = "Quarterly GDP",
+                    PointSize = 25,
+                    TextAlignment = Xamarin.Forms.TextAlignment.Center
+                },
+                HorizontalLinesStartAtEdge = true,
+                HorizontalLineColor = SKColors.Black,
+                //OddRowHorizontalColor = SKColors.AntiqueWhite,
+                OddRowVerticalColor = SKColors.AntiqueWhite,
+                //VerticalLeftAxisColor = SKColors.Black,
+                VerticalLineColor = SKColors.Black,
+                XLabelAlignment = Xamarin.Forms.TextAlignment.Center,
+                XLabelColor = SKColors.Black,
+                XLabelPointSize = 20,
+                XLabelRotation = LabelRotation.Angle,
+                YFirstLabelFormat = "{0:F}%",
+                YLabelFormat = "{0:F}",
+                YLabelAlignment = Xamarin.Forms.TextAlignment.Start,
+                YLabelColor = SKColors.Black,
+                YLabelPointSize = 20,
+                LineColor = SKColors.Red,
+                VerticalLabelPrecision = 1M,
+                //BottomGraphValue = .05,
+                //TopGraphValue = 0.3,
+                DataGroups = new List<DataGroup>
+                {
+                    new DataGroup
+                    {
+                        Label = "2013\nLine 2!",
+                        DataPoints = new List<IDataPoint>
+                        {
+                            new LineDataPoint{Value=3.6, IndicatorLine = true},
+                            new LineDataPoint
+                            {
+                                Value=0.5,
+                                CircleType = CircleType.Donut,
+                                CircleRadius = 10,
+                                IndicatorLine = true
+                            },
+                            new LineDataPoint{Value=3.2, IndicatorLine = true },
+                            new LineDataPoint{Value=3.2, IndicatorLine = true}
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2014",
+                        DataPoints = new List<IDataPoint>
+                        {
+                            new LineDataPoint{Value=-1.1},
+                            new LineDataPoint{Value=5.5},
+                            new LineDataPoint{Value=2.3},
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2015",
+                        DataPoints = new List<IDataPoint>
+                        {
+                            new LineDataPoint
+                            {
+                                Value=3.2,
+                                Label = new DataPointLabel
+                                {
+                                    Color = SKColors.Blue,
+                                    Bold = true,
+                                    PointSize = 15,
+                                    Text = "Q1",
+                                    XOffSet = -5,
+                                    YOffSet = -5
+                                }
+                            },
+                            new LineDataPoint{Value=3},
+                            new LineDataPoint{Value=1.3},
+                            new LineDataPoint{Value=0.1}
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2016",
+                        DataPoints = new List<IDataPoint>
+                        {
+                            new LineDataPoint{Value=2},
+                            new LineDataPoint{Value=1.9},
+                            new LineDataPoint{Value=2.2},
+                            new LineDataPoint{Value=2}
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2017",
+                        DataPoints = new List<IDataPoint>
+                        {
+                            new LineDataPoint{Value=2.3},
+                            new LineDataPoint{Value=2.2},
+                            new LineDataPoint{Value=3.2},
+                            new LineDataPoint{Value=3.5}
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2018",
+                        DataPoints = new List<IDataPoint>
+                        {
+                            new LineDataPoint{Value=2.5},
+                            new LineDataPoint{Value=3.5},
+                            new LineDataPoint{Value=2.9},
+                            new LineDataPoint{Value=1.1}
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2019",
+                        DataPoints = new List<IDataPoint>
+                        {
+                            new LineDataPoint{Value=3.1},
+                            new LineDataPoint{Value=2},
+                            new LineDataPoint{Value=2.1},
+                            new LineDataPoint{Value=2.1}
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2020",
+                        DataPoints = new List<IDataPoint>
+                        {
+                            new LineDataPoint{Value=2.1},
+                            new LineDataPoint{Value=3.5},
+                            new LineDataPoint{Value=2.6},
+                            new LineDataPoint{Value=1.7}
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2021",
+                        DataPoints = new List<IDataPoint>
+                        {
+                            new LineDataPoint{Value=2.0},
+                            new LineDataPoint{Value=2.3},
+                            new LineDataPoint{Value=2.5},
+                            new LineDataPoint{Value=2.7}
+                        }
+                    },
+                    new DataGroup
+                    {
+                        DataPoints = new List<IDataPoint>
+                        {
+                            new LineDataPoint{Value=-4.8}
                         }
                     }
                 }
@@ -1922,6 +2088,171 @@ namespace EconomyGraphTest.ViewModels
                 ShadedAreaColor = SKColors.LightGray
             };
             #endregion
+
+            #region ShadedStepGraphViewModel
+            ShadedStepGraphViewModel = new ShadedStepGraphViewModel
+            {
+                BackgroundColor = SKColors.AliceBlue,
+                Title = new Label
+                {
+                    Bold = false,
+                    //Color = SKColors.Black,
+                    Text = "Quarterly GDP",
+                    PointSize = 25,
+                    TextAlignment = Xamarin.Forms.TextAlignment.Center
+                },
+                HorizontalLinesStartAtEdge = true,
+                HorizontalLineColor = SKColors.Black,
+                //OddRowHorizontalColor = SKColors.AntiqueWhite,
+                OddRowVerticalColor = SKColors.AntiqueWhite,
+                //VerticalLeftAxisColor = SKColors.Black,
+                VerticalLineColor = SKColors.Black,
+                XLabelAlignment = Xamarin.Forms.TextAlignment.Center,
+                XLabelColor = SKColors.Black,
+                XLabelPointSize = 20,
+                XLabelRotation = LabelRotation.Angle,
+                YFirstLabelFormat = "{0:F}%",
+                YLabelFormat = "{0:F}",
+                YLabelAlignment = Xamarin.Forms.TextAlignment.Start,
+                YLabelColor = SKColors.Black,
+                YLabelPointSize = 20,
+                LineColor = SKColors.Red,
+                VerticalLabelPrecision = 1M,
+                //BottomGraphValue = .05,
+                //TopGraphValue = 0.3,
+                DataGroups = new List<DataGroup>
+                {
+                    new DataGroup
+                    {
+                        Label = "2013\nLine 2!",
+                        DataPoints = new List<IDataPoint>
+                        {
+                            new LineDataPoint{Value=3.6, IndicatorLine = true, EndDate = new DateTime(2013,3,31)},
+                            new LineDataPoint
+                            {
+                                Value=0.5,
+                                CircleType = CircleType.Donut,
+                                CircleRadius = 10,
+                                IndicatorLine = true,
+                                EndDate = new DateTime(2013,6,30)
+                            },
+                            new LineDataPoint{Value=3.2, IndicatorLine = true, EndDate = new DateTime(2013,9,30)},
+                            new LineDataPoint{Value=3.2, IndicatorLine = true, EndDate = new DateTime(2021,12,31)}
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2014",
+                        DataPoints = new List<IDataPoint>
+                        {
+                            new LineDataPoint{Value=-1.1, EndDate = new DateTime(2014,3,31)},
+                            new LineDataPoint{Value=5.5, EndDate = new DateTime(2014,6,30)},
+                            new LineDataPoint{Value=2.3, EndDate = new DateTime(2014,9,30)},
+                            new LineDataPoint{Value=2.7, EndDate = new DateTime(2014,12,31)},
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2015",
+                        DataPoints = new List<IDataPoint>
+                        {
+                            new LineDataPoint
+                            {
+                                Value=3.2,
+                                Label = new DataPointLabel
+                                {
+                                    Color = SKColors.Blue,
+                                    Bold = true,
+                                    PointSize = 15,
+                                    Text = "Q1",
+                                    XOffSet = -5,
+                                    YOffSet = -5
+                                }, 
+                                EndDate = new DateTime(2015,3,31)
+                            },
+                            new LineDataPoint{Value=3, EndDate = new DateTime(2015,6,30)},
+                            new LineDataPoint{Value=1.3, EndDate = new DateTime(2015,9,30)},
+                            new LineDataPoint{Value=0.1, EndDate = new DateTime(2015,12,31)}
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2016",
+                        DataPoints = new List<IDataPoint>
+                        {
+                            new LineDataPoint{Value=2, EndDate = new DateTime(2016,3,31) },
+                            new LineDataPoint{Value=1.9, EndDate = new DateTime(2016,6,30)},
+                            new LineDataPoint{Value=2.2, EndDate = new DateTime(2016,9,30)},
+                            new LineDataPoint{Value=2, EndDate = new DateTime(2015,12,31)}
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2017",
+                        DataPoints = new List<IDataPoint>
+                        {
+                            new LineDataPoint{Value=2.3, EndDate = new DateTime(2017,3,31)},
+                            new LineDataPoint{Value=2.2, EndDate = new DateTime(2017,6,30)},
+                            new LineDataPoint{Value=3.2, EndDate = new DateTime(2017,9,30)},
+                            new LineDataPoint{Value=3.5, EndDate = new DateTime(2017, 12, 31)}
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2018",
+                        DataPoints = new List<IDataPoint>
+                        {
+                            new LineDataPoint{Value=2.5, EndDate = new DateTime(2018,3,31)},
+                            new LineDataPoint{Value=3.5, EndDate = new DateTime(2018,6,30)},
+                            new LineDataPoint{Value=2.9, EndDate = new DateTime(2018, 9, 30)},
+                            new LineDataPoint{Value=1.1, EndDate = new DateTime(2018, 12, 31)}
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2019",
+                        DataPoints = new List<IDataPoint>
+                        {
+                            new LineDataPoint{Value=3.1, EndDate = new DateTime(2019,3,31)},
+                            new LineDataPoint{Value=2, EndDate = new DateTime(2019,6,30)},
+                            new LineDataPoint{Value=2.1, EndDate = new DateTime(2019,9,30)},
+                            new LineDataPoint{Value=2.1, EndDate = new DateTime(2019, 12, 31)}
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2020",
+                        DataPoints = new List<IDataPoint>
+                        {
+                            new LineDataPoint{Value=2.1, EndDate = new DateTime(2020,3,31)},
+                            new LineDataPoint{Value=3.5, EndDate = new DateTime(2020,6,30)},
+                            new LineDataPoint{Value=2.6, EndDate = new DateTime(2020,9,30)},
+                            new LineDataPoint{Value=1.7, EndDate = new DateTime(2020, 12, 31)}
+                        }
+                    },
+                    new DataGroup
+                    {
+                        Label = "2021",
+                        DataPoints = new List<IDataPoint>
+                        {
+                            new LineDataPoint{Value=2.0, EndDate = new DateTime(2021,3,31)},
+                            new LineDataPoint{Value=2.3, EndDate = new DateTime(2021,6,30)},
+                            new LineDataPoint{Value=2.5, EndDate = new DateTime(2021,9,30)},
+                            new LineDataPoint{Value=2.7, EndDate = new DateTime(2021, 12, 31)}
+                        }
+                    },
+                    new DataGroup
+                    {
+                        DataPoints = new List<IDataPoint>
+                        {
+                            new LineDataPoint{Value=-4.8, EndDate = new DateTime(2022,3,31)}
+                        }
+                    }
+                },
+                ShadedAreaColor = SKColors.LightGray,
+                StartDate = new DateTime(2013, 1, 1)
+            };
+            #endregion
         }
 
         public HorizontalBarGraphViewModel HorizontalBarGraphViewModel { get; set; }
@@ -1929,6 +2260,7 @@ namespace EconomyGraphTest.ViewModels
         public LineGraphViewModel LineGraphLeftLabelViewModel { get; set; }
         public LineGraphViewModel LineGraphWithFootersViewModel { get; set; }
         public LineGraphViewModel LineGraphWithMultiLineHeaderViewModel { get; set; }
+        public StepGraphViewModel StepGraphViewModel { get; set; }
         public BarGraphViewModel BarGraphViewModel { get; set; }
         public ShadedLineGraphViewModel ShadedLineGraphViewModel { get; set; }
         public ShadedLineGraphViewModel ShadedLineGraphViewModelYearlyGDP { get; set; }
@@ -1936,6 +2268,7 @@ namespace EconomyGraphTest.ViewModels
         public PointGraphViewModel PointGraphViewModel { get; set; }
         public MultiLineGraphViewModel MultiLineGraphViewModel { get; set; }
         public ShadedMultiLineGraphViewModel ShadedMultiLineGraphViewModel { get; set; }
+        public ShadedStepGraphViewModel ShadedStepGraphViewModel { get; set; }
 
         public void ShowGraph(object buttonParameter)
         {
@@ -1957,6 +2290,9 @@ namespace EconomyGraphTest.ViewModels
                 case "LineGraphWithMultiLineHeader":
                     LineGraphWithMultiLineHeader = true;
                     break;
+                case "StepGraph":
+                    StepGraph = true;
+                    break;
                 case "BarGraph":
                     BarGraph = true;
                     break;
@@ -1975,6 +2311,9 @@ namespace EconomyGraphTest.ViewModels
                 case "ShadedMultiLineGraph":
                     ShadedMultiLineGraph = true;
                     break;
+                case "ShadedStepGraph":
+                    ShadedStepGraph = true;
+                    break;
             }
             ShowButtons = false;
         }
@@ -1989,12 +2328,14 @@ namespace EconomyGraphTest.ViewModels
             LineGraphLeftLabel = false;
             LineGraphWithFooters = false;
             LineGraphWithMultiLineHeader = false;
+            StepGraph = false;
             BarGraph = false;
             ShadedLineGraph = false;
             ShadedBarGraph = false;
             PointGraph = false;
             MultiLineGraph = false;
             ShadedMultiLineGraph = false;
+            ShadedStepGraph = false;
         }
     }
 }

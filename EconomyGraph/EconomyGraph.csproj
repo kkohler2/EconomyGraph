@@ -27,6 +27,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\ContentViews\ShadedStepGraphView.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ContentViews\StepGraphView.xaml.cs">
+      <DependentUpon>StepGraphView.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\ContentViews\MultiLineGraphView.xaml.cs">
       <DependentUpon>MultiLineGraphView.xaml</DependentUpon>
     </Compile>
