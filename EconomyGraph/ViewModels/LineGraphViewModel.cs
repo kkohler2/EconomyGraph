@@ -7,6 +7,7 @@ namespace EconomyGraph.ViewModels
     public enum LabelRotation { Horizontal, Angle, Vertical}
     public class LineGraphViewModel
     {
+        public bool DrawAsSteps { get; set; }
         public SKColor? BackgroundColor { get; set; }
         public Label Title { get; set; }
         public Footer LeftFooter { get; set; }

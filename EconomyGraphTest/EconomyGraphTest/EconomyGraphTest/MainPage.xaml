@@ -14,14 +14,14 @@
         <contentviews:LineGraphView GraphWidth="800" GraphHeight="400" ViewModel="{Binding LineGraphLeftLabelViewModel}" IsVisible="{Binding LineGraphLeftLabel}"/>
         <contentviews:LineGraphView GraphWidth="800" GraphHeight="400" ViewModel="{Binding LineGraphWithFootersViewModel}" IsVisible="{Binding LineGraphWithFooters}"/>
         <contentviews:LineGraphView GraphWidth="800" GraphHeight="400" ViewModel="{Binding LineGraphWithMultiLineHeaderViewModel}" IsVisible="{Binding LineGraphWithMultiLineHeader}"/>
-        <contentviews:StepGraphView GraphWidth="800" GraphHeight="400" ViewModel="{Binding StepGraphViewModel}" IsVisible="{Binding StepGraph}"/>
+        <contentviews:LineGraphView GraphWidth="800" GraphHeight="400" ViewModel="{Binding StepGraphViewModel}" IsVisible="{Binding StepGraph}"/>
         <contentviews:BarGraphView GraphWidth="800" GraphHeight="400" ViewModel="{Binding BarGraphViewModel}" IsVisible="{Binding BarGraph}"/>
         <contentviews:ShadedLineGraphView GraphWidth="1200" GraphHeight="400" ViewModel="{Binding ShadedLineGraphViewModel}" IsVisible="{Binding ShadedLineGraph}"/>
         <contentviews:ShadedBarGraphView GraphWidth="800" GraphHeight="400" ViewModel="{Binding ShadedBarGraphViewModel}" IsVisible="{Binding ShadedBarGraph}"/>
         <contentviews:PointGraphView GraphWidth="800" GraphHeight="400" ViewModel="{Binding PointGraphViewModel}" IsVisible="{Binding PointGraph}"/>
         <contentviews:MultiLineGraphView GraphWidth="800" GraphHeight="400" ViewModel="{Binding MultiLineGraphViewModel}" IsVisible="{Binding MultiLineGraph}"/>
         <contentviews:ShadedMultiLineGraphView GraphWidth="800" GraphHeight="400" ViewModel="{Binding ShadedMultiLineGraphViewModel}" IsVisible="{Binding ShadedMultiLineGraph}"/>
-        <contentviews:ShadedStepGraphView GraphWidth="800" GraphHeight="400" ViewModel="{Binding ShadedStepGraphViewModel}" IsVisible="{Binding ShadedStepGraph}"/>
+        <contentviews:ShadedLineGraphView GraphWidth="800" GraphHeight="400" ViewModel="{Binding ShadedStepGraphViewModel}" IsVisible="{Binding ShadedStepGraph}"/>
         <ScrollView IsVisible="{Binding ShowButtons}">
             <StackLayout>
                 <Button Text="Horizontal Bar Graph" Command="{Binding ShowGraphCommand}" CommandParameter="HorizontalBarGraph"/>

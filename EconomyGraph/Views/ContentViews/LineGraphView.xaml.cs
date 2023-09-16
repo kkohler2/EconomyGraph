@@ -232,18 +232,52 @@ namespace EconomyGraph.Views.ContentViews
                     lastYdp = yDP;
                     xDP += pointWidth;
                     yDP = graphHeight - Convert.ToSingle(graphHeight * (dataPoint.Value - minimumGraphValue) / range);
-                    GraphLine graphLine = new GraphLine
+                    GraphLine graphLine;
+                    if (ViewModel.DrawAsSteps)
                     {
-                        Color = ViewModel.LineColor,
-                        StrokeWidth = 3,
-                        XPosStart = lastXdp,
-                        YPosStart = yPos + padding + lastYdp,
-                        XPosEnd = xDP,
-                        YPosEnd = yPos + padding + yDP
-                    };
-                    if (previousDataPoint != null && previousDataPoint.Value.HasValue) // If previous data point exists, but is null, then skip drawing line
+                        graphLine = new GraphLine
+                        {
+                            Color = ViewModel.LineColor,
+                            StrokeWidth = 3,
+                            XPosStart = lastXdp,
+                            YPosStart = yPos + padding + lastYdp,
+                            XPosEnd = xDP,
+                            YPosEnd = yPos + padding + lastYdp
+                        };
+                        if (previousDataPoint != null && previousDataPoint.Value.HasValue) // If previous data point exists, but is null, then skip drawing line
+                        {
+                            graphItems.Add(graphLine);
+                        }
+
+                        graphLine = new GraphLine
+                        {
+                            Color = ViewModel.LineColor,
+                            StrokeWidth = 3,
+                            XPosStart = xDP,
+                            YPosStart = yPos + padding + lastYdp,
+                            XPosEnd = xDP,
+                            YPosEnd = yPos + padding + yDP
+                        };
+                        if (previousDataPoint != null && previousDataPoint.Value.HasValue) // If previous data point exists, but is null, then skip drawing line
+                        {
+                            graphItems.Add(graphLine);
+                        }
+                    }
+                    else
                     {
-                        graphItems.Add(graphLine);
+                        graphLine = new GraphLine
+                        {
+                            Color = ViewModel.LineColor,
+                            StrokeWidth = 3,
+                            XPosStart = lastXdp,
+                            YPosStart = yPos + padding + lastYdp,
+                            XPosEnd = xDP,
+                            YPosEnd = yPos + padding + yDP
+                        };
+                        if (previousDataPoint != null && previousDataPoint.Value.HasValue) // If previous data point exists, but is null, then skip drawing line
+                        {
+                            graphItems.Add(graphLine);
+                        }
                     }
                     var lineDataPoint = dataPoint as LineDataPoint;
                     if (lineDataPoint != null && lineDataPoint.CircleType != CircleType.None)
